@@ -1,0 +1,517 @@
+@page
+@model WebApps.Pages.EventDetailModel
+@{
+    ViewData["Title"] = Model.CurrentEvent.Title + " - National Conservation Zoo";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/eventdetail.css" asp-append-version="true" />
+    <style>
+        .evt-qty-section { background: #f0faf5; border-radius: 12px; padding: 20px; margin: 20px 0; border: 1px solid #d4edda; }
+        .evt-qty-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
+        .evt-qty-ctrl { display: flex; align-items: center; gap: 0; border: 1px solid #ddd; border-radius: 20px; overflow: hidden; }
+        .evt-qty-ctrl button { width: 36px; height: 36px; border: none; background: #eee; cursor: pointer; font-weight: bold; font-size: 18px; }
+        .evt-qty-ctrl button:hover { background: #ddd; }
+        .evt-qty-ctrl span { width: 40px; text-align: center; font-weight: bold; }
+        .evt-checkout-btn { width: 100%; padding: 16px; background: linear-gradient(135deg, #119864, #0d7a4f); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 15px; transition: transform 0.2s; }
+        .evt-checkout-btn:hover { transform: translateY(-2px); }
+        .qr-modal-overlay { position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); z-index:10000; display:none; justify-content:center; align-items:center; }
+        .qr-modal-card { background:white; width:480px; max-width:95vw; border-radius:20px; box-shadow:0 25px 80px rgba(0,0,0,0.25); overflow:hidden; }
+        .qr-modal-header { background:linear-gradient(135deg,#1a5e3a,#119864); padding:24px 30px; color:white; display:flex; justify-content:space-between; align-items:center; }
+        .qr-modal-header h3 { margin:0; font-size:20px; }
+        .qr-close-btn { background:rgba(255,255,255,0.2); border:none; color:white; width:36px; height:36px; border-radius:50%; font-size:20px; cursor:pointer; }
+        .qr-modal-body { padding:30px; text-align:center; }
+        .qr-code-wrapper { display:inline-block; padding:16px; background:white; border-radius:16px; border:2px solid #e8f5e9; margin-bottom:20px; }
+        .qr-tx-info { background:#f0faf5; border-radius:12px; padding:16px 20px; margin:16px 0; border:1px solid #d4edda; }
+        .qr-tx-row { display:flex; justify-content:space-between; padding:6px 0; font-size:14px; color:#555; }
+        .qr-tx-row strong { color:#1a3a2a; }
+        .qr-tx-total { border-top:2px solid #119864; margin-top:10px; padding-top:12px; font-size:18px; font-weight:800; color:#119864; }
+        .qr-countdown-num { display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; background:linear-gradient(135deg,#119864,#0d7a4f); color:white; border-radius:12px; font-size:24px; font-weight:800; }
+        .qr-spinner { width:48px; height:48px; border:4px solid #e8f5e9; border-top:4px solid #119864; border-radius:50%; animation:evtSpin 0.8s linear infinite; margin:0 auto; }
+        .qr-success-circle { width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,#119864,#0d7a4f); display:flex; align-items:center; justify-content:center; margin:0 auto; }
+        .qr-success-circle svg { width:40px; height:40px; }
+        .qr-success-circle svg path { stroke:white; stroke-width:3; fill:none; }
+        .qr-btn-primary { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; background:linear-gradient(135deg,#119864,#0d7a4f); color:white; border:none; border-radius:10px; font-size:16px; font-weight:700; cursor:pointer; text-decoration:none; }
+        @@keyframes evtSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    </style>
+}
+
+<main>
+    <section class="event-hero" style="background-image: url('@Model.CurrentEvent.ImageUrl');">
+        <div class="hero-overlay">
+            <h1 class="hero-title">@Model.CurrentEvent.Title</h1>
+        </div>
+    </section>
+
+    <div class="event-main-container">
+        <div class="event-layout-grid">
+            
+            <div class="event-details-left">
+                <h2>@Model.CurrentEvent.Title</h2>
+                <h4 class="event-subtitle">@Model.CurrentEvent.Description</h4>
+                
+                <div class="event-long-desc">
+                    <p>@Model.CurrentEvent.LongDescription</p>
+                </div>
+
+                <div class="event-section-block">
+                    <h3><i class="fa fa-star"></i> What to Expect</h3>
+                    <ul class="event-highlights-list">
+                        @if (!string.IsNullOrWhiteSpace(Model.CurrentEvent.WhatToExpect))
+                        {
+                            @foreach (var line in Model.CurrentEvent.WhatToExpect.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li>@line.Trim()</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>Exclusive behind-the-scenes access to animal habitats and care facilities</li>
+                            <li>Live interactive demonstrations by professional zookeepers</li>
+                            <li>Complimentary refreshments and gourmet food stations</li>
+                            <li>Photo opportunities with ambassador animals</li>
+                            <li>Take-home souvenir and commemorative gift</li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="event-section-block">
+                    <h3><i class="fa fa-map-marker"></i> Event Details</h3>
+                    @if (!string.IsNullOrWhiteSpace(Model.CurrentEvent.EventDetails))
+                    {
+                        <div style="font-size:15px; line-height:1.6; color:#555; white-space: pre-line; padding-left: 10px;">@Model.CurrentEvent.EventDetails</div>
+                    }
+                    else
+                    {
+                        <div class="event-info-grid">
+                            <div class="event-info-item">
+                                <span class="info-label"><i class="fa fa-users"></i> Capacity</span>
+                                <span class="info-value">Limited — Reserve Early</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span class="info-label"><i class="fa fa-map-pin"></i> Location</span>
+                                <span class="info-value">@(string.IsNullOrWhiteSpace(Model.CurrentEvent.Location) ? "Main Zoo Grounds" : Model.CurrentEvent.Location)</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span class="info-label"><i class="fa fa-child"></i> Age Group</span>
+                                <span class="info-value">All Ages Welcome</span>
+                            </div>
+                            <div class="event-info-item">
+                                <span class="info-label"><i class="fa fa-wheelchair"></i> Accessibility</span>
+                                <span class="info-value">Fully Accessible</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="event-sponsors-box">
+                    <h3>Special Thanks to our Event Sponsors</h3>
+                    @if (!string.IsNullOrWhiteSpace(Model.CurrentEvent.Sponsors))
+                    {
+                        <p style="white-space: pre-line;">@Model.CurrentEvent.Sponsors</p>
+                    }
+                    else
+                    {
+                        <p>Thank you for supporting our mission to save wildlife! All proceeds from this event directly fund our conservation programs protecting endangered species worldwide.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="event-info-right">
+                <div class="info-card">
+                    <div class="info-block">
+                        <h3>Date</h3>
+                        <p>@Model.CurrentEvent.DateStr</p>
+                    </div>
+                    
+                    <div class="info-block">
+                        <h3>Time</h3>
+                        <p>@Model.CurrentEvent.TimeStr</p>
+                    </div>
+
+                    <div class="info-block">
+                        <h3>Event Price</h3>
+                        <p style="font-size: 28px; color: #119864; font-weight: 800;">$@Model.CurrentEvent.BasePrice.ToString("F0") <span style="font-size: 14px; color: #888; font-weight: 400;">/ person</span></p>
+                    </div>
+
+                    <p class="info-notice">All proceeds benefit the zoo's conservation programs. Tickets are non-refundable.</p>
+
+                    <!-- Ticket Type Dropdown -->
+                    <div style="margin-top: 15px; text-align: left;">
+                        <label style="display:block; font-weight: bold; margin-bottom: 5px; font-size: 13px; color:#555;">Ticket Type</label>
+                        <select id="evtTicketType" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; outline: none; background: white;">
+                            <option value="Adult">Adult (12+) - $@Model.CurrentEvent.BasePrice.ToString("F0")</option>
+                            <option value="Child">Child (2-11) - $@((Model.CurrentEvent.BasePrice * 0.6m).ToString("F0"))</option>
+                            <option value="Member">Member Adult - $@((Model.CurrentEvent.BasePrice * 0.8m).ToString("F0"))</option>
+                        </select>
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div style="margin-top:15px; background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:14px; font-weight:600; color:#555;">Quantity</span>
+                            <div style="display:flex; align-items:center; border: 1px solid #ccc; border-radius: 20px; overflow:hidden;">
+                                <button type="button" onclick="evtQty(-1)" style="width:32px; height:32px; border:none; background:#eee; cursor:pointer; font-weight:bold; font-size:16px;">-</button>
+                                <span id="evtQtyNum" style="width:36px; text-align:center; font-weight:bold;">1</span>
+                                <button type="button" onclick="evtQty(1)" style="width:32px; height:32px; border:none; background:#eee; cursor:pointer; font-weight:bold; font-size:16px;">+</button>
+                            </div>
+                        </div>
+                        <div style="margin-top: 12px; display:flex; justify-content:space-between; align-items:center; font-size:15px; font-weight:bold;">
+                            <span style="color:#555;">Subtotal:</span>
+                            <span id="evtSubtotal" style="color:#119864; font-size:18px;">$@Model.CurrentEvent.BasePrice.ToString("F0")</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button onclick="checkoutEvent()" class="evt-checkout-btn">
+                        <i class="fa fa-lock"></i> Book Now
+                    </button>
+                </div>
+                
+                <div class="share-box">
+                    <h4>Share</h4>
+                    <div class="share-links">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <partial name="_AdventureBar" />
+
+    <!-- CHECKOUT MODAL HTML (Guest Details & Payment Method Selection) -->
+    <div class="qr-modal-overlay" id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
+        <div class="qr-modal-card" style="background:white; border-radius:20px; width:500px; max-width:95%; box-shadow:0 25px 60px rgba(0,0,0,0.3); overflow:hidden;">
+            <div class="qr-modal-header" style="background:linear-gradient(135deg, #119864, #0d7a4f); padding:20px 30px; color:white; display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="checkoutModalTitle" style="margin:0; font-size:20px;"><i class="fa fa-shopping-cart"></i> Secure Checkout</h3>
+                <button class="qr-close-btn" onclick="closeCheckoutModal()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <div class="qr-modal-body" style="padding:30px; text-align:left;">
+                <!-- Step 1: Customer Details (For Guest) -->
+                <div id="checkoutStepDetails" style="display:none;">
+                    <h4 style="margin:0 0 15px 0; color:#333; font-size:16px; font-weight:700; border-bottom:1.5px solid #eee; padding-bottom:8px;">Customer Information</h4>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Full Name *</label>
+                        <input type="text" id="guestName" placeholder="e.g. John Doe" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Email Address *</label>
+                        <input type="email" id="guestEmail" placeholder="e.g. john@example.com" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Phone Number *</label>
+                        <input type="tel" id="guestPhone" placeholder="e.g. 0912345678" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Billing Address *</label>
+                        <input type="text" id="guestAddress" placeholder="e.g. 123 Zoo Lane" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <button class="qr-btn-primary" onclick="goToCheckoutPayment()" style="width:100%; justify-content:center; padding:12px; font-size:16px;">
+                        Continue to Payment Method <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Step 2: Payment Method Selection -->
+                <div id="checkoutStepPayment" style="display:none;">
+                    <h4 style="margin:0 0 15px 0; color:#333; font-size:16px; font-weight:700; border-bottom:1.5px solid #eee; padding-bottom:8px;">Choose Payment Method</h4>
+                    
+                    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:25px;">
+                        <!-- QR Code Option -->
+                        <div onclick="selectPaymentMethodOption('QR Code')" id="paymentOptQR" style="display:flex; align-items:center; gap:15px; padding:16px; border:2px solid #119864; background:#f0faf5; border-radius:10px; cursor:pointer; transition:all 0.2s;">
+                            <input type="radio" name="paymentMethodRadio" id="radioQR" value="QR Code" checked style="width:18px; height:18px; accent-color:#119864;" />
+                            <div>
+                                <strong style="display:block; color:#1a3a2a; font-size:15px;"><i class="fa fa-qrcode"></i> QR Code Payment</strong>
+                                <span style="font-size:13px; color:#555;">Scan to pay instantly via Mobile Banking / E-wallet</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Cash Option -->
+                        <div onclick="selectPaymentMethodOption('Cash')" id="paymentOptCash" style="display:flex; align-items:center; gap:15px; padding:16px; border:1px solid #ddd; border-radius:10px; cursor:pointer; transition:all 0.2s;">
+                            <input type="radio" name="paymentMethodRadio" id="radioCash" value="Cash" style="width:18px; height:18px; accent-color:#119864;" />
+                            <div>
+                                <strong style="display:block; color:#333; font-size:15px;"><i class="fa fa-money"></i> Pay Cash at Entrance</strong>
+                                <span style="font-size:13px; color:#666;">Pay cash at the ticket desk on arrival (Requires Admin approval)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; gap:12px;">
+                        <button id="btnBackToDetails" class="qr-btn-cancel" onclick="goBackToDetails()" style="flex:1; margin:0; padding:12px; font-size:15px;">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </button>
+                        <button class="qr-btn-primary" onclick="proceedToPayment()" style="flex:2; justify-content:center; padding:12px; font-size:15px;">
+                            Complete Purchase <i class="fa fa-check-circle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cash Success State -->
+                <div id="checkoutCashSuccess" style="display:none; text-align:center; padding:20px 0;">
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #119864, #0d7a4f); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; box-shadow: 0 8px 25px rgba(17,152,100,0.3);">
+                        <svg viewBox="0 0 50 50" style="width:40px; height:40px;"><path d="M14 27 L22 35 L37 16" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </div>
+                    <h3 style="font-size:24px; color:#119864; margin-bottom:10px;">Order Placed Successfully!</h3>
+                    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:12px;">
+                        Your pending order has been recorded.<br>
+                        Transaction ID: <strong id="cashSuccessTxRef">—</strong>
+                    </p>
+                    <div style="background:#fff3e0; border:1px solid #ffe0b2; border-radius:10px; padding:15px; margin-bottom:25px; text-align:left; font-size:14px; color:#e65100;">
+                        <strong>⚠️ Notice:</strong> Please present this Transaction ID at the entrance gate to complete your cash payment and receive your entry tickets.
+                    </div>
+                    <button class="qr-btn-primary" onclick="closeCheckoutModal(true)" style="width:100%; justify-content:center; padding:12px; font-size:15px;">
+                        <i class="fa fa-check"></i> Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Payment Modal -->
+    <div class="qr-modal-overlay" id="evtQrModal">
+        <div class="qr-modal-card">
+            <div class="qr-modal-header">
+                <h3><i class="fa fa-qrcode"></i> QR Code Payment</h3>
+                <button class="qr-close-btn" id="evtQrClose" onclick="cancelEvtQr()">&times;</button>
+            </div>
+            <div class="qr-modal-body">
+                <div id="evtPhase1">
+                    <p style="color:#666;margin:0 0 16px;">Scan the QR code to complete your payment</p>
+                    <div class="qr-code-wrapper"><div id="evtQrContainer"></div></div>
+                    <div class="qr-tx-info">
+                        <div class="qr-tx-row"><span>Transaction</span><strong id="evtTxRef">—</strong></div>
+                        <div class="qr-tx-row"><span>Event</span><strong id="evtTxEvent">—</strong></div>
+                        <div class="qr-tx-row qr-tx-total"><span>Total</span><strong id="evtTxTotal">$0</strong></div>
+                    </div>
+                    <div style="margin:20px 0;text-align:center;">
+                        <p style="margin:0 0 8px;color:#666;font-size:14px;">Scan the QR code with your phone to complete payment</p>
+                        <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:#f0faf5;border-radius:10px;border:1px solid #d4edda;margin:12px 0;">
+                            <div class="qr-spinner" style="width:20px;height:20px;border-width:3px;margin:0;"></div>
+                            <span style="color:#119864;font-weight:600;font-size:14px;">Waiting for QR scan...</span>
+                        </div>
+                        <button onclick="cancelEvtQr()" style="width:100%;padding:12px;background:none;border:2px solid #dc3545;color:#dc3545;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">
+                            <i class="fa fa-times"></i> Cancel Payment
+                        </button>
+                    </div>
+                </div>
+                <div id="evtPhase2" style="display:none;padding:30px 0;text-align:center;">
+                    <div class="qr-spinner"></div>
+                    <p style="color:#666;margin-top:16px;">Payment confirmed! Finalizing...</p>
+                </div>
+                <div id="evtPhase3" style="display:none;padding:20px 0;text-align:center;">
+                    <div class="qr-success-circle"><svg viewBox="0 0 50 50"><path d="M14 27 L22 35 L37 16" stroke="white" stroke-width="3" fill="none"/></svg></div>
+                    <h3 style="margin:16px 0 8px;color:#119864;">Payment Successful!</h3>
+                    <p style="color:#666;" id="evtSuccessMsg">Your tickets are confirmed.</p>
+                    <a href="/CustomerInfo" class="qr-btn-primary" style="margin-top:16px;"><i class="fa fa-history"></i> View Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        const isLoggedIn = @((User?.Identity?.IsAuthenticated == true).ToString().ToLower());
+        const eventId = @Model.CurrentEvent.EventId;
+        const basePrice = @Model.CurrentEvent.BasePrice;
+        let evtQuantity = 1, evtInterval = null, evtTxRef = null;
+        let selectedPaymentMethod = "QR Code";
+
+        function evtQty(delta) {
+            evtQuantity += delta;
+            if (evtQuantity < 1) evtQuantity = 1;
+            if (evtQuantity > 20) evtQuantity = 20;
+            document.getElementById('evtQtyNum').innerText = evtQuantity;
+            updateEvtSubtotal();
+        }
+
+        function updateEvtSubtotal() {
+            const type = document.getElementById('evtTicketType').value;
+            let price = basePrice;
+            if (type === 'Child') price = basePrice * 0.6;
+            else if (type === 'Member') price = basePrice * 0.8;
+            document.getElementById('evtSubtotal').innerText = '$' + (price * evtQuantity).toFixed(0);
+        }
+
+        if(document.getElementById('evtTicketType')) {
+            document.getElementById('evtTicketType').addEventListener('change', updateEvtSubtotal);
+        }
+
+        function closeCheckoutModal(reloadPage = false) {
+            document.getElementById('checkoutModal').style.display = 'none';
+            if (reloadPage) {
+                location.reload();
+            }
+        }
+
+        function openGuestCheckoutModal() {
+            selectedPaymentMethod = "QR Code";
+            document.getElementById('radioQR').checked = true;
+            document.getElementById('radioCash').checked = false;
+            selectPaymentMethodOption('QR Code');
+
+            document.getElementById('checkoutCashSuccess').style.display = 'none';
+
+            if (isLoggedIn) {
+                document.getElementById('checkoutStepDetails').style.display = 'none';
+                document.getElementById('checkoutStepPayment').style.display = 'block';
+                document.getElementById('btnBackToDetails').style.display = 'none';
+            } else {
+                document.getElementById('checkoutStepDetails').style.display = 'block';
+                document.getElementById('checkoutStepPayment').style.display = 'none';
+                document.getElementById('btnBackToDetails').style.display = 'block';
+            }
+
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function goToCheckoutPayment() {
+            const name = document.getElementById('guestName').value.trim();
+            const email = document.getElementById('guestEmail').value.trim();
+            const phone = document.getElementById('guestPhone').value.trim();
+            const address = document.getElementById('guestAddress').value.trim();
+
+            if (!name || !email || !phone || !address) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            document.getElementById('checkoutStepDetails').style.display = 'none';
+            document.getElementById('checkoutStepPayment').style.display = 'block';
+        }
+
+        function goBackToDetails() {
+            document.getElementById('checkoutStepPayment').style.display = 'none';
+            document.getElementById('checkoutStepDetails').style.display = 'block';
+        }
+
+        function selectPaymentMethodOption(method) {
+            selectedPaymentMethod = method;
+            const qrBox = document.getElementById('paymentOptQR');
+            const cashBox = document.getElementById('paymentOptCash');
+            const qrRadio = document.getElementById('radioQR');
+            const cashRadio = document.getElementById('radioCash');
+
+            if (method === 'QR Code') {
+                qrBox.style.border = '2px solid #119864';
+                qrBox.style.background = '#f0faf5';
+                cashBox.style.border = '1px solid #ddd';
+                cashBox.style.background = 'white';
+                qrRadio.checked = true;
+                cashRadio.checked = false;
+            } else {
+                cashBox.style.border = '2px solid #119864';
+                cashBox.style.background = '#f0faf5';
+                qrBox.style.border = '1px solid #ddd';
+                qrBox.style.background = 'white';
+                cashRadio.checked = true;
+                qrRadio.checked = false;
+            }
+        }
+
+        function proceedToPayment() {
+            const ticketType = document.getElementById('evtTicketType').value;
+            const name = isLoggedIn ? "" : document.getElementById('guestName').value.trim();
+            const email = isLoggedIn ? "" : document.getElementById('guestEmail').value.trim();
+            const phone = isLoggedIn ? "" : document.getElementById('guestPhone').value.trim();
+            const address = isLoggedIn ? "" : document.getElementById('guestAddress').value.trim();
+
+            const requestBody = {
+                eventId: eventId,
+                quantity: evtQuantity,
+                ticketType: ticketType,
+                paymentMethod: selectedPaymentMethod,
+                guestName: name,
+                guestEmail: email,
+                guestPhone: phone,
+                guestAddress: address
+            };
+
+            fetch('/EventDetail?handler=InitEventPayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    if (selectedPaymentMethod === 'QR Code') {
+                        closeCheckoutModal(false);
+                        showEvtQr(data);
+                    } else {
+                        document.getElementById('checkoutStepPayment').style.display = 'none';
+                        document.getElementById('checkoutCashSuccess').style.display = 'block';
+                        document.getElementById('cashSuccessTxRef').innerText = data.transactionRef;
+                    }
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => {
+                alert("Checkout failed. Please try again.");
+            });
+        }
+
+        function checkoutEvent() {
+            openGuestCheckoutModal();
+        }
+
+        function showEvtQr(data) {
+            evtTxRef = data.transactionRef;
+            document.getElementById('evtPhase1').style.display = 'block';
+            document.getElementById('evtPhase2').style.display = 'none';
+            document.getElementById('evtPhase3').style.display = 'none';
+            document.getElementById('evtQrClose').style.display = 'flex';
+            document.getElementById('evtTxRef').innerText = data.transactionRef;
+            document.getElementById('evtTxEvent').innerText = data.eventTitle || 'Event';
+            document.getElementById('evtTxTotal').innerText = '$' + data.totalAmount.toFixed(2);
+
+            const qrEl = document.getElementById('evtQrContainer');
+            qrEl.innerHTML = '';
+            new QRCode(qrEl, { text: window.location.origin + '/ScanQR?r=' + encodeURIComponent(data.transactionRef), width: 180, height: 180, colorDark: '#1a3a2a' });
+
+            document.getElementById('evtQrModal').style.display = 'flex';
+            // Auto-complete payment after 3 seconds
+            autoCompleteEvt();
+        }
+
+        let evtPollInterval = null;
+        function autoCompleteEvt() {
+            setTimeout(() => {
+                fetch('/ScanQR?r=' + encodeURIComponent(evtTxRef))
+                    .then(() => {
+                        document.getElementById('evtPhase1').style.display = 'none';
+                        document.getElementById('evtPhase2').style.display = 'block';
+                        document.getElementById('evtQrClose').style.display = 'none';
+                        setTimeout(() => {
+                            document.getElementById('evtPhase2').style.display = 'none';
+                            document.getElementById('evtPhase3').style.display = 'block';
+                            document.getElementById('evtSuccessMsg').innerText = 'Payment completed successfully!';
+                        }, 1500);
+                    })
+                    .catch(() => {
+                        document.getElementById('evtPhase1').style.display = 'none';
+                        document.getElementById('evtPhase3').style.display = 'block';
+                        document.getElementById('evtSuccessMsg').innerText = 'Payment completed successfully!';
+                    });
+            }, 7000);
+        }
+
+        function processEvtQr() { autoCompleteEvt(); }
+        function cancelEvtQr() { 
+            if(evtPollInterval) { clearInterval(evtPollInterval); evtPollInterval = null; }
+            if(evtInterval) clearInterval(evtInterval); 
+            document.getElementById('evtQrModal').style.display = 'none'; 
+        }
+    </script>
+}

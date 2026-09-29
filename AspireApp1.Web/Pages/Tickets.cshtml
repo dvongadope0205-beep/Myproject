@@ -1,0 +1,1312 @@
+@page
+@model WebApps.Pages.TicketsModel
+@{
+    ViewData["Title"] = "Tickets - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/pages.css">
+<style>
+    /* Calendar Modal Styles */
+    .calendar-modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.5);
+        z-index: 9999;
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .calendar-modal {
+        background: #fff;
+        width: 800px;
+        max-width: 95vw;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        user-select: none;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .calendar-header h2 {
+        margin: 0;
+        font-size: 24px;
+        color: #333;
+    }
+
+    .close-cal-btn {
+        background: none; border: none; font-size: 28px; cursor: pointer; color: #888;
+        line-height: 1;
+    }
+
+    .calendar-body {
+        padding: 30px;
+        display: flex;
+        gap: 40px;
+        position: relative;
+    }
+
+    .month-container {
+        flex: 1;
+    }
+
+    .month-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+        color: #444;
+        margin-bottom: 20px;
+    }
+
+    .days-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0;
+        text-align: center;
+    }
+
+    .day-header {
+        font-weight: bold;
+        color: #888;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .day-cell {
+        aspect-ratio: 1;
+        border: 1px solid #eee;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: 0.1s;
+        position: relative;
+        background: #fff;
+    }
+
+    .day-cell:hover:not(.empty-cell):not(.past-day) {
+        border-color: #119864;
+        z-index: 2;
+    }
+
+    .day-cell.selected-day {
+        border: 2px solid #119864;
+        background-color: #f0faf5;
+        z-index: 3;
+    }
+
+    .day-num {
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .day-price {
+        font-size: 11px;
+        color: #666;
+        margin-top: 4px;
+    }
+
+    .empty-cell {
+        border-color: transparent;
+        background: transparent;
+        cursor: default;
+    }
+
+    .past-day {
+        cursor: not-allowed;
+        background: #fafafa;
+    }
+
+    .past-day .day-num {
+        color: #ccc;
+    }
+    .past-day .day-price {
+        display: none;
+    }
+
+    .cal-nav-btn {
+        position: absolute;
+        top: 25px;
+        background: #fff;
+        border: 1px solid #ddd;
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 10;
+        display: flex; justify-content: center; align-items: center;
+        color: #555;
+    }
+    
+    .cal-nav-btn:hover { background: #f9f9f9; }
+    .cal-prev { left: 10px; }
+    .cal-next { right: 10px; }
+
+    /* Transitions */
+    .ticket-card {
+        transition: opacity 0.3s ease, margin 0.3s ease;
+    }
+
+    /* ===== QR Payment Modal Styles ===== */
+    .qr-modal-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 10000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        animation: qrFadeIn 0.3s ease;
+    }
+
+    @@keyframes qrFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @@keyframes qrSlideUp {
+        from { opacity: 0; transform: translateY(40px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @@keyframes qrPulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(17, 152, 100, 0.4); }
+        50% { box-shadow: 0 0 0 15px rgba(17, 152, 100, 0); }
+    }
+
+    @@keyframes checkmarkDraw {
+        0% { stroke-dashoffset: 100; }
+        100% { stroke-dashoffset: 0; }
+    }
+
+    @@keyframes successScale {
+        0% { transform: scale(0); opacity: 0; }
+        50% { transform: scale(1.2); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    @@keyframes spinRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .qr-modal-card {
+        background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+        width: 480px;
+        max-width: 95vw;
+        border-radius: 20px;
+        box-shadow: 0 25px 80px rgba(0,0,0,0.25);
+        overflow: hidden;
+        animation: qrSlideUp 0.4s ease;
+    }
+
+    .qr-modal-header {
+        background: linear-gradient(135deg, #1a5e3a 0%, #119864 100%);
+        padding: 24px 30px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .qr-modal-header h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .qr-close-btn {
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .qr-close-btn:hover {
+        background: rgba(255,255,255,0.35);
+    }
+
+    .qr-modal-body {
+        padding: 30px;
+        text-align: center;
+    }
+
+    .qr-code-wrapper {
+        display: inline-block;
+        padding: 16px;
+        background: white;
+        border-radius: 16px;
+        border: 2px solid #e8f5e9;
+        box-shadow: 0 4px 20px rgba(17, 152, 100, 0.1);
+        margin-bottom: 20px;
+        animation: qrPulse 2s infinite;
+    }
+
+    .qr-tx-info {
+        background: #f0faf5;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin: 16px 0;
+        border: 1px solid #d4edda;
+    }
+
+    .qr-tx-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .qr-tx-row strong {
+        color: #1a3a2a;
+    }
+
+    .qr-tx-total {
+        border-top: 2px solid #119864;
+        margin-top: 10px;
+        padding-top: 12px;
+        font-size: 18px;
+        font-weight: 800;
+        color: #119864;
+    }
+
+    .qr-countdown {
+        margin: 20px 0;
+        font-size: 16px;
+        color: #666;
+    }
+
+    .qr-countdown-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px; height: 50px;
+        background: linear-gradient(135deg, #119864, #0d7a4f);
+        color: white;
+        border-radius: 12px;
+        font-size: 24px;
+        font-weight: 800;
+        margin: 0 4px;
+        box-shadow: 0 4px 15px rgba(17, 152, 100, 0.3);
+    }
+
+    .qr-processing {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0;
+    }
+
+    .qr-spinner {
+        width: 48px; height: 48px;
+        border: 4px solid #e8f5e9;
+        border-top: 4px solid #119864;
+        border-radius: 50%;
+        animation: spinRotate 0.8s linear infinite;
+    }
+
+    .qr-success-state {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px 0;
+    }
+
+    .qr-success-circle {
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #119864, #0d7a4f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: successScale 0.5s ease;
+        box-shadow: 0 8px 30px rgba(17, 152, 100, 0.3);
+    }
+
+    .qr-success-circle svg {
+        width: 40px; height: 40px;
+    }
+
+    .qr-success-circle svg path {
+        stroke: white;
+        stroke-width: 3;
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-dasharray: 100;
+        animation: checkmarkDraw 0.6s ease 0.3s forwards;
+        stroke-dashoffset: 100;
+    }
+
+    .qr-btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 14px 28px;
+        background: linear-gradient(135deg, #119864, #0d7a4f);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+    }
+
+    .qr-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(17, 152, 100, 0.3);
+    }
+
+    .qr-btn-cancel {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 24px;
+        background: transparent;
+        color: #999;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 10px;
+    }
+
+    .qr-btn-cancel:hover {
+        background: #fbe9e7;
+        border-color: #e74c3c;
+        color: #e74c3c;
+    }
+
+    .qr-order-details {
+        text-align: left;
+        margin: 16px 0;
+    }
+
+    .qr-order-details h4 {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #999;
+        margin: 0 0 10px 0;
+    }
+
+    .qr-order-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        font-size: 14px;
+        color: #444;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .qr-order-item:last-child {
+        border-bottom: none;
+    }
+</style>
+}
+
+<main>
+    <section class="page-hero">
+        <h1>Admission Tickets</h1>
+        <p>Skip the line and buy your tickets online in advance. Every ticket helps fund vital wildlife conservation!</p>
+    </section>
+    <section class="page-content-wrap" style="max-width: 1400px; margin: auto; padding: 40px 20px;">
+        <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+
+            <!-- Left Sidebar: Date Picker -->
+            <div style="flex: 1; min-width: 250px; max-width: 300px;">
+                <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); position: sticky; top: 100px;">
+                    <h3 style="font-size: 22px; color: var(--zoo-dark); margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+                        Select Date</h3>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Please select the date of your
+                        visit to see available tickets and events.</p>
+
+                    <div>
+                        <label style="display: block; font-weight: bold; margin-bottom: 8px; color: var(--zoo-dark);">Visit Date</label>
+                        <button type="button" id="dateDisplayBtn" onclick="openCalendar()" style="width: 100%; padding: 12px 15px; border: 1px solid #119864; border-radius: 6px; font-size: 16px; margin-bottom: 20px; box-sizing: border-box; text-align: left; background: #f0faf5; cursor: pointer; color: #119864; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Select a day...</span>
+                            <i class="fa fa-calendar"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Middle Column: Ticket Types -->
+            <div style="flex: 2; min-width: 450px;">
+                <h3 style="font-size: 24px; color: var(--zoo-dark); margin-bottom: 5px; padding-bottom: 15px; border-bottom: 2px solid #eee;">Ticket Types</h3>
+                <p id="specialEventNotice" style="color: #666; font-style: italic; margin-bottom: 25px;">Select a date to see pricing. General admission tickets are valid for the full day.</p>
+
+                <!-- Ticket Item 1 -->
+                <div class="ticket-card" data-event-date="all" style="display: flex; flex-wrap: wrap; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; overflow: hidden;">
+                    <div style="width: 200px; background: url('Source/Picture/encounter.jpg') center/cover; min-height: 150px;">
+                    </div>
+                    <div style="flex: 1; padding: 25px;">
+                        <h4 style="font-size: 20px; color: var(--zoo-dark); margin-bottom: 10px;">General Admission Tickets</h4>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Access to the entire zoo including all main animal exhibits. Great for friends and family!</p>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            
+                            <!-- Adult -->
+                            <div style="background: #f9ebd1; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 110px;">
+                                <div style="text-align: center;">
+                                    <span style="display:block; font-size: 12px; color: #555;">Adult (12+)</span>
+                                    <strong style="color: var(--zoo-green); font-size: 18px;">$25</strong>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; width: 100%;">
+                                    <button type="button" onclick="updateCart('ga_adult', 'Adult Admission', 25, -1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">-</button>
+                                    <span id="qty-ga_adult" style="width: 30px; text-align: center; font-size: 14px; font-weight:bold;">0</span>
+                                    <button type="button" onclick="updateCart('ga_adult', 'Adult Admission', 25, 1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">+</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Child -->
+                            <div style="background: #f9ebd1; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 110px;">
+                                <div style="text-align: center;">
+                                    <span style="display:block; font-size: 12px; color: #555;">Child (3-11)</span>
+                                    <strong style="color: var(--zoo-green); font-size: 18px;">$18</strong>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; width: 100%;">
+                                    <button type="button" onclick="updateCart('ga_child', 'Child Admission', 18, -1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">-</button>
+                                    <span id="qty-ga_child" style="width: 30px; text-align: center; font-size: 14px; font-weight:bold;">0</span>
+                                    <button type="button" onclick="updateCart('ga_child', 'Child Admission', 18, 1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">+</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Senior -->
+                            <div style="background: #f9ebd1; padding: 10px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; gap: 8px; width: 110px;">
+                                <div style="text-align: center;">
+                                    <span style="display:block; font-size: 12px; color: #555;">Senior (65+)</span>
+                                    <strong style="color: var(--zoo-green); font-size: 18px;">$20</strong>
+                                </div>
+                                <div style="display: flex; align-items: center; justify-content: space-between; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; width: 100%;">
+                                    <button type="button" onclick="updateCart('ga_senior', 'Senior Admission', 20, -1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">-</button>
+                                    <span id="qty-ga_senior" style="width: 30px; text-align: center; font-size: 14px; font-weight:bold;">0</span>
+                                    <button type="button" onclick="updateCart('ga_senior', 'Senior Admission', 20, 1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member Reservation -->
+                <div class="ticket-card" data-event-date="all" style="display: flex; flex-wrap: wrap; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; overflow: hidden;">
+                    <div style="width: 200px; background: url('Source/Picture/membership.jpg') center/cover; min-height: 150px;">
+                    </div>
+                    <div style="flex: 1; padding: 25px;">
+                        <h4 style="font-size: 20px; color: var(--zoo-dark); margin-bottom: 10px;">Member Reservation</h4>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px;">Active members receive free admission. Please reserve your timed entry here. ID required.</p>
+                        
+                        <div style="background: #e9f5f0; padding: 10px 15px; border-radius: 6px; display: inline-flex; align-items: center; gap: 20px;">
+                            <div>
+                                <span style="display:block; font-size: 12px; color: #555;">Valid Membership required</span>
+                                <strong style="color: var(--zoo-green); font-size: 18px;">FREE ($0)</strong>
+                            </div>
+                            <div style="display: flex; align-items: center; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #119864; width: 100px;">
+                                <button type="button" onclick="updateCart('member_res', 'Member Entry', 0, -1)" style="flex: 1; border:none; background:#e9f5f0; padding: 4px 0; cursor:pointer; font-weight:bold;">-</button>
+                                <span id="qty-member_res" style="width: 30px; text-align: center; font-size: 14px; font-weight:bold;">0</span>
+                                <button type="button" onclick="updateCart('member_res', 'Member Entry', 0, 1)" style="flex: 1; border:none; background:#e9f5f0; padding: 4px 0; cursor:pointer; font-weight:bold;">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic DB Events Container -->
+                <div id="dynamic-events-container"></div>
+            </div>
+
+
+            <!-- Right Sidebar: Order Summary -->
+            <div style="flex: 1.5; min-width: 350px; max-width: 450px;">
+                <div id="orderSummaryWrapper" style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); position: sticky; top: 100px;">
+                    <h3 style="font-size: 24px; color: var(--zoo-dark); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #eee;">
+                        <i class="fa fa-shopping-cart"></i> Order Summary
+                    </h3>
+                    
+                    <div id="cartItems" style="min-height: 120px; margin-bottom: 20px;">
+                        <p id="emptyCartMsg" style="color: #888; font-size: 16px; font-style: italic; margin: 0;">Your cart is empty. Start adding tickets!</p>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #ddd; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: bold; color: var(--zoo-dark); font-size: 20px;">Total:</span>
+                        <span id="cartTotal" style="font-size: 32px; font-weight: 800; color: var(--zoo-green);">$0</span>
+                    </div>
+                    
+                    <button onclick="checkoutCart()" class="btn-zoo" style="width: 100%; margin-top: 30px; padding: 18px 20px; background-color: #2c313a; display: flex; justify-content: center; align-items: center; gap: 10px; border:none; cursor:pointer; font-size: 18px; border-radius: 8px;">
+                        <i class="fa fa-lock"></i> Secure Checkout
+                    </button>
+                    <p style="text-align: center; color: #888; font-size: 12px; margin-top: 15px;">Tickets are non-refundable. <br>Login is required to process payment.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CALENDAR MODAL HTML -->
+    <div class="calendar-modal-overlay" id="calModal" onclick="if(event.target==this) closeCalendar()">
+        <div class="calendar-modal">
+            <div class="calendar-header">
+                <h2>Choose date</h2>
+                <button class="close-cal-btn" onclick="closeCalendar()">×</button>
+            </div>
+            <div class="calendar-body">
+                <button class="cal-nav-btn cal-prev" title="Previous Month" onclick="prevMonths()">❮</button>
+                
+                <div class="month-container">
+                    <div class="month-title" id="month1Title"></div>
+                    <div class="days-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                    </div>
+                    <div class="days-grid" id="month1Grid"></div>
+                </div>
+                
+                <div class="month-container">
+                    <div class="month-title" id="month2Title"></div>
+                    <div class="days-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                    </div>
+                    <div class="days-grid" id="month2Grid"></div>
+                </div>
+
+                <button class="cal-nav-btn cal-next" title="Next Month" onclick="nextMonths()">❯</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION MODAL HTML -->
+    <div class="calendar-modal-overlay" id="notificationModal" onclick="if(event.target==this) closeNotificationModal()">
+        <div class="calendar-modal" style="width: 400px; padding: 40px; text-align: center;">
+            <div style="font-size: 50px; margin-bottom: 20px;" id="notificationIcon">
+                <i class="fa fa-info-circle"></i>
+            </div>
+            <h3 id="notificationTitle" style="margin-top: 0; margin-bottom: 15px; font-size: 24px; color: var(--zoo-dark);">Notice</h3>
+            <p id="notificationMessage" style="color: #666; font-size: 16px; margin-bottom: 30px; line-height: 1.5;">Message goes here.</p>
+            <button id="notificationBtn" class="btn-zoo" style="padding: 12px 30px; border:none; border-radius: 8px; cursor: pointer; background: #119864; color: white; font-weight: bold; font-size: 16px;" onclick="closeNotificationModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- CHECKOUT MODAL HTML (Guest Details & Payment Method Selection) -->
+    <div class="qr-modal-overlay" id="checkoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:9999; justify-content:center; align-items:center; backdrop-filter:blur(4px);">
+        <div class="qr-modal-card" style="background:white; border-radius:20px; width:500px; max-width:95%; box-shadow:0 25px 60px rgba(0,0,0,0.3); overflow:hidden;">
+            <div class="qr-modal-header" style="background:linear-gradient(135deg, #119864, #0d7a4f); padding:20px 30px; color:white; display:flex; justify-content:space-between; align-items:center;">
+                <h3 id="checkoutModalTitle" style="margin:0; font-size:20px;"><i class="fa fa-shopping-cart"></i> Secure Checkout</h3>
+                <button class="qr-close-btn" onclick="closeCheckoutModal()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">&times;</button>
+            </div>
+            
+            <div class="qr-modal-body" style="padding:30px; text-align:left;">
+                <!-- Step 1: Customer Details (For Guest) -->
+                <div id="checkoutStepDetails" style="display:none;">
+                    <h4 style="margin:0 0 15px 0; color:#333; font-size:16px; font-weight:700; border-bottom:1.5px solid #eee; padding-bottom:8px;">Customer Information</h4>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Full Name *</label>
+                        <input type="text" id="guestName" placeholder="e.g. John Doe" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Email Address *</label>
+                        <input type="email" id="guestEmail" placeholder="e.g. john@example.com" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:15px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Phone Number *</label>
+                        <input type="tel" id="guestPhone" placeholder="e.g. 0912345678" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <div style="margin-bottom:20px;">
+                        <label style="display:block; font-weight:600; color:#444; margin-bottom:5px; font-size:14px;">Billing Address *</label>
+                        <input type="text" id="guestAddress" placeholder="e.g. 123 Zoo Lane" style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; outline:none; box-sizing:border-box;" required />
+                    </div>
+                    <button class="qr-btn-primary" onclick="goToCheckoutPayment()" style="width:100%; justify-content:center; padding:12px; font-size:16px;">
+                        Continue to Payment Method <i class="fa fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Step 2: Payment Method Selection -->
+                <div id="checkoutStepPayment" style="display:none;">
+                    <h4 style="margin:0 0 15px 0; color:#333; font-size:16px; font-weight:700; border-bottom:1.5px solid #eee; padding-bottom:8px;">Choose Payment Method</h4>
+                    
+                    <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:25px;">
+                        <!-- QR Code Option -->
+                        <div onclick="selectPaymentMethodOption('QR Code')" id="paymentOptQR" style="display:flex; align-items:center; gap:15px; padding:16px; border:2px solid #119864; background:#f0faf5; border-radius:10px; cursor:pointer; transition:all 0.2s;">
+                            <input type="radio" name="paymentMethodRadio" id="radioQR" value="QR Code" checked style="width:18px; height:18px; accent-color:#119864;" />
+                            <div>
+                                <strong style="display:block; color:#1a3a2a; font-size:15px;"><i class="fa fa-qrcode"></i> QR Code Payment</strong>
+                                <span style="font-size:13px; color:#555;">Scan to pay instantly via Mobile Banking / E-wallet</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Cash Option -->
+                        <div onclick="selectPaymentMethodOption('Cash')" id="paymentOptCash" style="display:flex; align-items:center; gap:15px; padding:16px; border:1px solid #ddd; border-radius:10px; cursor:pointer; transition:all 0.2s;">
+                            <input type="radio" name="paymentMethodRadio" id="radioCash" value="Cash" style="width:18px; height:18px; accent-color:#119864;" />
+                            <div>
+                                <strong style="display:block; color:#333; font-size:15px;"><i class="fa fa-money"></i> Pay Cash at Entrance</strong>
+                                <span style="font-size:13px; color:#666;">Pay cash at the ticket desk on arrival (Requires Admin approval)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display:flex; gap:12px;">
+                        <button id="btnBackToDetails" class="qr-btn-cancel" onclick="goBackToDetails()" style="flex:1; margin:0; padding:12px; font-size:15px;">
+                            <i class="fa fa-arrow-left"></i> Back
+                        </button>
+                        <button class="qr-btn-primary" onclick="proceedToPayment()" style="flex:2; justify-content:center; padding:12px; font-size:15px;">
+                            Complete Purchase <i class="fa fa-check-circle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cash Success State -->
+                <div id="checkoutCashSuccess" style="display:none; text-align:center; padding:20px 0;">
+                    <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg, #119864, #0d7a4f); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; box-shadow: 0 8px 25px rgba(17,152,100,0.3);">
+                        <svg viewBox="0 0 50 50" style="width:40px; height:40px;"><path d="M14 27 L22 35 L37 16" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </div>
+                    <h3 style="font-size:24px; color:#119864; margin-bottom:10px;">Order Placed Successfully!</h3>
+                    <p style="color:#555; font-size:15px; line-height:1.6; margin-bottom:12px;">
+                        Your pending order has been recorded.<br>
+                        Transaction ID: <strong id="cashSuccessTxRef">—</strong>
+                    </p>
+                    <div style="background:#fff3e0; border:1px solid #ffe0b2; border-radius:10px; padding:15px; margin-bottom:25px; text-align:left; font-size:14px; color:#e65100;">
+                        <strong>⚠️ Notice:</strong> Please present this Transaction ID at the entrance gate to complete your cash payment and receive your entry tickets.
+                    </div>
+                    <button class="qr-btn-primary" onclick="closeCheckoutModal(true)" style="width:100%; justify-content:center; padding:12px; font-size:15px;">
+                        <i class="fa fa-check"></i> Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR PAYMENT MODAL HTML -->
+    <div class="qr-modal-overlay" id="qrPaymentModal">
+        <div class="qr-modal-card">
+            <div class="qr-modal-header">
+                <h3><i class="fa fa-qrcode"></i> QR Code Payment</h3>
+                <button class="qr-close-btn" id="qrCloseBtn" onclick="cancelQrPayment()">&times;</button>
+            </div>
+            <div class="qr-modal-body">
+                <!-- Phase 1: QR Display + Countdown -->
+                <div id="qrScanPhase">
+                    <p style="color: #666; margin: 0 0 16px 0; font-size: 15px;">Scan the QR code below to complete your payment</p>
+                    <div class="qr-code-wrapper">
+                        <div id="qrCodeContainer"></div>
+                    </div>
+
+                    <div class="qr-tx-info">
+                        <div class="qr-tx-row">
+                            <span>Transaction ID</span>
+                            <strong id="qrTxRef">—</strong>
+                        </div>
+                        <div class="qr-tx-row">
+                            <span>Customer</span>
+                            <strong id="qrCustomerName">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="qr-order-details" id="qrOrderItems"></div>
+
+                    <div class="qr-tx-info">
+                        <div class="qr-tx-row qr-tx-total">
+                            <span>Total Amount</span>
+                            <strong id="qrTotalAmount">$0</strong>
+                        </div>
+                    </div>
+
+                    <div style="margin: 20px 0; text-align: center;">
+                        <p style="margin: 0 0 8px; color: #666; font-size: 14px;">Scan the QR code with your phone to complete payment</p>
+                        <div id="qrWaitingIndicator" style="display:flex; align-items:center; justify-content:center; gap:10px; padding:14px; background:#f0faf5; border-radius:10px; border:1px solid #d4edda; margin:12px 0;">
+                            <div style="width:20px;height:20px;border:3px solid #d4edda;border-top:3px solid #119864;border-radius:50%;animation:spin 0.8s linear infinite;"></div>
+                            <span style="color:#119864; font-weight:600; font-size:14px;">Waiting for QR scan...</span>
+                        </div>
+                        <style>@@keyframes spin { to { transform: rotate(360deg); } }</style>
+                        <button class="qr-btn-cancel" onclick="cancelQrPayment()">
+                            <i class="fa fa-times"></i> Cancel Payment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Phase 2: Processing Spinner -->
+                <div class="qr-processing" id="qrProcessingPhase">
+                    <div class="qr-spinner"></div>
+                    <p style="color: #666; font-size: 16px; margin: 0;">Payment confirmed! Finalizing...</p>
+                    <p style="color: #999; font-size: 13px; margin: 0;">Please wait, do not close this window</p>
+                </div>
+
+                <!-- Phase 3: Success -->
+                <div class="qr-success-state" id="qrSuccessPhase">
+                    <div class="qr-success-circle">
+                        <svg viewBox="0 0 50 50">
+                            <path d="M14 27 L22 35 L37 16" />
+                        </svg>
+                    </div>
+                    <h3 style="margin: 0; font-size: 24px; color: #119864;">Payment Successful!</h3>
+                    <p style="color: #666; font-size: 15px; margin: 0; line-height: 1.6;">
+                        Your order has been confirmed.<br>
+                        Transaction: <strong id="qrSuccessTxRef">—</strong>
+                    </p>
+                    <p id="qrSuccessTicketInfo" style="color: #888; font-size: 14px; margin: 5px 0 0 0;"></p>
+                    <a href="/CustomerInfo" class="qr-btn-primary" style="margin-top: 10px;">
+                        <i class="fa fa-history"></i> View Purchase History
+                    </a>
+                    <button class="qr-btn-cancel" onclick="closeQrModal()" style="border: none;">
+                        Continue Shopping
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        const isLoggedIn = @((User?.Identity?.IsAuthenticated == true).ToString().ToLower());
+        const dbEvents = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.EventList));
+
+        // Store item state for Cart
+        const cart = {};
+
+        function updateCart(keyId, displayName, price, delta) {
+            if (!cart[keyId]) {
+                let autoType = 'Adult';
+                if (keyId.includes('child')) autoType = 'Child';
+                else if (keyId.includes('senior')) autoType = 'Senior';
+                cart[keyId] = { name: displayName, price: price, qty: 0, type: autoType };
+            }
+            cart[keyId].qty += delta;
+            if (cart[keyId].qty < 0) cart[keyId].qty = 0;
+            
+            const spanId = document.getElementById('qty-' + keyId);
+            if(spanId) spanId.innerText = cart[keyId].qty;
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItemsDiv = document.getElementById('cartItems');
+            const cartTotalSpan = document.getElementById('cartTotal');
+            cartItemsDiv.innerHTML = '';
+            let total = 0;
+            let hasItems = false;
+            for (const key in cart) {
+                if (cart[key].qty > 0) {
+                    hasItems = true;
+                    total += cart[key].qty * cart[key].price;
+                    const row = document.createElement('div');
+                    row.style.display = 'flex';
+                    row.style.justifyContent = 'space-between';
+                    row.style.marginBottom = '15px';
+                    row.style.fontSize = '16px';
+                    row.style.color = '#333';
+                    
+                    const nameCol = document.createElement('span');
+                    nameCol.innerText = cart[key].qty + 'x ' + cart[key].name;
+                    
+                    const priceCol = document.createElement('span');
+                    priceCol.style.fontWeight = 'bold';
+                    priceCol.innerText = '$' + (cart[key].qty * cart[key].price);
+                    
+                    row.appendChild(nameCol);
+                    row.appendChild(priceCol);
+                    cartItemsDiv.appendChild(row);
+                }
+            }
+            if (!hasItems) {
+                const emptyMsg = document.createElement('p');
+                emptyMsg.style.color = '#888';
+                emptyMsg.style.fontSize = '16px';
+                emptyMsg.style.fontStyle = 'italic';
+                emptyMsg.style.margin = '0';
+                emptyMsg.innerText = 'Your cart is empty. Start adding tickets!';
+                cartItemsDiv.appendChild(emptyMsg);
+            }
+            cartTotalSpan.innerText = '$' + total;
+        }
+
+        let notifyRedirectUrl = null;
+
+        function showNotification(title, message, iconType, redirectUrl = null) {
+            document.getElementById('notificationTitle').innerText = title;
+            document.getElementById('notificationMessage').innerText = message;
+            
+            const iconEl = document.getElementById('notificationIcon');
+            if(iconType === 'error') {
+                iconEl.innerHTML = '<i class="fa fa-times-circle"></i>';
+                iconEl.style.color = '#e74c3c';
+            } else if(iconType === 'warning') {
+                iconEl.innerHTML = '<i class="fa fa-exclamation-triangle"></i>';
+                iconEl.style.color = '#f39c12';
+            } else {
+                iconEl.innerHTML = '<i class="fa fa-check-circle"></i>';
+                iconEl.style.color = '#119864';
+            }
+
+            notifyRedirectUrl = redirectUrl;
+            document.getElementById('notificationModal').style.display = 'flex';
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notificationModal').style.display = 'none';
+            if(notifyRedirectUrl) {
+                window.location.href = notifyRedirectUrl;
+            }
+        }
+
+        // ===== QR PAYMENT SYSTEM =====
+        let qrCountdownInterval = null;
+        let currentTxRef = null;
+        let qrCodeInstance = null;
+
+        let activeCartData = null;
+        let selectedPaymentMethod = "QR Code";
+
+        function closeCheckoutModal(reloadPage = false) {
+            document.getElementById('checkoutModal').style.display = 'none';
+            if (reloadPage) {
+                // Clear cart and reload
+                for (const key in cart) {
+                    cart[key].qty = 0;
+                    const spanEl = document.getElementById('qty-' + key);
+                    if (spanEl) spanEl.innerText = '0';
+                }
+                renderCart();
+                location.reload();
+            }
+        }
+
+        function openGuestCheckoutModal(cartData) {
+            activeCartData = cartData;
+            selectedPaymentMethod = "QR Code";
+            document.getElementById('radioQR').checked = true;
+            document.getElementById('radioCash').checked = false;
+            selectPaymentMethodOption('QR Code');
+
+            document.getElementById('checkoutCashSuccess').style.display = 'none';
+
+            if (isLoggedIn) {
+                // Skip step 1 details, directly show step 2 payment
+                document.getElementById('checkoutStepDetails').style.display = 'none';
+                document.getElementById('checkoutStepPayment').style.display = 'block';
+                document.getElementById('btnBackToDetails').style.display = 'none';
+            } else {
+                // Guest
+                document.getElementById('checkoutStepDetails').style.display = 'block';
+                document.getElementById('checkoutStepPayment').style.display = 'none';
+                document.getElementById('btnBackToDetails').style.display = 'block';
+            }
+
+            document.getElementById('checkoutModal').style.display = 'flex';
+        }
+
+        function goToCheckoutPayment() {
+            // Validate Details form inputs
+            const name = document.getElementById('guestName').value.trim();
+            const email = document.getElementById('guestEmail').value.trim();
+            const phone = document.getElementById('guestPhone').value.trim();
+            const address = document.getElementById('guestAddress').value.trim();
+
+            if (!name || !email || !phone || !address) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            document.getElementById('checkoutStepDetails').style.display = 'none';
+            document.getElementById('checkoutStepPayment').style.display = 'block';
+        }
+
+        function goBackToDetails() {
+            document.getElementById('checkoutStepPayment').style.display = 'none';
+            document.getElementById('checkoutStepDetails').style.display = 'block';
+        }
+
+        function selectPaymentMethodOption(method) {
+            selectedPaymentMethod = method;
+            const qrBox = document.getElementById('paymentOptQR');
+            const cashBox = document.getElementById('paymentOptCash');
+            const qrRadio = document.getElementById('radioQR');
+            const cashRadio = document.getElementById('radioCash');
+
+            if (method === 'QR Code') {
+                qrBox.style.border = '2px solid #119864';
+                qrBox.style.background = '#f0faf5';
+                cashBox.style.border = '1px solid #ddd';
+                cashBox.style.background = 'white';
+                qrRadio.checked = true;
+                cashRadio.checked = false;
+            } else {
+                cashBox.style.border = '2px solid #119864';
+                cashBox.style.background = '#f0faf5';
+                qrBox.style.border = '1px solid #ddd';
+                qrBox.style.background = 'white';
+                cashRadio.checked = true;
+                qrRadio.checked = false;
+            }
+        }
+
+        function proceedToPayment() {
+            const name = isLoggedIn ? "" : document.getElementById('guestName').value.trim();
+            const email = isLoggedIn ? "" : document.getElementById('guestEmail').value.trim();
+            const phone = isLoggedIn ? "" : document.getElementById('guestPhone').value.trim();
+            const address = isLoggedIn ? "" : document.getElementById('guestAddress').value.trim();
+
+            const requestBody = {
+                cartItems: activeCartData,
+                paymentMethod: selectedPaymentMethod,
+                guestName: name,
+                guestEmail: email,
+                guestPhone: phone,
+                guestAddress: address
+            };
+
+            fetch('/Tickets?handler=InitPayment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify(requestBody)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    if (selectedPaymentMethod === 'QR Code') {
+                        // Close this modal and open the existing QR modal
+                        closeCheckoutModal(false);
+                        showQrPaymentModal(data, activeCartData);
+                    } else {
+                        // Cash Success flow: show Success state inside this modal
+                        document.getElementById('checkoutStepPayment').style.display = 'none';
+                        document.getElementById('checkoutCashSuccess').style.display = 'block';
+                        document.getElementById('cashSuccessTxRef').innerText = data.transactionRef;
+                    }
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(err => {
+                alert("Checkout failed. Please try again.");
+            });
+        }
+
+        function checkoutCart() {
+            let hasItems = false;
+            let cartData = [];
+            
+            for (const key in cart) {
+                if(cart[key].qty > 0) {
+                    hasItems = true;
+                    cartData.push({
+                        ticketType: cart[key].type || 'Adult',
+                        quantity: cart[key].qty,
+                        unitPrice: cart[key].price
+                    });
+                }
+            }
+            if(!hasItems) {
+                showNotification("Empty Cart", "You haven't selected any tickets yet. Please add tickets to your cart before proceeding.", "warning");
+                return;
+            }
+            
+            // Open guest checkout modal (handles logged-in checks inside)
+            openGuestCheckoutModal(cartData);
+        }
+
+        function showQrPaymentModal(paymentData, cartData) {
+            currentTxRef = paymentData.transactionRef;
+
+            // Reset phases
+            document.getElementById('qrScanPhase').style.display = 'block';
+            document.getElementById('qrProcessingPhase').style.display = 'none';
+            document.getElementById('qrSuccessPhase').style.display = 'none';
+            document.getElementById('qrCloseBtn').style.display = 'flex';
+
+            // Fill transaction info
+            document.getElementById('qrTxRef').innerText = paymentData.transactionRef;
+            document.getElementById('qrCustomerName').innerText = paymentData.customerName;
+            document.getElementById('qrTotalAmount').innerText = '$' + paymentData.totalAmount.toFixed(2);
+
+            // Order item details
+            const orderDiv = document.getElementById('qrOrderItems');
+            orderDiv.innerHTML = '<h4>Order Details</h4>';
+            cartData.forEach(item => {
+                const itemTotal = item.quantity * item.unitPrice;
+                const row = document.createElement('div');
+                row.className = 'qr-order-item';
+                row.innerHTML = `<span>${item.quantity}x ${item.ticketType} Ticket</span><span>$${itemTotal.toFixed(2)}</span>`;
+                orderDiv.appendChild(row);
+            });
+
+            // Generate QR Code — encodes URL for scanning
+            const qrContainer = document.getElementById('qrCodeContainer');
+            qrContainer.innerHTML = '';
+            const qrPayload = window.location.origin + '/ScanQR?r=' + encodeURIComponent(paymentData.transactionRef);
+            qrCodeInstance = new QRCode(qrContainer, {
+                text: qrPayload,
+                width: 180,
+                height: 180,
+                colorDark: '#1a3a2a',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+
+            // Show modal
+            document.getElementById('qrPaymentModal').style.display = 'flex';
+
+            // Auto-complete payment after 3 seconds
+            autoCompleteQr();
+        }
+
+        let qrPollInterval = null;
+        function autoCompleteQr() {
+            setTimeout(() => {
+                // Trigger payment completion via ScanQR
+                fetch('/ScanQR?r=' + encodeURIComponent(currentTxRef))
+                    .then(() => {
+                        // Show processing phase
+                        document.getElementById('qrScanPhase').style.display = 'none';
+                        document.getElementById('qrProcessingPhase').style.display = 'flex';
+                        document.getElementById('qrCloseBtn').style.display = 'none';
+                        // Then show success
+                        setTimeout(() => {
+                            showQrSuccess({ message: 'Payment completed successfully!' });
+                        }, 1500);
+                    })
+                    .catch(() => {
+                        showQrSuccess({ message: 'Payment completed successfully!' });
+                    });
+            }, 7000);
+        }
+
+        function processQrPayment() {
+            autoCompleteQr();
+        }
+
+        function showQrSuccess(data) {
+            // Switch to success phase
+            document.getElementById('qrProcessingPhase').style.display = 'none';
+            document.getElementById('qrSuccessPhase').style.display = 'flex';
+            document.getElementById('qrSuccessTxRef').innerText = currentTxRef;
+            document.getElementById('qrSuccessTicketInfo').innerText = data.message;
+
+            // Clear the cart
+            for (const key in cart) {
+                cart[key].qty = 0;
+                const spanEl = document.getElementById('qty-' + key);
+                if (spanEl) spanEl.innerText = '0';
+            }
+            renderCart();
+        }
+
+        function cancelQrPayment() {
+            if (qrCountdownInterval) {
+                clearInterval(qrCountdownInterval);
+                qrCountdownInterval = null;
+            }
+            if (qrPollInterval) {
+                clearInterval(qrPollInterval);
+                qrPollInterval = null;
+            }
+            closeQrModal();
+        }
+
+        function closeQrModal() {
+            document.getElementById('qrPaymentModal').style.display = 'none';
+            if (qrCountdownInterval) {
+                clearInterval(qrCountdownInterval);
+                qrCountdownInterval = null;
+            }
+        }
+
+
+        // CALENDAR LOGIC
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        let currentMonthIndex = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let activeDateStr = null;
+
+        function openCalendar() {
+            document.getElementById('calModal').style.display = 'flex';
+            renderCalendar();
+        }
+
+        function closeCalendar() {
+            document.getElementById('calModal').style.display = 'none';
+        }
+
+        function nextMonths() {
+            currentMonthIndex++;
+            if(currentMonthIndex > 11) { currentMonthIndex = 0; currentYear++; }
+            renderCalendar();
+        }
+
+        function prevMonths() {
+            currentMonthIndex--;
+            if(currentMonthIndex < 0) { currentMonthIndex = 11; currentYear--; }
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            renderMonth(document.getElementById('month1Grid'), document.getElementById('month1Title'), currentMonthIndex, currentYear);
+            
+            let m2 = currentMonthIndex + 1;
+            let y2 = currentYear;
+            if(m2 > 11) { m2 = 0; y2++; }
+            
+            renderMonth(document.getElementById('month2Grid'), document.getElementById('month2Title'), m2, y2);
+        }
+
+        function renderMonth(gridEl, titleEl, m, y) {
+            titleEl.innerText = monthNames[m] + " " + y;
+            gridEl.innerHTML = '';
+            
+            let firstDay = new Date(y, m, 1).getDay();
+            let daysInMonth = new Date(y, m + 1, 0).getDate();
+            
+            let today = new Date();
+            today.setHours(0,0,0,0);
+            
+            for(let i=0; i<firstDay; i++){
+                let empty = document.createElement('div');
+                empty.className = 'day-cell empty-cell';
+                gridEl.appendChild(empty);
+            }
+            
+            for(let d=1; d<=daysInMonth; d++){
+                let cell = document.createElement('div');
+                let cellDate = new Date(y, m, d);
+                let dateString = y + '-' + String(m+1).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+                
+                let price = "$25.00";
+                
+                // Specific prices for defined event dates to simulate API
+                if(dateString === '2026-03-25') price = "$35.00"; 
+                if(dateString === '2026-11-15') price = "$25.00"; 
+                if(dateString === '2026-10-12') price = "$250.00";
+                
+                if (cellDate < today) {
+                    cell.className = 'day-cell past-day';
+                    cell.innerHTML = `<span class="day-num">${d}</span>`;
+                } else {
+                    cell.className = 'day-cell';
+                    if (dateString === activeDateStr) {
+                        cell.classList.add('selected-day');
+                    }
+                    cell.innerHTML = `<span class="day-num">${d}</span>`;
+                    
+                    // Attach event listener
+                    cell.onclick = function() { selectDate(dateString, this); };
+                }
+                gridEl.appendChild(cell);
+            }
+        }
+
+        function selectDate(dateStr, cellElement) {
+            activeDateStr = dateStr;
+            
+            // Format nice string
+            const dObj = new Date(dateStr + "T00:00:00");
+            const niceStr = dObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+            
+            document.getElementById('dateDisplayBtn').innerHTML = '<span>' + niceStr + '</span><i class="fa fa-calendar"></i>';
+            document.getElementById('dateDisplayBtn').style.fontWeight = "bold";
+            document.getElementById('dateDisplayBtn').style.color = "#333";
+            
+            // Visual selection styling in grid
+            document.querySelectorAll('.day-cell').forEach(c => c.classList.remove('selected-day'));
+            cellElement.classList.add('selected-day');
+            
+            renderEventCards(dateStr);
+            
+            // Close modal after tiny delay
+            setTimeout(() => {
+                closeCalendar();
+            }, 100);
+        }
+
+        function renderEventCards(filterDate) {
+            const container = document.getElementById('dynamic-events-container');
+            const notice = document.getElementById('specialEventNotice');
+            container.innerHTML = '';
+            let hasEvents = false;
+            dbEvents.forEach(evt => {
+                // Parse UTC string from database, or fallback to EventDateStr if null
+                const eventDateObj = new Date(evt.EventDateUtc || (evt.EventDateStr + "T00:00:00Z"));
+                
+                // Formulate local YYYY-MM-DD string for comparison and data-event-date attribute
+                const localYear = eventDateObj.getFullYear();
+                const localMonth = String(eventDateObj.getMonth() + 1).padStart(2, '0');
+                const localDay = String(eventDateObj.getDate()).padStart(2, '0');
+                const localDateStr = `${localYear}-${localMonth}-${localDay}`;
+
+                if (filterDate && localDateStr !== filterDate) return;
+                hasEvents = true;
+                const html = `
+                <div class="ticket-card" data-event-date="${localDateStr}" style="display: flex; flex-wrap: wrap; background: white; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 25px; overflow: hidden;">
+                    <div style="width: 200px; background: url('${evt.ImageUrl}') center/cover; min-height: 150px;"></div>
+                    <div style="flex: 1; padding: 25px;">
+                        <h4 style="font-size: 20px; color: #d35400; margin-bottom: 10px;">${evt.Title}</h4>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 5px;"><strong>Date:</strong> ${eventDateObj.toLocaleDateString('en-US')}</p>
+                        <p style="font-size: 14px; color: #666; margin-bottom: 15px;">${evt.Description}</p>
+                        <div style="background: #f9ebd1; padding: 10px 15px; border-radius: 6px; display: inline-flex; align-items: center; gap: 20px;">
+                            <div>
+                                <span style="display:block; font-size: 12px; color: #555;">Admission</span>
+                                <strong style="color: var(--zoo-green); font-size: 18px;">$${evt.BasePrice}</strong>
+                            </div>
+                            <div style="display: flex; align-items: center; background: white; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; width: 100px;">
+                                <button type="button" onclick="updateCart('event_${evt.EventId}', '${evt.Title.replace(/'/g, "\\'")}', ${evt.BasePrice}, -1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">-</button>
+                                <span id="qty-event_${evt.EventId}" style="width: 30px; text-align: center; font-size: 14px; font-weight:bold;">0</span>
+                                <button type="button" onclick="updateCart('event_${evt.EventId}', '${evt.Title.replace(/'/g, "\\'")}', ${evt.BasePrice}, 1)" style="flex: 1; border:none; background:#eee; padding: 4px 0; cursor:pointer; font-weight:bold;">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                container.innerHTML += html;
+                if (cart['event_'+evt.EventId]) {
+                    setTimeout(() => {
+                        const spanId = document.getElementById('qty-event_'+evt.EventId);
+                        if(spanId) spanId.innerText = cart['event_'+evt.EventId].qty;
+                    }, 10);
+                }
+            });
+            if(notice) {
+                if (filterDate) {
+                    notice.innerHTML = hasEvents ? '<span style="color: #119864; font-weight: bold;">🎉 Special Event available on this date!</span>' : 'No special events on ' + new Date(filterDate+"T00:00:00").toLocaleDateString('en-US') + '.';
+                } else {
+                    notice.innerHTML = 'Showing all upcoming events. Select a date to filter.';
+                }
+            }
+        }
+
+        // Initialize calendar grid quietly on load so it's snappy
+        window.onload = function() {
+            renderCalendar();
+            renderEventCards();
+        };
+    </script>
+}

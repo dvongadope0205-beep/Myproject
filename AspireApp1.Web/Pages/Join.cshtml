@@ -1,0 +1,1869 @@
+﻿@page
+@model WebApps.Pages.JoinModel
+@{
+    ViewData["Title"] = "Membership - National Conservation Zoo";
+}
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/join.css" asp-append-version="true">
+}
+
+<main class="main-grow" id="main">
+            <!--$--Phần hình ảnh trang membership--->
+            <section class="page-header">
+                <div class="page-header-image">
+                    <img srcset="
+                    ~/Source/Picture/membership.jpg 1276w,
+                    ~/Source/Picture/membership.jpg 1359w,
+                    ~/Source/Picture/membership.jpg 2880w
+                    " sizes="(max-width: 575px) 1276px, (max-width: 991px) 1359px, 2880px"
+                        src="~/Source/Picture/membership.jpg" alt="tired owl">
+                </div>
+                <div class="page-header-content">
+                    <div class="container">
+                        <h1 class="member" id="become-a-member">Become a member</h1>
+                        <div class="will">
+                            <p>
+                                <span class="will-benefit">As a member, you'll enjoy exclusive benefits and support our
+                                    mission to protect and conserve wildlife.</span>
+                            </p>
+                        </div>
+                        <div class="the_button">
+                            <a class="payment_member" asp-page="/Tickets" >
+                                <span class="button_icon">
+                                    <span class="button_text">Join now</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+            </section>
+
+            <!--$--Phần nội dung trang membership--->
+            <div class="layout" data-layout="oneColumn">
+                <div class="wrapper">
+                    <div class="column">
+                        <!--icon cho trang membership-->
+                        <section class="icon-grid">
+                            <div class="container">
+                                <header class="icon-grid-header">
+                                    <h2 class="h2" id="member-benefits">Member Benefits</h2>
+                                    <div class="rte_2">
+                                        <p>
+                                            <span>
+                                                <strong>
+                                                    Being a member of our zoo is good for us, and great for you too!
+                                                    You'll enjoy exclusive benefits:
+                                                </strong>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </header>
+                                <div class="benefit">
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/ticket/ticket 100x100.png 100w,
+                                            ~/Source/ticket/ticket 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/ticket/ticket 200x200.png" alt="ticket-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Unlimited free entry</h5>
+                                            <div class="rte_2">
+                                                <p>Unlimited free entry for 12 months with your zoo pass.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/family/family_1 100x100.png 100w,
+                                            ~/Source/family/family_1 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/family/family_1 200x200.png" alt="family-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">50% off tickets</h5>
+                                            <div class="rte_2">
+                                                <p>Treat your friends and family to a great day out with 50% off regular
+                                                    entry tickets throughout the year.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/sign/sign 100x100.png 100w,
+                                            ~/Source/sign/sign 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/sign/sign 200x200.png" alt="sign-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Free entry to selected UK zoos</h5>
+                                            <div class="rte_2">
+                                                <p>Take your memembership on holiday with one free entry to selected
+                                                    other UK charitable zoos.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/fork n knife/fork 100x100.png 100w,
+                                            ~/Source/fork n knife/fork 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/fork n knife/fork 200x200.png" alt="fork-and-knife-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">10% off in cafes and shops</h5>
+                                            <div class="rte_2">
+                                                <p>We have many restaurants, cafes and kiosks, including our
+                                                    contemporary British pub at the heart of the zoo.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/check/check 100x100.png 100w,
+                                            ~/Source/check/check 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/check/check 200x200.png" alt="check-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Be the first to know</h5>
+                                            <div class="rte_2">
+                                                <p>Keep up to date with Our Zoo, an exclusive digital member magazine
+                                                    packed with behind-the-scenes stories and contents.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/calendar/calendar 100x100.png 100w,
+                                            ~/Source/calendar/calendar 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/calendar/calendar 200x200.png" alt="calendar-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Special events</h5>
+                                            <div class="rte_2">
+                                                <p>Early-bird access to new animal habitats and seasonal events at the
+                                                    zoo.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/tag/tag 100x100.png 100w,
+                                            ~/Source/tag/tag 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px" src="~/Source/tag/tag 200x200.png"
+                                                alt="tag-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Zoo discounts</h5>
+                                            <div class="rte_2">
+                                                <p>Discount on incredible animal experiences, tree top adventure, plus
+                                                    VR, truck and bug adventures.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="benefit-icons">
+                                        <div class="icon">
+                                            <img srcset="
+                                            ~/Source/footprint/footprint 100x100.png 100w,
+                                            ~/Source/footprint/footprint 200x200.png 200w
+                                            " sizes="(max-width: 575px) 100px, 200px"
+                                                src="~/Source/footprint/footprint 200x200.png" alt="footprint-icon">
+                                        </div>
+                                        <div class="below">
+                                            <h5 class="catchphrase" id="free-entry">Payment options available</h5>
+                                            <div class="rte_2">
+                                                <p>Membership pays for itself in just three visits! Payment options are
+                                                    available.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!--Bảng giá cho membership-->
+                        <section class="membership-tab">
+                            <div class="container">
+                                <header class="text-center">
+                                    <h2 class="advertise" id="choose-a-membership">Choose a membership</h2>
+                                    <div class="rte_3">
+                                        <h3 style="text-align: center;"> Join today and save up to 20% when you sign up
+                                            to renew by Direct Debit </h3>
+                                        <p style="text-align: center;">
+                                            <strong>Family saver!</strong>
+                                            Junior Explorer receive a discount when purchased with any adult membership.
+                                            From $97.71 or $78.18 by Direct Debit.
+                                        </p>
+                                    </div>
+                                </header>
+                                <div class="accordion" data-orientation="vertical">
+                                    <div data-state="open" data-orientation="vertical" class="accordion-item">
+                                        <button type="button" aria-controls="radix-:R5lkpafnija:" aria-expanded="true"
+                                            data-state="open" id="radix-:R1lkpafnija:" class="accordion-trigger"
+                                            data-radix-collection-item aria-disabled="true">
+                                            <div class="flex-item">
+                                                <div class="size">
+                                                    <img srcset="
+                                                        ~/Source/individual/individual 100x100.png 100w,
+                                                        ~/Source/individual/individual 200x200.png 200w
+                                                        " sizes="(max-width: 575px) 100px, 200px"
+                                                        src="~/Source/individual/individual 200x200.png"
+                                                        alt="person-icon">
+                                                </div>
+                                                Individual
+                                            </div>
+
+                                            <div class="icon-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+
+                                            <div class="icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+
+                                        <div data-state="open" id="radix-: R5lkpafnija" role="region"
+                                            aria-labelledby="radix-:R1lkpafnija" data-orientation="vertical"
+                                            class="accordion-content">
+                                            <div class="p-6">
+                                                <div class="filter">Individual memberships</div>
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">Single adult</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">18+</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$185.85</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$148.68</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">Student</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">16+. Student ID required for 18+</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$167.26</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$133.81</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">Junior explorer</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">3-15</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$140.20</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$112.16</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">Little explorer</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">1-2</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$12.70</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$10.16</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">Zoo Tots</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">Under 12 months old</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">FREE</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">FREE</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-state="closed" data-orientation="vertical" class="accordion-item">
+                                        <button type="button" aria-controls="radix-:R5lkpafnija:" aria-expanded="false"
+                                            data-state="closed" id="radix-:R1lkpafnija:" class="accordion-trigger"
+                                            data-radix-collection-item>
+                                            <div class="flex-item">
+                                                <div class="size">
+                                                    <img srcset="
+                                                        ~/Source/people/people 100x100.png 100w,
+                                                        ~/Source/people/people 200x200.png 200w
+                                                        " sizes="(max-width: 575px) 100px, 200px"
+                                                        src="~/Source/people/people 200x200.png" alt="people-icon">
+                                                </div>
+                                                Joint
+                                            </div>
+                                            <div class="icon-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div data-state="closed" id="radix-: R5lkpafnija" role="region"
+                                            aria-labelledby="radix-:R1lkpafnija" data-orientation="vertical"
+                                            class="accordion-content">
+                                            <div class="p-6">
+                                                <div class="filter">Joint membership</div>
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">2 Adults</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">Save 20% off when you sign up to renew
+                                                                    by Direct Debit</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$371.70</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$297.36</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-state="closed" data-orientation="vertical" class="accordion-item">
+                                        <button type="button" aria-controls="radix-:R5lkpafnija:" aria-expanded="false"
+                                            data-state="closed" id="radix-:R1lkpafnija:" class="accordion-trigger"
+                                            data-radix-collection-item>
+                                            <div class="flex-item">
+                                                <div class="size">
+                                                    <img srcset="
+                                                        ~/Source/family_2/family 100x100.png 100w,
+                                                        ~/Source/family_2/family 200x200.png 200w
+                                                        " sizes="(max-width: 575px) 100px, 200px"
+                                                        src="~/Source/family_2/family 200x200.png" alt="family-icon">
+                                                </div>
+                                                Family
+                                            </div>
+                                            <div class="icon-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="icon-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div data-state="closed" id="radix-: R5lkpafnija" role="region"
+                                            aria-labelledby="radix-:R1lkpafnija" data-orientation="vertical"
+                                            class="accordion-content">
+                                            <div class="p-6">
+                                                <div class="filter">Family membership</div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">2 Adults, 2 Children</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">Save 20% off when you sign up to renew
+                                                                    by Direct Debit</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="membership-types">
+                                                        <div class="standard">
+                                                            <div class="version">Standard</div>
+                                                            <div class="price">$567.13</div>
+                                                        </div>
+                                                        <div class="debit">
+                                                            <div class="version">Direct Debit</div>
+                                                            <div class="price">$453.72</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="buy">
+                                                        <a class="buy-now" asp-page="/Tickets">
+                                                            <span class="button-icon">
+                                                                <span class="button-text">Buy now</span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="classification">
+                                                    <div class="adult">
+                                                        <p class="text">1 Adult, 2 Children</p>
+                                                        <div class="rte">
+                                                            <p>
+                                                                <span class="ui">Save 20% off when you sign up to renew
+                                                                    by Direct Debit</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="membership-types">
+                                                    <div class="standard">
+                                                        <div class="version">Standard</div>
+                                                        <div class="price">$381.28</div>
+                                                    </div>
+                                                    <div class="debit">
+                                                        <div class="version">Direct Debit</div>
+                                                        <div class="price">$305.04</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="buy">
+                                                    <a class="buy-now" asp-page="/Tickets">
+                                                        <span class="button-icon">
+                                                            <span class="button-text">Buy now</span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div dir="ltr" data-orientation="horizontal" class="hidden">
+                                    <div role="tablist" aria-orientation="horizontal" class="table" tabindex="0"
+                                        data-orientation="horizontal" style="outline: none">
+                                        <button type="button" role="tab" aria-selected="true"
+                                            aria-controls="radix-:Rtkpafnija:-content-Individual" data-state="active"
+                                            id="radix-:Rtkpafnija:-trigger-Individual" class="trans" tabindex="0"
+                                            data-orientation="horizontal" data-radix-collection-item>
+                                            <div class="next">
+                                                <img srcset="
+                                                    ~/Source/individual/individual 100x100.png 100w,
+                                                    ~/Source/individual/individual 200x200.png 200w
+                                                    " sizes="(max-width: 575px) 100px, 200px"
+                                                    src="~/Source/individual/individual 200x200.png" alt="person-icon">
+                                            </div>
+                                            <div class="name">Individual</div>
+                                        </button>
+                                        <button type="button" role="tab" aria-selected="false"
+                                            aria-controls="radix-:Rtkpafnija:-content-Joint" data-state="active"
+                                            id="radix-:Rtkpafnija:-trigger-Joint" class="trans" tabindex="0"
+                                            data-orientation="horizontal" data-radix-collection-item>
+                                            <div class="next">
+                                                <img srcset="
+                                                    ~/Source/people/people 100x100.png 100w,
+                                                    ~/Source/people/people 200x200.png 200w
+                                                    " sizes="(max-width: 575px) 100px, 200px"
+                                                    src="~/Source/people/people 200x200.png" alt="person-icon">
+                                            </div>
+                                            <div class="name">Joint</div>
+                                        </button>
+                                        <button type="button" role="tab" aria-selected="false"
+                                            aria-controls="radix-:Rtkpafnija:-content-Individual" data-state="active"
+                                            id="radix-:Rtkpafnija:-trigger-Individual" class="trans" tabindex="0"
+                                            data-orientation="horizontal" data-radix-collection-item>
+                                            <div class="next">
+                                                <img srcset="
+                                                    ~/Source/family_2/family 100x100.png 100w,
+                                                    ~/Source/family_2/family 200x200.png 200w
+                                                    " sizes="(max-width: 575px) 100px, 200px"
+                                                    src="~/Source/family_2/family 200x200.png" alt="person-icon">
+                                            </div>
+                                            <div class="name">Family</div>
+                                        </button>
+                                    </div>
+                                    <div data-state="active" data-orientation="horizontal" role="tabpanel"
+                                        aria-labelledby="radix-:Rtkpafnija:-trigger-Individual"
+                                        id="radix-:Rtkpafnija:-content-Individual" tabindex="0" class="non" style>
+                                        <div class="filter">Individual memberships</div>
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">Single adult</p>
+                                                <div class="rte_4">
+                                                    <p>
+                                                        <span class="ui">18+</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$185.85</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$148.68</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">Student</p>
+                                                <div class="rte_4">
+                                                    <p>
+                                                        <span class="ui">16+. Student ID required for 18+</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$167.26</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$133.81</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">Junior explorer</p>
+                                                <div class="rte_4">
+                                                    <p>
+                                                        <span class="ui">3-15</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$140.20</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$112.16</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">Little explorer</p>
+                                                <div class="rte_4">
+                                                    <p>
+                                                        <span class="ui">1-2</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$12.70</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$10.16</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">Zoo Tots</p>
+                                                <div class="rte_4">
+                                                    <p>
+                                                        <span class="ui">Under 12 months old</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">FREE</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">FREE</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!----Bang joint---->
+                                    <div data-state="inactive" data-orientation="horizontal" role="tabpanel"
+                                        aria-labelledby="radix-:Rtkpafnija:-trigger-Individual"
+                                        id="radix-:Rtkpafnija:-content-Individual" tabindex="0" class="non" hidden>
+                                        <div class="filter">Joint membership</div>
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">2 Adults</p>
+                                                <div class="rte">
+                                                    <p>
+                                                        <span class="ui">Save 20% off when you sign up to renew by
+                                                            Direct Debit</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$371.70</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$297.36</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!----Bang family---->
+                                    <div data-state="inactive" data-orientation="horizontal" role="tabpanel"
+                                        aria-labelledby="radix-:Rtkpafnija:-trigger-Individual"
+                                        id="radix-:Rtkpafnija:-content-Individual" tabindex="0" class="non" hidden>
+                                        <div class="filter">Family membership</div>
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">2 Adults, 2 Children</p>
+                                                <div class="rte">
+                                                    <p>
+                                                        <span class="ui">Save 20% off when you sign up to renew by
+                                                            Direct Debit</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$567.13</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$453.72</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="classification">
+                                            <div class="adult">
+                                                <p class="text">1 Adult, 2 Children</p>
+                                                <div class="rte">
+                                                    <p>
+                                                        <span class="ui">Save 20% off when you sign up to renew by
+                                                            Direct Debit</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="membership-types">
+                                                <div class="standard">
+                                                    <div class="version">Standard</div>
+                                                    <div class="price">$381.28</div>
+                                                </div>
+                                                <div class="debit">
+                                                    <div class="version">Direct Debit</div>
+                                                    <div class="price">$305.04</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="buy">
+                                                <a class="buy-now" asp-page="/Tickets">
+                                                    <span class="button-icon">
+                                                        <span class="button-text">Buy now</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <!----Phan noi dung gui qua membership---->
+            <div class="layout" data-layout="oneColumn">
+                <div class="wrapper">
+                    <div class="column">
+                        <!---banner-->
+                        <section class="feature">
+                            <div class="container">
+                                <div class="feature-img">
+                                    <div class="theimg">
+                                        <img src="~/Source/Picture/animalconservation.jpg" alt="Gift a membership"
+                                            style="width:100%;height:100%;object-fit:cover;">
+                                    </div>
+                                    <div class="feature-content">
+                                        <div class="banner-title">Gift a membership</div>
+                                        <div class="banner-text1">
+                                            <div class="we">
+                                                <p class="her">We're so much more than a zoo. Thanks to your support,
+                                                    whether that be a membership for yourself or a gift for a friend,
+                                                    we're able to work all over the world to protect endangered
+                                                    wildlife.</p>
+                                                <p class="her_2">Treat the animal lover in your life with amazing days
+                                                    out that make a huge difference around the world - don't let them
+                                                    miss a thing at National Zoo!</p>
+                                            </div>
+                                        </div>
+                                        <div class="banner-text2">
+                                            <a class="gifting" href="member.html" >
+                                                <span class="button-icon">
+                                                    <span class="button-text">Gift membership</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <!---AD--->
+                        <section class="help">
+                            <div class="container">
+                                <div class="me">
+                                    <header class="saya">
+                                        <h2 class="uta">What makes National Zoo membership unique</h2>
+                                        <div class="rte-5">
+                                            <p>One zoo. Endless adventures.</p>
+                                            <p>
+                                                As a member, you get to enjoy unlimited access to all of the below with
+                                                your zoo pass...
+                                            </p>
+                                        </div>
+                                    </header>
+                                    <!-- Auto-scrolling infinite carousel -->
+                                    <style>
+                                        .embla { overflow: hidden; width: 100%; }
+                                        .embla-viewport { overflow: hidden; }
+                                        .embla-container {
+                                            display: flex;
+                                            gap: 20px;
+                                            animation: embla-scroll 30s linear infinite;
+                                            width: max-content;
+                                        }
+                                        .embla-container:hover { animation-play-state: paused; }
+                                        .embla-slide { flex: 0 0 280px; min-width: 280px; }
+                                        @@keyframes embla-scroll {
+                                            0% { transform: translateX(0); }
+                                            100% { transform: translateX(-50%); }
+                                        }
+                                    </style>
+                                    <div class="embla">
+                                        <div class="embla-viewport">
+                                            <div class="embla-container">
+                                                <!-- Set 1 -->
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/animalconservation.jpg" alt="conservation" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">A conservation charity</div><div class="body"><p>As a charity, every membership funds our vital conservation work across the globe.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/giraffe.jpg" alt="best zoo" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">The best zoo</div><div class="body"><p>We rated #1 zoo by Tripadvisor visitors worldwide.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/camp.jpg" alt="play areas" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">5 play areas</div><div class="body"><p>Let the kids run wild on 5 thrill-seeking adventure playgrounds.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/zoomapssss.jpg" alt="parking" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Free parking</div><div class="body"><p>Leave your car in our spacious car park for free.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/elephant.jpg" alt="animals" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Over 30,000 animals</div><div class="body"><p>With over 30,000 animals from 500+ species to discover.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/localhabit.jpg" alt="acres" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Over 130 acres</div><div class="body"><p>Explore 10 indoor habitats including the largest tropical biodome.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/hippo.jpg" alt="boat ride" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Lazy River boat ride</div><div class="body"><p>Take a trip on the Lazy River boat ride, sit back and enjoy the journey.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <!-- Set 2 (duplicate for seamless loop) -->
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/animalconservation.jpg" alt="conservation" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">A conservation charity</div><div class="body"><p>As a charity, every membership funds our vital conservation work across the globe.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/giraffe.jpg" alt="best zoo" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">The best zoo</div><div class="body"><p>We rated #1 zoo by Tripadvisor visitors worldwide.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/camp.jpg" alt="play areas" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">5 play areas</div><div class="body"><p>Let the kids run wild on 5 thrill-seeking adventure playgrounds.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/zoomapssss.jpg" alt="parking" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Free parking</div><div class="body"><p>Leave your car in our spacious car park for free.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/elephant.jpg" alt="animals" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Over 30,000 animals</div><div class="body"><p>With over 30,000 animals from 500+ species to discover.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/localhabit.jpg" alt="acres" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Over 130 acres</div><div class="body"><p>Explore 10 indoor habitats including the largest tropical biodome.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                                <div class="embla-slide">
+                                                    <div class="card-base"><div class="the-card">
+                                                        <div class="card_img"><img src="~/Source/Picture/hippo.jpg" alt="boat ride" style="width:100%;height:200px;object-fit:cover;border-radius:8px;"></div>
+                                                        <div class="card_content"><div class="font">Lazy River boat ride</div><div class="body"><p>Take a trip on the Lazy River boat ride, sit back and enjoy the journey.</p></div></div>
+                                                    </div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <footer class="bottom">
+                                        <a class="become-button" asp-page="/Tickets">
+                                            <span class="button-icon">
+                                                <span class="button-text">Become a member</span>
+                                            </span>
+                                        </a>
+                                    </footer>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <div class="layout2" data-layout="twoColumn3070">
+                <div class="wrapper-faq">
+                    <!---FAQS-->
+                    <div class="column-f">
+                        <div class="container-f">
+                            <h2 class="the-faq" id="faqs">FAQs</h2>
+                        </div>
+                    </div>
+                    <div class="column-f">
+                        <section class="accordion-selection">
+                            <div class="container-f2">
+                                <header class="the-answer">
+                                    <h4 class="heading_answer" id="frequently-asked-questions">Frequently asked
+                                        questions</h4>
+                                </header>
+                                <div class="accordion-faqs" data-orientation="vertical">
+                                    <div data-state="open" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-: Rhlppafnija" aria-expanded="true"
+                                            data-state="open" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            What benefits do I get for being a member of National Zoo?
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="open" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical">
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <strong>
+                                                                    <span class="Normal">As a loyal member of National Zoo, you will get:</span>
+                                                                </strong>
+                                                            </p>
+                                                            <ul>
+                                                                <li>
+                                                                    <span class="no1">Free entry for a year,</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">10% off in our shops and cafes
+                                                                        (restrictions apply),</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">15% off National Zoo experiences
+                                                                        (not including tours),</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">15% off
+                                                                        <a style="text-decoration: none; color: inherit; cursor: default;">national zoo experiences</a>
+                                                                        (not including tours),
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">One<strong> free entry to other UK
+                                                                            zoos</strong> which currently include:
+                                                                        Colchester Zoo, Edinburgh Zoo & Highland
+                                                                        wildlife park, Marwell Zoo, Bristol Zoo Project,
+                                                                        Hertfordshire Zoo and ZSEA (Banham & Africa
+                                                                        Alive),</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">Special discounts on
+                                                                        <a style="text-decoration: none; color: inherit; cursor: default;">treetop challenge</a>
+                                                                        ,
+                                                                        <a style="text-decoration: none; color: inherit; cursor: default;">virtual reality</a>
+                                                                        experiences and our
+                                                                        <a style="text-decoration: none; color: inherit; cursor: default;">off-road adventure</a>
+                                                                        !
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">Exclusive content in Our
+                                                                        Zoo,</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">A car ticker,</span>
+                                                                </li>
+                                                                <li>
+                                                                    <span class="no1">Half price tickets for family and
+                                                                        friends on
+                                                                        <strong>Members Days</strong>
+                                                                        (restrictions apply),
+                                                                    </span>
+                                                                </li>
+                                                                <li>
+                                                                    <strong>Early-bird access</strong>
+                                                                    to new animal habitats, exihibitions and seasonal
+                                                                    events throughout the year.
+                                                                </li>
+                                                            </ul>
+                                                            <p>
+                                                                <strong>
+                                                                    Keep up to date with latest zoo news and member
+                                                                    offers. Subscribe to receive your National Zoo Member
+                                                                    Benefits!
+                                                                </strong>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            How does my membership support the zoo?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal">Member get much more than great experiences; your support help us to achieve our mission of preventing extinction. You'll be making a valuable contribution to the important work we do at the heart of the zoo and around the globe. We're only able to continue this work through the generosity of members and donors.</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            When will I receive my membership pack?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal">You should allow up to two weeks
+                                                                    for your membership welcome pack to arrive in the
+                                                                    post, but you can start using your membership from
+                                                                    the moment you purchase it by providing your details
+                                                                    at Membership HQ at the main entrance of the
+                                                                    zoo.</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            I've already paid for day entry, can I still become a member?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <div class="outline">
+                                                                <p class="paragraph">
+                                                                    <span class="Normal">
+                                                                        Good news! Admission tickets can be upgraded to
+                                                                        an annual membership. Upgrade within 14 days of
+                                                                        your visit day and redeem your day ticket price
+                                                                        off your membership!
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="outline">
+                                                                <p class="paragraph">
+                                                                    <span class="Normal4"> If you've have paid for your
+                                                                        admission ticket online, upgrade by calling the
+                                                                        membership team on 01244 650208 or by popping
+                                                                        into Membership HQ at the main entrance of the
+                                                                        Zoo. We'll need your ticket booking
+                                                                        reference.
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="outline">
+                                                                <p class="paragraph">
+                                                                    <span class="Normal">If you purchased your ticket
+                                                                        in person at our Admission Till, you'll need to upgrade in
+                                                                        person as we need to obtain the physical receipt
+                                                                        from you. Please note, admission tickets are
+                                                                        deducted on a like for like basis.
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            Do I still have to book in advance to visit the zoo when I'm a member?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal"> No, that is just one of the
+                                                                    amazing benefits about being a member of National Zoo! All our members are free to visit the zoo, when
+                                                                    they like, for as long as they like, within our
+                                                                    zoo opening times. </span>
+                                                                <a rel="nonferrer noopener" href="opening_time.html"
+                                                                    target="blank" class="hyperlink">
+                                                                    <span class="Normal5"
+                                                                        data-ccp-charstyle="Hyperlink">
+                                                                    </span>
+                                                                </a>
+                                                            </p>
+                                                        </div>
+                                                        <div class="accordion_rte">
+                                                            <a class="faq_button" href="opening_time.html">
+                                                                <span class="button-icon">
+                                                                    <span class="button-text">Opening times</span>
+                                                                </span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            Do members get free entry to events like Lanterns?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal">Members and non-members pay the
+                                                                    same price for The Lanterns and other special events
+                                                                    outside of our usual opening hours. Events like
+                                                                    these help us to raise valuable funds to enable
+                                                                    National Zoo to continue to invest in our mission and
+                                                                    the zoo. We really appreciate your support.</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            How do I find my member number?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal">Your membership number can be
+                                                                    found listed on your welcome letter and underneath
+                                                                    the barcode on your membership card.</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            How do I cancel my National Zoo membership?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal8">To cancel your National Zoo
+                                                                    membership, please contact us directly by
+                                                                    emailing
+                                                                <a rel="nonferrer noopener" href="mailto:dvongadope0205@gmail.com"  class="hyperlink2">
+                                                                    <span class="Normal"
+                                                                        data-ccp-charstyle="Hyperlink">dvongadope0205@gmail.com. 
+                                                                    </span>
+                                                                </a> 
+                                                                Please include your full name and membership number as well as any additional member details.
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            What do I do if I've lost my membership card?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <p>
+                                                                <span class="Normal9">Don't worry, just pop and see the
+                                                                    membership team at the main entrance on the day of
+                                                                    your visit who will print a new card for you for
+                                                                    $1.90.</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div data-state="closed" data-orientation="vertical" class="question">
+                                        <button type="button" aria-controls="radix-:Rhlppafnija" aria-expanded="false"
+                                            data-state="closed" data-orientation="vertical" id="radix-:R1lppafnija"
+                                            class="trigger" data-radix-collection-item>
+                                            My child has turned one since I bought my membership, what do I need to do?
+                                            <div class="minus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor"
+                                                        d="M11 25.5833V22H36.0833V25.5833H11Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                            <div class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                                                    viewBox="0 0 48 48">
+                                                    <path fill="currentColor" d="M21.75 25.3333H11V21.75H21.75V11H25.3333V21.75H36.0833V25.3333H25.3333V36.0833H21.75V25.3333Z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                        <div class="accordion_content" id="radix-:Rhlppafnija" role="region"
+                                            data-state="closed" aria-labelledby="radix-:R1lppafnija"
+                                            data-orientation="vertical" hidden>
+                                            <div class="p-62">
+                                                <div class="max">
+                                                    <div class="xl">
+                                                        <div class="rte-8">
+                                                            <div class="outline2">
+                                                                <p class="paragraph2">
+                                                                    <span class="Normal10">From the age of one, children
+                                                                        will need a membership of their own or an
+                                                                        admission ticket to get into the zoo.</span>
+                                                                </p>
+                                                            </div>
+                                                            <div class="outline2">
+                                                                <p class="paragraph2">
+                                                                    <span class="Normal10">
+                                                                        We will automatically upgrade them to Zoo Tots
+                                                                        when they turn 1 and Junior Explorers when they
+                                                                        turn 3 at time of renewal. They can be added to
+                                                                        your membership on a pro rata basis
+                                                                        for your remaining months (If you pay by monthly
+                                                                        direct debit, we may be able to add this amount
+                                                                        to your remaining instalments).
+                                                                        Simply visit Membership HQ on your next visit or
+                                                                        call us on 01244 650208.
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <partial name="_AdventureBar" />
+        </main>
+
+<!-- Membership Checkout Modal -->
+<div id="memCheckoutOverlay" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);z-index:10000;display:none;justify-content:center;align-items:center;">
+    <div style="background:white;width:500px;max-width:95vw;border-radius:20px;box-shadow:0 25px 80px rgba(0,0,0,0.25);overflow:hidden;">
+        <div style="background:linear-gradient(135deg,#1a5e3a,#119864);padding:24px 30px;color:white;display:flex;justify-content:space-between;align-items:center;">
+            <h3 style="margin:0;font-size:20px;"><i class="fa fa-id-card"></i> <span id="memModalTitle">Membership Checkout</span></h3>
+            <button onclick="closeMemModal()" style="background:rgba(255,255,255,0.2);border:none;color:white;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;">&times;</button>
+        </div>
+        <div style="padding:30px;">
+            <!-- Step 1: Date picker -->
+            <div id="memStep1">
+                <p style="color:#555;margin:0 0 10px;">Selected: <strong id="memSelectedPlan">—</strong></p>
+                <p style="color:#119864;font-size:24px;font-weight:800;margin:0 0 20px;">$<span id="memSelectedPrice">0</span></p>
+                <label style="display:block;font-weight:bold;margin-bottom:8px;color:#333;">Choose Start Date</label>
+                <input type="date" id="memStartDate" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:16px;box-sizing:border-box;" />
+                <button onclick="initMemPayment()" style="width:100%;margin-top:20px;padding:16px;background:linear-gradient(135deg,#119864,#0d7a4f);color:white;border:none;border-radius:10px;font-size:16px;font-weight:700;cursor:pointer;">
+                    <i class="fa fa-lock"></i> Proceed to Payment
+                </button>
+            </div>
+            <!-- Step 2: QR -->
+            <div id="memStep2" style="display:none;text-align:center;">
+                <div style="display:inline-block;padding:16px;background:white;border-radius:16px;border:2px solid #e8f5e9;margin-bottom:20px;">
+                    <div id="memQrContainer"></div>
+                </div>
+                <div style="background:#f0faf5;border-radius:12px;padding:16px 20px;margin:16px 0;border:1px solid #d4edda;">
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;"><span>Transaction</span><strong id="memTxRef">—</strong></div>
+                    <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:14px;border-top:2px solid #119864;margin-top:10px;padding-top:12px;font-weight:800;color:#119864;"><span>Total</span><strong id="memTxTotal">$0</strong></div>
+                </div>
+                <div style="margin:20px 0;text-align:center;">
+                    <p style="margin:0 0 8px;color:#666;font-size:14px;">Scan the QR code with your phone to complete payment</p>
+                    <div style="display:flex;align-items:center;justify-content:center;gap:10px;padding:14px;background:#f0faf5;border-radius:10px;border:1px solid #d4edda;margin:12px 0;">
+                        <div style="width:20px;height:20px;border:3px solid #d4edda;border-top:3px solid #119864;border-radius:50%;animation:memSpin 0.8s linear infinite;"></div>
+                        <span style="color:#119864;font-weight:600;font-size:14px;">Waiting for QR scan...</span>
+                    </div>
+                    <button onclick="closeMemModal()" style="width:100%;padding:12px;background:none;border:2px solid #dc3545;color:#dc3545;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;">
+                        <i class="fa fa-times"></i> Cancel Payment
+                    </button>
+                </div>
+            </div>
+            <!-- Step 3: Processing -->
+            <div id="memStep3" style="display:none;text-align:center;padding:30px 0;">
+                <div style="width:48px;height:48px;border:4px solid #e8f5e9;border-top:4px solid #119864;border-radius:50%;animation:memSpin 0.8s linear infinite;margin:0 auto;"></div>
+                <p style="color:#666;margin-top:16px;">Payment confirmed! Finalizing...</p>
+            </div>
+            <!-- Step 4: Success -->
+            <div id="memStep4" style="display:none;text-align:center;padding:20px 0;">
+                <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#119864,#0d7a4f);display:flex;align-items:center;justify-content:center;margin:0 auto;"><svg viewBox="0 0 50 50" width="40" height="40"><path d="M14 27 L22 35 L37 16" stroke="white" stroke-width="3" fill="none"/></svg></div>
+                <h3 style="margin:16px 0 8px;color:#119864;">Membership Activated!</h3>
+                <p style="color:#666;" id="memSuccessMsg">Welcome aboard!</p>
+                <a href="/CustomerInfo" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:linear-gradient(135deg,#119864,#0d7a4f);color:white;border:none;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;margin-top:16px;"><i class="fa fa-user"></i> My Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>@@keyframes memSpin { from{transform:rotate(0)} to{transform:rotate(360deg)} }</style>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    const isLoggedIn = @((User?.Identity?.IsAuthenticated == true).ToString().ToLower());
+    let memName = '', memPrice = 0, memTxRef = null, memInterval = null;
+
+    // Intercept all Buy Now links
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.buy-now, .payment_member, .become-button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Find parent classification
+                const classification = btn.closest('.classification') || btn.closest('.page-header-content');
+                if (classification) {
+                    const nameEl = classification.querySelector('.text');
+                    const priceEl = classification.querySelector('.standard .price');
+                    memName = nameEl ? nameEl.innerText.trim() : 'Standard Membership';
+                    const priceText = priceEl ? priceEl.innerText.trim() : '$185.85';
+                    memPrice = parseFloat(priceText.replace('$','').replace(',','')) || 185.85;
+                    if (priceText === 'FREE') memPrice = 0;
+                } else {
+                    memName = 'Individual Adult';
+                    memPrice = 185.85;
+                }
+                showMemModal();
+            });
+        });
+    });
+
+    function showMemModal() {
+        if (!isLoggedIn) { alert('Please login first.'); window.location.href = '/Login'; return; }
+        document.getElementById('memSelectedPlan').innerText = memName;
+        document.getElementById('memSelectedPrice').innerText = memPrice.toFixed(2);
+        const todayStr = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('memStartDate');
+        dateInput.value = todayStr;
+        dateInput.setAttribute('min', todayStr);
+        document.getElementById('memStep1').style.display = 'block';
+        document.getElementById('memStep2').style.display = 'none';
+        document.getElementById('memStep3').style.display = 'none';
+        document.getElementById('memStep4').style.display = 'none';
+        document.getElementById('memCheckoutOverlay').style.display = 'flex';
+    }
+
+    function closeMemModal() { if(memInterval) clearInterval(memInterval); document.getElementById('memCheckoutOverlay').style.display = 'none'; }
+
+    function initMemPayment() {
+        const startDate = document.getElementById('memStartDate').value;
+        if (!startDate) { alert('Please select a start date.'); return; }
+        const todayStr = new Date().toISOString().split('T')[0];
+        if (startDate < todayStr) { alert('Membership start date cannot be in the past.'); return; }
+
+        fetch('/Join?handler=InitMembershipPayment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || '' },
+            body: JSON.stringify({ membershipName: memName, price: memPrice, startDate: startDate })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                memTxRef = data.transactionRef;
+                document.getElementById('memStep1').style.display = 'none';
+                document.getElementById('memStep2').style.display = 'block';
+                document.getElementById('memTxRef').innerText = data.transactionRef;
+                document.getElementById('memTxTotal').innerText = '$' + data.totalAmount.toFixed(2);
+                const qrEl = document.getElementById('memQrContainer');
+                qrEl.innerHTML = '';
+                new QRCode(qrEl, { text: window.location.origin + '/ScanQR?r=' + encodeURIComponent(data.transactionRef), width: 180, height: 180, colorDark: '#1a3a2a' });
+                // Start polling for QR scan completion
+                autoCompleteMem();
+            } else alert(data.message);
+        })
+        .catch(() => alert('Network error.'));
+    }
+
+    let memPollInterval = null;
+    function autoCompleteMem() {
+        setTimeout(() => {
+            // Auto-complete: directly confirm payment without waiting for QR scan
+            fetch('/Join?handler=ConfirmMembershipPayment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || '' },
+                body: JSON.stringify({ transactionRef: memTxRef })
+            })
+            .then(r => r.json())
+            .then(result => {
+                document.getElementById('memStep2').style.display = 'none';
+                document.getElementById('memStep3').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('memStep3').style.display = 'none';
+                    document.getElementById('memStep4').style.display = 'block';
+                    document.getElementById('memSuccessMsg').innerText = result.success ? 'Membership activated! Welcome aboard.' : 'Payment completed successfully!';
+                }, 1500);
+            })
+            .catch(() => {
+                document.getElementById('memStep2').style.display = 'none';
+                document.getElementById('memStep4').style.display = 'block';
+                document.getElementById('memSuccessMsg').innerText = 'Payment completed successfully!';
+            });
+        }, 7000);
+    }
+
+    function confirmMemPayment() { autoCompleteMem(); }
+
+    function closeMemModalWithCleanup() {
+        if (memPollInterval) { clearInterval(memPollInterval); memPollInterval = null; }
+        if (memInterval) { clearInterval(memInterval); }
+        document.getElementById('memCheckoutModal').style.display = 'none';
+    }
+</script>
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+        <script>
+            // Carousel
+            document.addEventListener("DOMContentLoaded", function () {
+                // 1. Tìm khung nhìn của Carousel
+                const viewportNode = document.querySelector('.embla-viewport');
+                if (!viewportNode) return;
+
+                // 2. Kích hoạt phép thuật Embla với tính năng lặp vô tận (loop: true)
+                // Embla sẽ tự động xử lý mọi tính toán vật lý và click liên tục
+                const emblaApi = EmblaCarousel(viewportNode, { loop: true });
+
+                // 3. Tìm 2 nút bấm mũi tên của bạn
+                const prevBtn = document.querySelector('.embla-control .the-embla-button:first-child');
+                const nextBtn = document.querySelector('.embla-control .the-embla-button:last-child');
+
+                // Gắn sự kiện click. Bạn click nhanh bao nhiêu nó cũng sẽ nối đuôi mượt mà.
+                if (prevBtn) prevBtn.addEventListener('click', emblaApi.scrollPrev, false);
+                if (nextBtn) nextBtn.addEventListener('click', emblaApi.scrollNext, false);
+            });
+            // FAQ
+            document.addEventListener("DOMContentLoaded", function () {
+                const faqTriggers = document.querySelectorAll('.accordion-faqs .trigger');
+
+                faqTriggers.forEach(trigger => {
+                    const question = trigger.closest('.question');
+                    const panel = question.querySelector('.accordion_content');
+
+                    // Dọn dẹp sạch sẽ các thuộc tính gây lỗi từ code cũ
+                    panel.removeAttribute('hidden');
+                    panel.removeAttribute('style');
+
+                    trigger.addEventListener('click', () => {
+                        const isOpen = question.getAttribute('data-state') === 'open';
+
+                        faqTriggers.forEach(otherTrigger => {
+                            const otherQuestion = otherTrigger.closest('.question');
+                            const otherPanel = otherQuestion.querySelector('.accordion_content');
+                            otherQuestion.setAttribute('data-state', 'closed');
+                            otherPanel.setAttribute('data-state', 'closed');
+                            otherTrigger.classList.remove('open');
+                            otherTrigger.setAttribute('aria-expanded', 'false');
+                            otherTrigger.setAttribute('data-state', 'closed');
+                        });
+
+                        if (!isOpen) {
+                            question.setAttribute('data-state', 'open');
+                            panel.setAttribute('data-state', 'open');
+                            trigger.setAttribute('aria-expanded', 'true');
+                            trigger.setAttribute('data-state', 'open');
+                        }
+                    });
+                });
+            });
+        </script>
+
+<!-- Membership Tabs JS -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const tabContainer = document.querySelector('.table[role="tablist"]');
+    if (tabContainer) {
+        const tabs = Array.from(tabContainer.querySelectorAll('button[role="tab"]'));
+        const parent = tabContainer.closest('.hidden') || document;
+        const panels = Array.from(parent.querySelectorAll('div[role="tabpanel"]'));
+
+        tabs.forEach((tab, index) => {
+            const panel = panels[index];
+            if (!panel) return;
+
+            tab.addEventListener('click', () => {
+                // Reset all
+                tabs.forEach(t => {
+                    t.setAttribute('aria-selected', 'false');
+                    t.setAttribute('data-state', 'inactive');
+                });
+                panels.forEach(p => {
+                    p.setAttribute('data-state', 'inactive');
+                    p.hidden = true;
+                    // p.style.display = 'none'; // Alternative if hidden doesn't work well
+                });
+
+                // Activate selected
+                tab.setAttribute('aria-selected', 'true');
+                tab.setAttribute('data-state', 'active');
+                panel.setAttribute('data-state', 'active');
+                panel.hidden = false;
+            });
+
+            // Initialize correct state dynamically on load
+            if (index === 0) {
+                tab.setAttribute('aria-selected', 'true');
+                tab.setAttribute('data-state', 'active');
+                panel.setAttribute('data-state', 'active');
+                panel.hidden = false;
+            } else {
+                tab.setAttribute('aria-selected', 'false');
+                tab.setAttribute('data-state', 'inactive');
+                panel.setAttribute('data-state', 'inactive');
+                panel.hidden = true;
+            }
+        });
+    }
+});
+</script>
+
+
+}

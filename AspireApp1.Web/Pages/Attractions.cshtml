@@ -1,0 +1,330 @@
+@page
+@model WebApps.Pages.AttractionsModel
+@{
+    ViewData["Title"] = "Attractions - National Conservation Zoo";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        .attractions-page {
+            background-color: #f5f0e8;
+            padding: 60px 0 80px;
+        }
+
+        .attractions-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        /* Alternating card layout */
+        .attr-card {
+            display: flex;
+            align-items: stretch;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+            min-height: 380px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .attr-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 50px rgba(0,0,0,0.12);
+        }
+
+        /* Alternate layout: even cards are reversed */
+        .attr-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .attr-card-img {
+            width: 50%;
+            min-height: 380px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attr-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .attr-card:hover .attr-card-img img {
+            transform: scale(1.06);
+        }
+
+        .attr-card-content {
+            width: 50%;
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .attr-card-content h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a2e35;
+            margin: 0 0 18px;
+            font-family: Georgia, serif;
+            line-height: 1.2;
+        }
+
+        .attr-card-content p {
+            font-size: 16px;
+            line-height: 1.75;
+            color: #555;
+            margin: 0 0 28px;
+        }
+
+        .btn-attr {
+            display: inline-block;
+            padding: 14px 32px;
+            background-color: #119864;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            width: fit-content;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-attr:hover {
+            background-color: #0d7a4f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(17, 152, 100, 0.35);
+        }
+
+        /* Stagger animation on scroll */
+        .attr-card {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeSlideUp 0.7s ease forwards;
+        }
+
+        .attr-card:nth-child(1) { animation-delay: 0.1s; }
+        .attr-card:nth-child(2) { animation-delay: 0.2s; }
+        .attr-card:nth-child(3) { animation-delay: 0.3s; }
+        .attr-card:nth-child(4) { animation-delay: 0.4s; }
+        .attr-card:nth-child(5) { animation-delay: 0.5s; }
+        .attr-card:nth-child(6) { animation-delay: 0.6s; }
+        .attr-card:nth-child(7) { animation-delay: 0.7s; }
+        .attr-card:nth-child(8) { animation-delay: 0.8s; }
+        .attr-card:nth-child(9) { animation-delay: 0.9s; }
+
+        @@keyframes fadeSlideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Decorative accent line on content */
+        .attr-card-content::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, #119864, #00c878);
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+
+        /* Modal Styles */
+        #attrModal {
+            display:none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); 
+            z-index: 9999; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 20px;
+            box-sizing: border-box;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-box {
+            background: white; 
+            border-radius: 16px; 
+            width: 100%; 
+            max-width: 650px; 
+            max-height: 90vh; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @@keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .attr-card, .attr-card:nth-child(even) {
+                flex-direction: column;
+            }
+            .attr-card-img, .attr-card-content {
+                width: 100%;
+            }
+            .attr-card-img {
+                min-height: 250px;
+            }
+            .attr-card-content {
+                padding: 30px 25px;
+            }
+            .attr-card-content h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+}
+
+<main>
+    <section class="page-hero">
+        <h1>Attractions & Experiences</h1>
+        <p>Make your Zoo visit memorable. From VR to animal encounters, discover adventure at every turn.</p>
+    </section>
+
+    <section class="attractions-page">
+        <div class="attractions-container" id="attractionsGrid">
+            <!-- Attractions generated via JS -->
+        </div>
+    </section>
+
+    <!-- Global Upsell Banners -->
+        <partial name="_AdventureBar" />
+</main>
+
+<!-- Popup Modal -->
+<div id="attrModal" onclick="if(event.target==this) closeAttrModal()">
+    <div class="modal-box">
+        <button onclick="closeAttrModal()" style="position: absolute; right: 15px; top: 15px; font-size: 30px; border: none; background: #fff; width:40px; height:40px; border-radius:50%; cursor: pointer; color: #333; z-index: 10; box-shadow: 0 2px 10px rgba(0,0,0,0.2); display:flex; justify-content:center; align-items:center;">&times;</button>
+        
+        <div style="overflow-y: auto; flex: 1;">
+            <div style="height: 280px; position: relative; background: #333;">
+                <img id="m-img" src="" alt="Attraction Image" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
+            </div>
+            
+            <div style="padding: 40px 30px;">
+                <h3 id="m-title" style="color: #1a2e35; font-family: Georgia, serif; font-size: 28px; margin-top: 0; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">Attraction Title</h3>
+                
+                <p id="m-desc" style="font-size: 16px; line-height: 1.8; color: #444; margin-bottom: 30px;"></p>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <a asp-page="/Tickets" class="btn-attr" style="font-size: 16px; padding: 16px 40px;">Get Tickets</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const attrData = [
+            {
+                title: "Pherris Wheel",
+                short: "Elevate your Zoo experience to breathtaking new heights on the spectacular Pherris Wheel! This family-friendly gondola ride gently lifts you 100 feet above the canopy, offering sensational 360-degree panoramic views of our lush wildlife habitats and the stunning city skyline beyond.",
+                desc: "Soar 100 feet above the city skyline on the brand-new Zoo Pherris Wheel. This smooth, family-friendly gondola ride offers unparalleled, breathtaking 360-degree panoramic views of both the historic zoo grounds and the bustling downtown skyline in the distance. As you crest the top, you can spot the sprawling canopies of our primate reserves and the shimmering waters of the avian lakes. Each enclosed, climate-controlled cabin provides a comfortable seating area, making it an ideal rest stop for families seeking a relaxing vantage point to plan the rest of their adventure. Whether you ride during the golden hour of dusk as the lights twinkle on, or in the bright heat of the afternoon, the Pherris wheel presents an unforgettable, bird\u2019s-eye perspective of wildlife conservation in action. A perfect photo opportunity!",
+                img: "/Source/Picture/btstour.jpg"
+            },
+            {
+                title: "Flamingo Cove",
+                short: "Step into a vibrant paradise at Flamingo Cove, our breathtakingly immersive wetland aviary! Get closer than ever to a magnificent flock of spectacularly pink Caribbean and African greater flamingos. Marvel at their elegant courtship dances and unique feeding behaviors.",
+                desc: "Step into the vibrant, pink-hued paradise of Flamingo Cove, a meticulously recreated wetland habitat situated directly adjacent to our main Avian Center. This immersive, free-roaming aviary allows guests to get stunningly close to two distinct species: the brilliantly colored Caribbean flamingo and the slightly paler but equally fascinating African greater flamingo. Observe their complex social behaviors, from their synchronized courtship displays to the delicate way they use their uniquely adapted, upside-down beaks to filter-feed. Expert keepers are frequently on hand to explain how their pigment-rich diet of shrimp and algae gives them their iconic rosy coloration. The cove features uninterrupted sightlines, gentle waterfalls, and lush tropical foliage, providing an incredibly serene environment that transports you straight to a coastal lagoon.",
+                img: "/Source/Picture/flamingo.jpg"
+            },
+            {
+                title: "Wild Explorer Virtual Reality",
+                short: "Strap in for the ultimate sensory journey without ever leaving the zoo! The Wild Explorer VR Experience utilizes state-of-the-art motion-syncing pods to transport you into the deepest oceans and over the vast African savannas in a heart-pounding 360-degree digital adventure.",
+                desc: "Dive into the digital frontier with the Wild Explorer Virtual Reality Experience, a state-of-the-art interactive attraction that takes you places physically impossible to reach. Strap into our sophisticated motion-syncing pod, don the high-resolution VR headset, and prepare for sensory immersion. In one option, you plunge deep into the twilight zones of the ocean to swim alongside majestic blue whales and dodge darting schools of luminous jellyfish. Alternatively, you can soar high above the sprawling African savannas, tracking migration routes of massive wildebeest herds, or trek deep into an impenetrable rainforest canopy teeming with endangered primates. The pod moves gracefully in sync with the breathtaking 360-degree visual and spatial audio, creating an incredibly convincing illusion of flight and underwater exploration.",
+                img: "/Source/Attraction/WildExplorerVirtualReality.jpg"
+            },
+            {
+                title: "SEPTA PZ Express Train",
+                short: "All aboard for a relaxing journey on the beloved SEPTA PZ Express! This iconic scale-model locomotive winds its way along a scenic, private track, offering passengers cooling breezes and completely unique behind-the-scenes vantage points of our incredible animal habitats.",
+                desc: "All aboard the historic SEPTA PZ Express! This iconic, scale-model locomotive is an absolute must-do for families with young children and train enthusiasts alike. The leisurely journey winds its way along a private, meandering track completely encompassing the southern perimeter of the zoo. As the gentle engine chugs along, the open-air passenger cars offer refreshing breezes and unique, behind-the-scenes vantage points of various animal habitats that are otherwise invisible from the main pedestrian pathways. Conductors provide a cheerful, family-friendly narration, pointing out hiding animals, sharing fun zoo trivia, and ringing the classic brass bell at crossings. Measuring nearly a mile long, this delightful ride serves as a perfect, relaxing interlude during a busy day of walking, giving tired little legs a break while maintaining the excitement of the zoo adventure.",
+                img: "/Source/Picture/image5.jpg"
+            },
+            {
+                title: "Amazon Rainforest Carousel",
+                short: "Discover timeless magic beneath the grand canopy of the Amazon Rainforest Carousel. Choose your favorite steed from a magnificent collection of over forty meticulously hand-carved and brightly painted animals, ranging from fierce jaguars to vibrant poison dart frogs.",
+                desc: "Reconnect with nostalgic joy on the magnificent Amazon Rainforest Carousel, a breathtakingly beautiful centerpiece of the zoo circuit. Unlike traditional carousels featuring only horses, this extraordinary attraction features a menagerie of over forty meticulously hand-carved, custom-painted wooden animals representing the incredible biodiversity of the Amazon basin. Guests can choose to ride on the back of a fiercely detailed jaguar, a brightly colored poison dart frog, a massive anaconda, or even a slow-moving sloth. Spinning gracefully to the tune of lively, traditional carousel street-organ music, the ride is sheltered beneath a massive octagonal canopy, making it a perfect activity rain or shine. In an era of digital entertainment, the timeless, analog magic of this carousel continues to captivate the imaginations of toddlers, children, and nostalgic adults.",
+                img: "/Source/Attraction/AmazonRainforestCarousel.jpg"
+            },
+            {
+                title: "Wings of the World",
+                short: "Enter an enchanting tropical rainforest where dozens of vibrantly colored bird species fly completely free around you! Walk along winding footpaths through dense jungle foliage and gentle streams as exotic birds sing, soar overhead, and perhaps even land right beside you.",
+                desc: "Enter entirely into the realm of our feathered friends in the Wings of the World flight enclosure. This expansive, mesh-canopied habitat allows you to step directly into an active, free-flight zone where dozens of vibrantly colored bird species soar freely above your head and walk alongside your feet. From the iridescent flashes of exotic starlings to the majestic glide of hornbills, the environment is a constant flurry of activity and birdsong. You will wander down a winding pathway surrounded by dense, authentic tropical landscaping and gentle streams, creating a true jungle atmosphere. If you stand absolutely still, you might be lucky enough to have a curious lorikeet land nearby. Knowledgeable aviculturists are stationed throughout the exhibit to point out hidden nests and discuss the critical importance of preserving these avian ecosystems.",
+                img: "/Source/Picture/eagle.jpg"
+            },
+            {
+                title: "Giraffe Experience",
+                short: "Prepare for a spectacular face-to-face encounter with the undisputed giants of the savanna! Step onto our elevated viewing deck to meet our towering reticulated giraffes right at eye level. Experience the thrill of feeding them fresh acacia leaves from your hands.",
+                desc: "Prepare for a face-to-face encounter with the undisputed giants of the savanna at the Giraffe Experience! Standing on our elevated, ADA-accessible viewing platform brings you directly to eye level with our towering reticulated giraffes. Feel the thrill as a massive, prehensile, uniquely purple tongue gently swoops down to pluck fresh acacia leaves right from your outstretched hand. Keepers are constantly present to guide the interaction and share fascinating biological facts, such as how their intricate spot patterns are as unique as a human fingerprint, or how they manage blood pressure with a neck that long. This incredibly intimate, tactile connection creates an unforgettable emotional bond between guests and these gentle giants, vividly reinforcing our zoo\u2019s mission to inspire conservation through personal, up-close wildlife engagement.",
+                img: "/Source/Picture/giraffe.jpg"
+            },
+            {
+                title: "Lemur Island",
+                short: "Journey straight to the evolutionary wonders of Madagascar by walking directly through Lemur Island! Experience a barrier-free, dynamic habitat where charismatic ring-tailed and mongoose lemurs leap gracefully through the canopy overhead and scurry across your path.",
+                desc: "Journey to the isolated evolutionary wonders of Madagascar by stepping foot onto Lemur Island. This immersive, walk-through experience places you right in the middle of a dynamic, barrier-free habitat shared by our charismatic family of ring-tailed and mongoose lemurs. As you navigate the winding boardwalk pathway, the lemurs leap gracefully through the overhead canopy, sunbathe in their iconic meditative poses on the rocky outcrops, and occasionally scurry right across the wooden path a few feet away. There is no glass blocking your view\u2014only the open air and the incredible agility of these unique primates. Dedicated guides are stationed along the trail to ensure the safety of both the animals and guests, while eagerly sharing stories about lemur social hierarchies and critical conservation efforts.",
+                img: "/Source/Attraction/LemurIsland.jpg"
+            },
+            {
+                title: "Barnyard at KidZooU",
+                short: "Dive into hands-on agricultural fun right at the Barnyard! This bustling, interactive contact yard encourages our youngest visitors to freely mingle with friendly ambassador animals. Children can gently pet woolly sheep, brush playful nubian goats, and more.",
+                desc: "Dive into hands-on agricultural education at the Barnyard at KidZooU, a bustling contact yard designed specifically for our youngest visitors. Here, families are encouraged to freely interact with our friendly, well-socialized ambassador animals, including gentle nubian goats, woolly sheep, and heritage breed free-range chickens. Under the careful supervision of our educational staff, children can learn how to approach the animals safely, use special soft-bristled brushes to groom their coats, and understand the vital differences between wild wildlife and domestic livestock. It\u2019s an incredibly tactile and joyous environment filled with bleats and clucks, structured to teach empathy, respect, and the basics of animal husbandry. Beyond the petting area, interactive stations allow kids to explore the fascinating journey of how food gets from the farm to their tables.",
+                img: "/Source/Attraction/BarnyardatKidZooU.jpg"
+            }
+        ];
+
+        // Populate Layout
+        const grid = document.getElementById('attractionsGrid');
+        attrData.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = 'attr-card';
+            
+            card.innerHTML = `
+                <div class="attr-card-img">
+                    <img src="${item.img}" alt="${item.title}" loading="lazy">
+                </div>
+                <div class="attr-card-content">
+                    <h3>${item.title}</h3>
+                    <p>${item.short}</p>
+                    <button type="button" class="btn-attr" onclick="openAttrModal(${index})">Learn More</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        function openAttrModal(index) {
+            const data = attrData[index];
+            document.getElementById('m-title').innerText = data.title;
+            document.getElementById('m-desc').innerText = data.desc;
+            document.getElementById('m-img').src = data.img;
+            document.getElementById('attrModal').style.display = 'flex';
+        }
+
+        function closeAttrModal() {
+            document.getElementById('attrModal').style.display = 'none';
+        }
+    </script>
+}

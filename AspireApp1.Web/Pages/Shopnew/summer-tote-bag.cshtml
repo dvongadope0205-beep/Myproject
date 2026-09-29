@@ -1,0 +1,647 @@
+﻿@page
+@using Microsoft.Data.SqlClient
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = "~/Pages/Shopnew/Shared/_Layout.cshtml";
+    
+    // Default values (from static template)
+    string title = "Batrick Plush with Sunglasses and Hawaiian Shirt";
+    string category = "Apparel";
+    string price = "$21";
+    string originalPriceStr = "$27";
+    string imagePath = "/Source/shop-img/plush/batrick hawaiin/1/1-batrick-hawaiin-2048x2048.png";
+    string description = "";
+    string productInformation = "<p><strong>The Official Natural Habitat Batrick Plush with Sunglasses &amp; Hawaiian Shirt</strong></p><p>Fun Fact: <meta charset=\"utf-8\"/><span>Bats use echolocation to find things they canâ€™t see.</span><span style=\"font-weight: 400;\"></span></p>";
+    string productDetail = "Removable Felt sunglasses<br/>Made with high-quality, plush material<br/>Stuffed with 100% cotton polyester<br/>Features Batrick's prominent ears and a dapper outfit<br/>Features: sunglasses, Hawaiian shirt<br/>100% Polyester<br/>10\" Tall<br/>Includes Collector Card";
+    string materialAndCare = "Spot Clean Only";
+    List<string> imagesList = new List<string> {
+        "/Source/shop-img/plush/batrick hawaiin/1/1-batrick-hawaiin-2048x2048.png",
+        "/Source/shop-img/plush/batrick hawaiin/2/2-batrick-hawaiin-2048x2048.png",
+        "/Source/shop-img/plush/batrick hawaiin/3/3-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/4/4-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/5/5-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/6/6-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/7/7-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/8/8-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/9/9-batrick-hawaiin-2048x2048.jpg",
+        "/Source/shop-img/plush/batrick hawaiin/10/10-batrick-hawaiin-2048x2048.png",
+        "/Source/shop-img/plush/batrick hawaiin/11/11-batrick-hawaiin-2048x2048.jpg"
+    };
+    int productId = 0;
+    string variantId = "50032197173538"; // default variant ID from static template
+    bool isDbProduct = false;
+
+    var slug = "summer-tote-bag";
+    if (!string.IsNullOrEmpty(slug))
+    {
+        string connStr = Configuration.GetConnectionString("DefaultConnection");
+        using (SqlConnection conn = new SqlConnection(connStr))
+        {
+            conn.Open();
+            string sql = @"SELECT p.ProductId, p.Name, p.Description, p.Price, p.OriginalPrice, p.ImagePath, p.AdditionalImages, 
+                                  p.ProductInformation, p.ProductDetail, p.MaterialAndCare, ISNULL(c.Name, 'Apparel')
+                           FROM ShopProducts p
+                           LEFT JOIN ShopCategories c ON p.CategoryId = c.CategoryId
+                           WHERE p.Slug = @Slug OR p.PageSlug = @Slug";
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@Slug", slug);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        isDbProduct = true;
+                        productId = reader.GetInt32(0);
+                        variantId = "product-" + productId;
+                        title = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                        description = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        decimal priceVal = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                        price = priceVal % 1 == 0 ? $"${(int)priceVal}" : $"${priceVal:F2}";
+                        
+                        if (!reader.IsDBNull(4))
+                        {
+                            decimal origVal = reader.GetDecimal(4);
+                            originalPriceStr = origVal % 1 == 0 ? $"${(int)origVal}" : $"${origVal:F2}";
+                        }
+                        else
+                        {
+                            originalPriceStr = "";
+                        }
+                        
+                        imagePath = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                        
+                        string additional = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                        imagesList = new List<string>();
+                        if (!string.IsNullOrEmpty(imagePath))
+                        {
+                            imagesList.Add(imagePath);
+                        }
+                        if (!string.IsNullOrEmpty(additional))
+                        {
+                            var parts = additional.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (var p in parts)
+                            {
+                                string trimmed = p.Trim();
+                                if (!imagesList.Contains(trimmed))
+                                {
+                                    imagesList.Add(trimmed);
+                                }
+                            }
+                        }
+                        
+                        productInformation = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                        productDetail = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                        materialAndCare = reader.IsDBNull(9) ? "" : reader.GetString(9);
+                        category = reader.GetString(10);
+                    }
+                }
+            }
+        }
+    }
+
+    ViewData["Title"] = title + " - Natural Habitat";
+}
+<main class="content-for-layout" id="MainContent" role="main" tabindex="-1">
+<!-- PRODUCT SECTION -->
+<section class="product-section">
+<product-info class="section-template" data-update-url="true" data-url="@slug" id="MainProduct-template--26975595233570__main">
+<div class="page-width">
+<div class="product-medium">
+<!-- LEFT: Image Gallery -->
+<div class="product-gallery">
+<media-gallery aria-label="Gallery Viewer" class="tibia" data-desktop-layout="thumbnail_slider" data-mobile-layout="default" id="MediaGallery-template" role="region">
+<slider-component class="slider-mobile-gutter" id="GalleryViewer-template">
+<ul class="product__media-list contains-media list-unstyled slider slider--mobile grid grid--peek" id="Slider-Gallery-template--26975595233570__main" role="presentation">
+    @for (int i = 0; i < imagesList.Count; i++)
+    {
+        var img = imagesList[i];
+        string activeClass = (i == 0) ? "is-active" : "";
+        <li class="product__media-item grid__item slider__slide scroll-trigger animate--fade-in scroll-trigger--cancel @activeClass" data-media-id="template--26975595233570__main-media-@i" id="Slide-template--26975595233570__main-media-@i" role="presentation">
+        <div class="product-media-container media-type-image media-fit-contain global-media-settings gradient" style="--ratio: 1.0; --preview-ratio: 1.0;">
+        <modal-opener class="product__modal-opener product__modal-opener--image" data-modal="#ProductModal-template--26975595233570__main">
+        <div class="loading__spinner hidden">
+        <svg class="spinner" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" cx="33" cy="33" fill="none" r="30" stroke-width="6"></circle>
+        </svg>
+        </div>
+        <div class="product__media media media--transparent">
+        <img sizes="(min-width: 2000px) 1045px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)" src="@img" />
+        </div>
+        <button aria-haspopup="dialog" class="product__media-toggle quick-add-hidden product__media-zoom-lightbox" data-media-id="media-@i" type="button">
+        <span class="visually-hidden">Open media @(i+1) in modal</span>
+        </button>
+        </modal-opener>
+        </div>
+        </li>
+    }
+</ul>
+</slider-component>
+<!--- Thumbnails strip go round-->
+<slider-component class="thumbnail-slider" id="GalleryThumbnails-template">
+<!--- LEFT Arrow -->
+<button aria-label="Previous thumbnails" class="thumbnail-arrow left" onclick="scrollThumbnails(-1)">
+<span class="fauvist">
+<svg class="melody" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+<!--- Strip -->
+<ul class="thumbnail-strip" id="thumbnailStrip">
+    @for (int i = 0; i < imagesList.Count; i++)
+    {
+        var img = imagesList[i];
+        string activeClass = (i == 0) ? "is-active" : "";
+        <li class="thumbnail-container" data-media-position="@(i+1)" id="thumbnailsContainer">
+        <button class="thumbnail-global-setting @activeClass" onclick="changeImage(this, '@img')">
+        <img alt="@title" sizes="(min-width: 2000px) calc((1045 - 4rem) / 4), (min-width: 990px) calc((55.0vw - 4rem) / 4), (min-width: 750px) calc((100vw - 15rem) / 8), calc((100vw - 8rem) / 3)" src="@img" />
+        </button>
+        </li>
+    }
+</ul>
+<!--- RIGHT Arrow -->
+<button aria-label="Next thumbnails" class="thumbnail-arrow right" onclick="scrollThumbnails(1)">
+<span class="fauvist">
+<svg class="melody-right" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</slider-component>
+</media-gallery>
+</div>
+<!-- RIGHT: Product Info -->
+<div class="product-info">
+<section class="product-info-container" id="ProductInfo">
+<div class="product-brand-category" style="font-family: var(--font-body-family); font-size: 1.3rem; font-weight: 600; text-transform: uppercase; color: #593211; opacity: 0.8; margin-bottom: 5px; letter-spacing: 1px;">Natural Habitat / @category</div>
+<div class="product-title" style="
+                                        --pdp-title-size: 4.5rem;
+                                        --pdp-title-font-family: var(--font-heading-family);
+                                        --pdp-title-font-weight: 800;
+                                        --pdp-title-color: #ec993c;
+                                        --pdp-title-line-height: 1;
+                                        --pdp-title-letter-spacing: -1px;">
+<h1>@title</h1>
+</div>
+<p class="product__text inline-richtext subtitle"></p>
+<div class="product-pricing" id="price-template" role="status" style="
+                                        --pdp-price-size: 2.3rem;
+                                        --pdp-price-font-family: var(--font-body-family);
+                                        --pdp-price-font-weight: 500;
+                                        --pdp-price-line-height: 1;
+                                        --pdp-price-letter-spacing: 0px;
+                                        --pdp-price-regular-color: #593211;
+                                        --pdp-price-sale-color: #593211;">
+<div class="price-large">
+<div class="price-container">
+<div class="price-sale">
+@if (!string.IsNullOrEmpty(originalPriceStr))
+{
+    <span class="price-regular">@originalPriceStr</span>
+    <span class="price-sale">@price</span>
+}
+else
+{
+    <span class="price-regular">@price</span>
+}
+</div>
+</div>
+</div>
+</div>
+<div class="product-tax">
+<p class="shipping-note">Shipping calculated at checkout.</p>
+</div>
+<div class="shopify-block shopify-app-block" id="shopify-block-AS2Y3OGE1bWkzc2xWS__wj_toolbox_wj_bundle_selector_9WXX9z"></div>
+<div class="pdp-sticky-cta" data-sticky-cta-item="buy-buttons">
+<product-form data-section-id="template--26975595233570__main">
+<form accept-charset="UTF-8" action="/cart/add" class="unbreakable" enctype="multipart/form-data" id="product-form-template--26975595233570__main" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="@variantId"/>
+<div class="product-form__actions" id="ATCWrapper-template--26975595233570__main" style="
+                                                --product-atc-bg: #ffab4d;
+                                                --product-atc-text: #593211;
+                                                --product-atc-border-color: #593211;
+                                                --product-atc-hover-bg: #ffab4d;
+                                                --product-atc-hover-text: #593211;
+                                                --product-atc-hover-border-color: #ffab4d;
+                                                --product-atc-border-width: 2px;
+                                                --product-atc-radius: 4px;
+                                                --product-dynamic-checkout-radius: 4px; ">
+<div class="product-form__cta-group">
+<button class="btn-adding" id="btnadding" name="add" type="submit">
+<span aria-hidden="true" class="loading__spinner hidden"></span>
+<span class="product-form__submit-label" data-base-label="Add to cart">Add to cart</span>
+</button>
+</div>
+</div>
+<input name="product-id" type="hidden" value="@productId"/>
+<input name="section-id" type="hidden" value="template--26975595233570__main"/>
+<input data-wj-warehouse-source="global" name="properties[_wj_warehouse]" type="hidden" value="GZ Warehouse"/>
+</form>
+</product-form>
+</div>
+<!-- Accordion: Product Information -->
+<div class="accordion-section" id="accordion-info" style="
+                                    --accordion-title-font-family: var(--font-heading-family);
+                                    --accordion-title-font-size: 2rem;
+                                    --accordion-title-font-weight: 700;
+                                    --accordion-title-letter-spacing: 0px;
+                                    --accordion-title-text-transform: capitalize;
+                                    --accordion-title-font-style: normal;
+                                    --accordion-content-font-size: 1.5rem;
+                                    --accordion-content-line-height: 1.5;
+                                    --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_product_information-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_product_information-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-info')">
+<h2 class="h4 accordion-title inline-richtext">Product information</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_product_information-template--26975595233570__main">
+    @Html.Raw(productInformation)
+</div>
+</details>
+</div>
+<!-- Accordion: Product Details -->
+<div class="accordion-section" id="accordion-details" style="
+                                    --accordion-title-font-family: var(--font-heading-family);
+                                    --accordion-title-font-size: 2rem;
+                                    --accordion-title-font-weight: 700;
+                                    --accordion-title-letter-spacing: 0px;
+                                    --accordion-title-text-transform: capitalize;
+                                    --accordion-title-font-style: normal;
+                                    --accordion-content-font-size: 1.5rem;
+                                    --accordion-content-line-height: 1.5;
+                                    --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_product_details-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_product_details-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-details')">
+<h2 class="h4 accordion-title inline-richtext">Product details</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_product_details-template--26975595233570__main">
+    @Html.Raw(productDetail)
+</div>
+</details>
+</div>
+<!-- Accordion: Materials And Care -->
+<div class="accordion-section" id="accordion-care" style="
+                                        --accordion-title-font-family: var(--font-heading-family);
+                                        --accordion-title-font-size: 2rem;
+                                        --accordion-title-font-weight: 700;
+                                        --accordion-title-letter-spacing: 0px;
+                                        --accordion-title-text-transform: capitalize;
+                                        --accordion-title-font-style: normal;
+                                        --accordion-content-font-size: 1.5rem;
+                                        --accordion-content-line-height: 1.5;
+                                        --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_materials_care-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_materials_care-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-care')">
+<h2 class="h4 accordion__title inline-richtext">Materials and care</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_materials_care-template--26975595233570__main">
+    @Html.Raw(materialAndCare)
+</div>
+</details>
+</div>
+</section>
+</div>
+</div>
+</div>
+</product-info>
+</section>
+<!-- YOU MAY ALSO LIKE -->
+<section class="product-section">
+<div class="recommend">
+<product-recommendations class="related-product-page">
+<h2 class="related-heading">You may also like</h2>
+<slider-component class="slider-mobile-gutter">
+<!-- Related Card 1: Plush -->
+<ul class="product-grid" id="Slider-template" role="list">
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/jason-plush" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Jason Plush" class="product-img-primary" src="/Source/shop-img/plush/Jason Plush With Handkerchief/thumbnail/jason-thumbnail-1.jpg"/>
+<img alt="Jason Plush Hover" src="/Source/shop-img/plush/Jason Plush With Handkerchief/thumbnail/jason-thumbnail-2.jpg"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/jason-plush">Jason Plush With Handkerchief</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/jason-plush">Jason Plush With Handkerchief</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$27</span>
+<span class="good">$21</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9760301121826" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="50032197108002"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<!-- Related Card 2: Sticker -->
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/spring-sticker" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Spring Sticker" class="product-img-primary" src="/Source/shop-img/stationery/Spring sticker pack/thumbnail/spring-ticket-pack-1.png"/>
+<img alt="Spring Sticker Hover" src="/Source/shop-img/stationery/Spring sticker pack/thumbnail/spring-ticket-pack-2.png"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/spring-sticker">Spring Sticker Pack</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/spring-sticker">Spring Sticker Pack</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$9</span>
+<span class="good">$8</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9760301121826" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="49703034913058"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<!-- Related Card 3: Hoodie -->
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper has-variant">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/batrick-hoodie" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Batrick Hoodie" class="product-img-primary" src="/Source/shop-img/Apparel/Batrick hoodie/thumbnail/battr_hoodie.png"/>
+<img alt="Batrick Hoodie Hover" src="/Source/shop-img/Apparel/Batrick hoodie/thumbnail/battr_hoodie.png"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading">
+<a class="full-unstyled-link" href="/Shopnew/batrick-hoodie">Batrick
+                                                            Hoodie</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/batrick-hoodie">Batrick Hoodie</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$53</span>
+<span class="good">$42</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9305036488994" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<!--- Variant selects -->
+<div class="variant-selects" data-section="template-product-grid" id="variant-selects-template--26975593791778__product-grid-9305036488994">
+<div aria-label="Size" class="variant-row" data-option-position="1" role="group">
+<div class="variant-values">
+<input checked="" class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-XS" name="options[Size]" type="radio" value="XS"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="XS" for="Option-template--26975593791778__product-grid-9305036488994__Size-XS" title="XS">XS</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-S" name="options[Size]" type="radio" value="S"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="S" for="Option-template--26975593791778__product-grid-9305036488994__Size-S" title="S">S</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-M" name="options[Size]" type="radio" value="M"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="M" for="Option-template--26975593791778__product-grid-9305036488994__Size-M" title="M">M</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-L" name="options[Size]" type="radio" value="L"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="L" for="Option-template--26975593791778__product-grid-9305036488994__Size-L" title="L">L</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-XL" name="options[Size]" type="radio" value="XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-XL" title="XL">XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-2XL" name="options[Size]" type="radio" value="2XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="2XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-2XL" title="2XL">2XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-3XL" name="options[Size]" type="radio" value="3XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="3XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-3XL" title="3XL">3XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-4XL" name="options[Size]" type="radio" value="4XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="4XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-4XL" title="4XL">4XL</label>
+</div>
+</div>
+</div>
+<input class="product-variant-id" name="id" type="hidden" value="48810793107746"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</slider-component>
+</product-recommendations>
+</div>
+</section>
+</main>
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="/Source/shop-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/embla-carousel@@7.0.5/embla-carousel.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel@7.0.5/embla-carousel.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel-autoplay@7.0.5/embla-carousel-autoplay.umd.min.js"></script>
+<script src="~/js/shop/image-hover.js" asp-append-version="true"></script>
+<script src="~/js/shop/products.js" asp-append-version="true"></script>
+<script src="~/js/shop/cart-effect.js" asp-append-version="true"></script>
+<script src="~/js/shop/feature.js" asp-append-version="true"></script>
+<script src="~/js/shop/lightbox.js" asp-append-version="true"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initCartEffects();
+            initFeatures();
+        });
+    </script>
+<div id="nh-lightbox" style="display:none">
+<div id="nh-lb-backdrop"></div>
+<div id="nh-lb-container">
+<div id="nh-lb-header">
+<span id="nh-lb-title"></span>
+<button id="nh-lb-close">✕</button>
+</div>
+<div id="nh-lb-main">
+<button id="nh-lb-prev">â€¹</button>
+<img alt="" id="nh-lb-img" src=""/>
+<button id="nh-lb-next">â€º</button>
+</div>
+<div id="nh-lb-footer">
+<span id="nh-lb-counter"></span>
+<div id="nh-lb-controls">
+<button id="nh-lb-theater-btn" title="Theater mode">
+<!-- icon hÃ¬nh chá»¯ nháº­t ngang -->
+<svg height="20" viewbox="0 0 24 24" width="20">
+<rect fill="none" height="12" rx="1" stroke="currentColor" stroke-width="2" width="20" x="2" y="6"></rect>
+</svg>
+</button>
+<button id="nh-lb-fullscreen-btn" title="Fullscreen">
+<!-- icon 4 gÃ³c má»Ÿ rá»™ng -->
+<svg height="20" viewbox="0 0 24 24" width="20">
+<path d="M4 4h5M4 4v5M20 4h-5M20 4v5M4 20h5M4 20v-5M20 20h-5M20 20v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>

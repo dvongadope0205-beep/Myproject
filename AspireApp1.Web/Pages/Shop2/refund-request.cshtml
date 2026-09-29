@@ -1,0 +1,456 @@
+@page
+@model WebProject.Pages.ShopRefundRequestModel
+@{
+    Layout = "~/Pages/Shop2/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Refund Request - Natural Habitat Store";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.5/css/all.min.css" />
+    <style>
+        .rf-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            font-family: 'Fredoka', sans-serif;
+            color: #492719;
+        }
+
+        .rf-title-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .rf-title-section h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #72441c;
+            margin-bottom: 10px;
+        }
+
+        .rf-title-section p {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+        }
+
+        .rf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .rf-card {
+            background: white;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+            overflow: hidden;
+        }
+
+        .rf-card-header {
+            padding: 20px 25px;
+            background-color: #faf6f0;
+            border-bottom: 2px solid #eee;
+            font-size: 18px;
+            font-weight: 700;
+            color: #72441c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rf-card-body {
+            padding: 25px;
+        }
+
+        .rf-order-item {
+            padding: 16px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .rf-order-item:hover {
+            border-color: #ec993c;
+            background: #faf6f0;
+        }
+
+        .rf-order-item.selected {
+            border-color: #72441c;
+            background: #fbf6f0;
+            box-shadow: 0 0 0 3px rgba(114,68,28,0.15);
+        }
+
+        .rf-order-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .rf-order-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #492719;
+        }
+
+        .rf-order-amount {
+            font-weight: 800;
+            color: #ec993c;
+            font-size: 16px;
+        }
+
+        .rf-order-meta {
+            font-size: 13px;
+            color: #888;
+            display: flex;
+            gap: 15px;
+        }
+
+        .rf-order-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .rf-badge-ticket { background: #e3f2fd; color: #1976d2; }
+        .rf-badge-event { background: #fff3e0; color: #e65100; }
+        .rf-badge-membership { background: #f3e5f5; color: #7b1fa2; }
+        .rf-badge-shop { background: #e8f5e9; color: #2e7d32; }
+
+        .rf-form-field {
+            margin-bottom: 18px;
+        }
+
+        .rf-form-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .rf-form-field select, .rf-form-field textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Fredoka', sans-serif;
+            transition: border-color 0.15s;
+        }
+
+        .rf-form-field select:focus, .rf-form-field textarea:focus {
+            border-color: #ec993c;
+        }
+
+        .rf-submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #72441c;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            transition: background 0.15s;
+            margin-top: 10px;
+        }
+
+        .rf-submit-btn:hover {
+            background: #ec993c;
+        }
+
+        .rf-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #72441c;
+        }
+
+        /* Refund History */
+        .rf-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .rf-table thead {
+            background: #faf6f0;
+        }
+
+        .rf-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #72441c;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .rf-table td {
+            padding: 14px 16px;
+            color: #333;
+            border-bottom: 1px solid #f9f6f0;
+            vertical-align: middle;
+        }
+
+        .rf-table tr:hover {
+            background: #fafafa;
+        }
+
+        .rf-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .rf-status-requested { background: #fff8e1; color: #f57f17; }
+        .rf-status-approved { background: #e3f2fd; color: #1565c0; }
+        .rf-status-completed { background: #e8f5e9; color: #2e7d32; }
+        .rf-status-rejected { background: #fbe9e7; color: #c62828; }
+
+        .rf-empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #999;
+        }
+
+        .rf-empty i {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 15px;
+            color: #ebd7c5;
+        }
+
+        .rf-alert {
+            padding: 14px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .rf-alert-success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+        .rf-alert-error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+    </style>
+}
+
+<main>
+    <div class="rf-wrapper">
+        <div class="rf-title-section">
+            <h1>Refund Request</h1>
+            <p>Request a refund for eligible shop orders, memberships, or tickets.</p>
+        </div>
+
+        <div id="rfAlert" class="rf-alert"></div>
+
+        <div class="rf-grid">
+            <!-- Select Order -->
+            <div class="rf-card">
+                <div class="rf-card-header">
+                    <i class="fas fa-shopping-bag"></i> Select Order to Refund
+                </div>
+                <div class="rf-card-body">
+                    @if (Model.EligibleOrders.Count > 0)
+                    {
+                        @foreach (var order in Model.EligibleOrders)
+                        {
+                            var badgeClass = order.OrderType switch {
+                                "Ticket" => "rf-badge-ticket",
+                                "Event" => "rf-badge-event",
+                                "Membership" => "rf-badge-membership",
+                                "Shop" => "rf-badge-shop",
+                                _ => "rf-badge-ticket"
+                            };
+                            <div class="rf-order-item" data-order-id="@order.OrderId" data-amount="@order.TotalAmount" onclick="selectOrder(this)">
+                                <div class="rf-order-top">
+                                    <span class="rf-order-name">
+                                        <span class="rf-order-badge @badgeClass">@order.OrderType</span>
+                                        @order.ItemName
+                                    </span>
+                                    <span class="rf-order-amount">$@order.TotalAmount.ToString("N2")</span>
+                                </div>
+                                <div class="rf-order-meta">
+                                    <span><i class="far fa-calendar"></i> @order.OrderDate</span>
+                                    <span><i class="fas fa-hashtag"></i> @order.TransactionRef</span>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="rf-empty">
+                            <i class="fas fa-check-circle"></i>
+                            <p>No eligible orders for refund.</p>
+                            <small>Only completed orders that haven't been refunded are eligible.</small>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Refund Form -->
+            <div class="rf-card">
+                <div class="rf-card-header">
+                    <i class="fas fa-undo"></i> Refund Details
+                </div>
+                <div class="rf-card-body">
+                    <div class="rf-form-field">
+                        <label>Selected Order</label>
+                        <div id="rfSelectedOrder" style="padding:12px 14px; background:#f5f5f5; border-radius:10px; color:#999; font-size:14px;">
+                            Click an order on the left to select it
+                        </div>
+                    </div>
+
+                    <div class="rf-form-field">
+                        <label>Reason for Refund</label>
+                        <select id="rfReason">
+                            <option value="">-- Select a reason --</option>
+                            @foreach (var reason in Model.RefundReasons)
+                            {
+                                <option value="@reason.ReasonCode">@reason.ReasonLabel</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="rf-form-field">
+                        <label>Additional Details (optional)</label>
+                        <textarea id="rfDetail" rows="4" placeholder="Please provide any additional details about your refund request..."></textarea>
+                    </div>
+
+                    <button class="rf-submit-btn" id="rfSubmitBtn" onclick="submitRefund()" disabled>
+                        Submit Refund Request
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Refund History -->
+        <div class="rf-card">
+            <div class="rf-card-header">
+                <i class="fas fa-history"></i> Refund History
+            </div>
+            <div class="rf-card-body" style="padding:0;">
+                @if (Model.RefundHistory.Count > 0)
+                {
+                    <table class="rf-table">
+                        <thead>
+                             <tr>
+                                 <th>#</th>
+                                 <th>Order</th>
+                                 <th>Amount</th>
+                                 <th>Reason</th>
+                                 <th>Requested</th>
+                                 <th>Status</th>
+                                 <th>Admin Notes</th>
+                             </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var r in Model.RefundHistory)
+                            {
+                                var statusClass = r.Status switch {
+                                    "Requested" => "rf-status-requested",
+                                    "Approved" => "rf-status-approved",
+                                    "Completed" => "rf-status-completed",
+                                    "Rejected" => "rf-status-rejected",
+                                    _ => "rf-status-requested"
+                                };
+                                <tr>
+                                    <td>@r.RefundId</td>
+                                    <td><strong>@r.ItemName</strong></td>
+                                    <td>$@r.RefundAmount.ToString("N2")</td>
+                                    <td>@r.RefundReason</td>
+                                    <td>@r.RequestedAt</td>
+                                    <td><span class="rf-status @statusClass">@r.Status</span></td>
+                                    <td style="font-size:12px; color:#888;">@(string.IsNullOrEmpty(r.AdminNotes) ? "—" : r.AdminNotes)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="rf-empty">
+                        <i class="fas fa-inbox"></i>
+                        <p>No refund requests yet.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</main>
+
+@Html.AntiForgeryToken()
+
+<script>
+    let selectedOrderId = null;
+
+    function selectOrder(el) {
+        document.querySelectorAll('.rf-order-item').forEach(item => item.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedOrderId = parseInt(el.getAttribute('data-order-id'));
+        const amount = el.getAttribute('data-amount');
+        const name = el.querySelector('.rf-order-name').innerText.trim();
+        document.getElementById('rfSelectedOrder').innerHTML =
+            '<strong>' + name + '</strong> — <span style="color:#ec993c; font-weight:800;">$' + parseFloat(amount).toFixed(2) + '</span>';
+        document.getElementById('rfSelectedOrder').style.color = '#333';
+        document.getElementById('rfSelectedOrder').style.background = '#faf6f0';
+        document.getElementById('rfSubmitBtn').disabled = false;
+    }
+
+    function submitRefund() {
+        if (!selectedOrderId) { alert('Please select an order.'); return; }
+        const reason = document.getElementById('rfReason').value;
+        if (!reason) { alert('Please select a refund reason.'); return; }
+
+        const btn = document.getElementById('rfSubmitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+        fetch('/Shop2/refund-request?handler=SubmitRefund', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+            },
+            body: JSON.stringify({
+                orderId: selectedOrderId,
+                reasonCode: reason,
+                reasonDetail: document.getElementById('editAddress')?.value || document.getElementById('rfDetail').value
+            })
+        })
+        .then(r => r.json())
+        .then(result => {
+            const alertBox = document.getElementById('rfAlert');
+            if (result.success) {
+                alertBox.className = 'rf-alert rf-alert-success';
+                alertBox.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                alertBox.style.display = 'block';
+                setTimeout(() => location.reload(), 2000);
+            } else {
+                alertBox.className = 'rf-alert rf-alert-error';
+                alertBox.innerHTML = '<i class="fas fa-exclamation-circle"></i> ' + result.message;
+                alertBox.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = 'Submit Refund Request';
+            }
+        })
+        .catch(() => {
+            alert('Network error. Please try again.');
+            btn.disabled = false;
+            btn.innerHTML = 'Submit Refund Request';
+        });
+    }
+</script>

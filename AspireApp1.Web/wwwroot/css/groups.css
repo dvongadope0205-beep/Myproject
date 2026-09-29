@@ -1,0 +1,254 @@
+/* wwwroot/css/groups.css */
+body {
+    overflow-x: hidden;
+}
+
+.groups-page-wrapper {
+    width: 100%;
+}
+
+.hero-groups {
+    background-color: var(--zoo-dark);
+    color: white;
+    text-align: center;
+    padding: 100px 20px 60px 20px;
+}
+
+.hero-groups h1 {
+    font-size: 56px;
+    font-family: Georgia, serif;
+    margin-bottom: 20px;
+}
+
+.hero-groups p {
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.color-band {
+    width: 100%;
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* so images can jut out but not scroll */
+    padding: 60px 0;
+}
+
+.band-teal { background-color: #3bb2b8; color: white; }
+.band-blue { background-color: #019ada; color: white; }
+.band-grey { background-color: #272727; color: white; }
+.band-green { background-color: #3aa64a; color: white; }
+
+.band-content-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0 40px;
+}
+
+.band-text-box {
+    max-width: 600px;
+}
+
+.band-text-box h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.band-text-box p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.band-text-box ul {
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.6;
+    padding-left: 20px;
+}
+
+.band-text-box li {
+    margin-bottom: 10px;
+}
+
+.band-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.band-link:hover {
+    border-bottom: 2px solid white;
+}
+
+.band-image-container {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 500px;
+    height: 500px;
+    z-index: 1;
+    /* organic blob shape to simulate cut-out style */
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.band-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.color-band:hover .band-image-container img {
+    transform: scale(1.08);
+}
+
+@media (max-width: 900px) {
+    .band-image-container {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: none;
+        width: 100%;
+        height: 300px;
+        margin-top: 40px;
+        border-radius: 20px !important;
+    }
+    .band-content-wrapper {
+        flex-direction: column;
+    }
+    .band-text-box {
+        max-width: 100%;
+    }
+}
+
+/* Custom Split Form Layout */
+.group-form-section {
+    background-color: var(--zoo-beige);
+    padding: 100px 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-container-split {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+.form-text-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-box-right {
+    flex: 1;
+    background-color: #2b353e; /* Dark slate blue-gray */
+    padding: 60px 40px;
+    /* Create a subtly jagged organic shape like Philly Zoo */
+    clip-path: polygon(2% 0, 98% 3%, 100% 98%, 1% 100%, 0 50%);
+    color: white;
+}
+
+.form-group-outline {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-outline label {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+.form-group-outline .req {
+    color: #e98b25; /* Orange required text */
+    font-weight: 400;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.form-group-outline input,
+.form-group-outline textarea {
+    background: transparent;
+    border: 1px solid #666;
+    padding: 12px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group-outline input:focus,
+.form-group-outline textarea:focus {
+    border-color: white;
+    background: rgba(255,255,255,0.05);
+}
+
+.double-col {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.half-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-jagged-submit {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 14px 40px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.btn-jagged-submit:hover {
+    background: white;
+    color: #2b353e;
+}
+
+@media (max-width: 900px) {
+    .form-container-split {
+        flex-direction: column;
+    }
+    .form-text-left, .form-box-right {
+        width: 100%;
+    }
+    .form-box-right {
+        clip-path: none;
+        border-radius: 12px;
+        padding: 40px 20px;
+    }
+}

@@ -1,0 +1,547 @@
+﻿@page "/play-area/madagasca-play"
+@model ZooProject.Pages.PlayArea.MadagascaPlay
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           1. BIẾN MÀU SẮC & THIẾT LẬP CHUNG
+        ========================================= */
+        :root {
+            --brand-teal: #0b3c98;
+            --brand-mint: #a1d4cd;
+            --brand-icy: #e2f1f0; 
+            --neon-lime: #E4EC81;
+            --text-light: rgba(255, 255, 255, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: #0a3d3d !important;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           2. BACKGROUND ĐẠI DƯƠNG (Đ$ bỏ bọt khí)
+        ========================================= */
+        .ocean-bg {
+            background: #0a3d3d !important;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* =========================================
+           3. MAIN LAYOUT & TYPOGRAPHY
+        ========================================= */
+        .detail-container {
+            max-width: 1254px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Tiêu đề căn giữa, in hoa toàn bộ và in đậm */
+        .page-title {
+            font-family: 'Passion One', display;
+            font-size: 8rem;
+            font-weight: 700;
+            color: #fdf5e6;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-align: center; 
+            text-transform: uppercase;
+        }
+
+        /* Lời giới thiệu căn giữa, giới hạn chiều rộng để dễ đọc */
+        .intro-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin: 0 auto 48px auto;
+            text-align: center; 
+            max-width: 800px;
+        }
+
+        .intro-text p {
+            margin-bottom: 20px;
+        }
+
+        /* Lưu ý an toàn: Căn giữa, bo góc đều */
+        .safety-note {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 24px 32px;
+            border-radius: 16px;
+            margin: 0 auto 64px auto;
+            max-width: 800px;
+            text-align: center; 
+        }
+
+        .safety-note strong {
+            font-family: 'Passion One', display;
+            display: block;
+            color: var(--brand-icy);
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            font-weight: 700; 
+        }
+
+        /* =========================================
+           4. CAROUSEL
+        ========================================= */
+        .carousel-wrapper {
+            position: relative;
+            margin-bottom: 80px;
+            border-radius: 32px;
+            background: rgba(0, 43, 40, 0.3);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+        }
+
+        .carousel-track {
+            display: flex;
+            height: 100%;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            scroll-snap-align: center;
+            object-fit: cover;
+            cursor: zoom-in; /* Báo hiệu người dùng có thể bấm zoom */
+        }
+
+        /* Nút điều hướng Carousel */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .prev-btn { left: 24px; }
+        .next-btn { right: 24px; }
+
+        /* Dots điều hướng tinh tế */
+        .carousel-dots {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: #ffffff;
+            transform: scale(1.5);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* =========================================
+           5. MISSION BANNER & CTA BUTTON
+        ========================================= */
+        .mission-banner {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 48px;
+            /* Tăng chiều cao lên 650px theo yêu cầu */
+            min-height: 600px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .mission-bg-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 0;
+        }
+
+        .mission-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0, 26, 25, 0.95) 0%, rgba(0, 26, 25, 0.7) 10%, rgba(0, 26, 25, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .mission-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            /* Nội dung đư$c dính xuống đáy nhờ align-items: flex-end ở parent */
+        }
+
+        .mission-content h2 {
+            font-family: 'Passion One', display;
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .mission-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: #e2f1f0;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--neon-lime);
+            color: #000000;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 16px 36px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            background-color: #93a827;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* =========================================
+           6. THEATER MODE (LIGHTBOX) - Đ$ có từ trước
+        ========================================= */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 15, 14, 0.95);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            object-fit: contain;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.6);
+        }
+
+        /* Nút điều khiển trong Theater */
+        .lb-ctrl {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer;
+            opacity: 0; /* Ẩn mặc định */
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        /* Hiện nút khi rê chuột vào khung $nh */
+        .lightbox-content:hover .lb-ctrl {
+            opacity: 1;
+        }
+
+        .lb-ctrl:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .lb-close {
+            top: 16px; right: 16px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .lb-prev, .lb-next {
+            top: 50%; transform: translateY(-50%);
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+        }
+        
+        /* Giữ hiệu ứng transform khi hover */
+        .lightbox-content:hover .lb-prev:hover, 
+        .lightbox-content:hover .lb-next:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lb-prev { left: 16px; }
+        .lb-next { right: 16px; }
+
+        /* =========================================
+           7. RESPONSIVE
+        ========================================= */
+        @@media (max-width: 768px) {
+            .page-title { font-size: 5rem; }
+            .safety-note strong { font-size: 2rem; }
+            .carousel-wrapper { aspect-ratio: 4 / 3; }
+            .mission-banner { padding: 40px 24px; min-height: auto; }
+            .mission-overlay { background: linear-gradient(to top, rgba(0, 26, 25, 0.95) 0%, rgba(0, 26, 25, 0.4) 100%); }
+            .nav-btn { display: none; }
+            .lb-ctrl { opacity: 1; } /* Luôn hiện nút lightbox trên mobile */
+        }
+        </style>
+}
+
+@* ── BODY CONTENT ── *@
+
+<div class="texture-overlay"></div>
+
+    <main class="detail-container">
+        
+        <h1 class="page-title">MADAGASCA PLAY!</h1>
+        
+        <div class="intro-text">
+            <p>Climb like a lemur and uncover our tree-top hideaways in the Lost Forest, crawl across the scramble nets like an aye-aye and play on our sandy beach like a ploughshare tortoise! </p>
+            <p>Make a big splash in our dry riverbed or play hide and seek in our Madagascar grasses. There’s even chance to explore our Madagascar basecamp and find other surprises to discover. </p>
+        </div>
+
+        <div class="safety-note">
+            <strong>Lovingly created by our play experts</strong>
+            <p>There’s so much to discover in the amazing Madagascar Play! </p>
+        </div>
+
+        <div class="carousel-wrapper">
+            <button class="nav-btn prev-btn" id="prevBtn">❮</button>
+            <button class="nav-btn next-btn" id="nextBtn">❯</button>
+            
+            <div class="carousel-track" id="track">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-1.jpeg" class="carousel-slide" alt="Slide 1">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-2.jpeg" class="carousel-slide" alt="Slide 2">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-3.jpeg" class="carousel-slide" alt="Slide 3">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-4.jpeg" class="carousel-slide" alt="Slide 4">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-5.jpeg" class="carousel-slide" alt="Slide 5">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-6.jpeg" class="carousel-slide" alt="Slide 6">
+                <img src="/Source/play-area/play%20area/madagasca%20play!/carousel/madagasca-carousel-7.jpeg" class="carousel-slide" alt="Slide 7">
+            </div>
+
+            <div class="carousel-dots" id="dotsContainer"></div>
+        </div>
+
+        <div class="mission-banner">
+            <img src="/Source/play-area/play%20area/madagasca%20play!/mission-2.jpg" class="mission-bg-img" alt="Red Panda">
+            <div class="mission-overlay"></div>
+            <div class="mission-content">
+                <h2>Support our mission</h2>
+                <p>Every penny spent in our gift shops, face painting stations or food outlets supports our vital conversation projects, helping to save endangered species and habitats across the world!</p>
+                <a href="/Tickets" class="btn-cta">BOOK ZOO TICKETS</a>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lb-ctrl lb-close" id="lbClose">×</button>
+            <button class="lb-ctrl lb-prev" id="lbPrev">❮</button>
+            <button class="lb-ctrl lb-next" id="lbNext">❯</button>
+            <img src="" id="lbImage" alt="Zoomed Image">
+        </div>
+    </div>
+
+@section Scripts {
+    <script>
+// --- 1. CAROUSEL & DYNAMIC DOTS LOGIC ---
+        const track = document.getElementById('track');
+        const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+        const nextBtn = document.getElementById('nextBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const dotsContainer = document.getElementById('dotsContainer');
+        
+        let currentIndex = 0;
+
+        // Xóa sạch (nếu có hardcode) và tự động tạo chấm tương ứng với số $nh
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if(index === 0) dot.classList.add('active'); // Chấm đầu tiên sáng
+            dot.setAttribute('data-index', index);
+            dotsContainer.appendChild(dot);
+        });
+
+        // Lấy lại danh sách dots sau khi đ$ tạo xong
+        const dots = Array.from(document.querySelectorAll('.dot'));
+
+        function updateDots(index) {
+            dots.forEach(dot => dot.classList.remove('active'));
+            if(dots[index]) dots[index].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            if(index < 0) index = slides.length - 1;
+            if(index >= slides.length) index = 0;
+            
+            currentIndex = index;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            track.scrollTo({
+                left: slideWidth * currentIndex,
+                behavior: 'smooth'
+            });
+            updateDots(currentIndex);
+        }
+
+        nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+        prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                goToSlide(index);
+            });
+        });
+
+        // Cập nhật dấu chấm khi kéo cuộn ngang (scroll/swipe)
+        track.addEventListener('scroll', () => {
+            const scrollPosition = track.scrollLeft;
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            const newIndex = Math.round(scrollPosition / slideWidth);
+            
+            if(newIndex !== currentIndex && newIndex >= 0 && newIndex < slides.length) {
+                currentIndex = newIndex;
+                updateDots(currentIndex);
+            }
+        });
+
+        // --- 2. THEATER MODE (LIGHTBOX) LOGIC ---
+        const lightbox = document.getElementById('lightbox');
+        const lbImage = document.getElementById('lbImage');
+        const lbClose = document.getElementById('lbClose');
+        const lbPrev = document.getElementById('lbPrev');
+        const lbNext = document.getElementById('lbNext');
+        
+        let lbIndex = 0;
+
+        // Lắng nghe sự kiện bấm vào từng $nh trong Carousel
+        slides.forEach((slide, index) => {
+            slide.addEventListener('click', () => {
+                lbIndex = index;
+                openLightbox();
+            });
+        });
+
+        function openLightbox() {
+            lbImage.src = slides[lbIndex].src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Khóa cuộn trang nền
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Mở lại cuộn trang
+        }
+
+        // Điều hướng trong chế độ zoom (có stopPropagation để không bị click nhầm ra ngoài)
+        lbPrev.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            lbIndex = (lbIndex - 1 + slides.length) % slides.length;
+            lbImage.src = slides[lbIndex].src;
+        });
+
+        lbNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lbIndex = (lbIndex + 1) % slides.length;
+            lbImage.src = slides[lbIndex].src;
+        });
+
+        lbClose.addEventListener('click', closeLightbox);
+
+        // Bấm ra nền đen bên ngoài để đóng lại
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Bổ sung nút ESC trên bàn phím để tắt
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
+}
+

@@ -1,0 +1,2253 @@
+@page
+@model WebApps.Pages.AdminDashboardModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — National Zoo</title>
+    <meta name="description" content="Admin management dashboard for National Conservation Zoo">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --sidebar-w: 260px;
+            --sidebar-bg: #0f2318;
+            --sidebar-hover: rgba(255,255,255,0.07);
+            --sidebar-active: rgba(52,211,153,0.15);
+            --accent: #34d399;
+            --accent-dark: #059669;
+            --bg: #f0f4f2;
+            --card-bg: #ffffff;
+            --text-primary: #1a2b22;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --radius: 14px;
+            --radius-sm: 8px;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ── Sidebar ───────────────────────────────────────────────────── */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--sidebar-bg);
+            height: 100vh;
+            position: fixed;
+            left: 0; top: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow: hidden;
+        }
+        .sidebar-logo {
+            padding: 28px 24px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .sidebar-logo img {
+            height: 44px;
+            filter: brightness(0) invert(1);
+            object-fit: contain;
+        }
+        .sidebar-logo p {
+            color: rgba(255,255,255,0.45);
+            font-size: 11px;
+            margin-top: 6px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .sidebar-section-label {
+            color: rgba(255,255,255,0.3);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 20px 24px 8px;
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 8px 12px;
+            overflow-y: auto;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 2px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+        .nav-item i {
+            width: 20px;
+            text-align: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .nav-item:hover {
+            background: var(--sidebar-hover);
+            color: white;
+        }
+        .nav-item.active {
+            background: var(--sidebar-active);
+            color: var(--accent);
+            font-weight: 600;
+        }
+        .nav-item.active i { color: var(--accent); }
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: #0f2318;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        .sidebar-footer {
+            padding: 16px 12px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .sidebar-footer a:hover { background: rgba(231,76,60,0.15); color: #fc8181; }
+
+        /* ── Main Area ─────────────────────────────────────────────────── */
+        .main-area {
+            margin-left: var(--sidebar-w);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ── Top Header ────────────────────────────────────────────────── */
+        .topbar {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .topbar-left h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .topbar-left p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .topbar-avatar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 10px;
+            background: var(--bg);
+            cursor: pointer;
+        }
+        .topbar-avatar .av-circle {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 700; font-size: 14px;
+        }
+        .topbar-avatar .av-info p { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+        .topbar-avatar .av-info span { font-size: 11px; color: var(--text-secondary); }
+        .topbar-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-dark), #10b981);
+            color: white;
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .topbar-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
+        .topbar-home {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px; font-weight: 500;
+            cursor: pointer;
+            background: white;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .topbar-home:hover { border-color: var(--accent); color: var(--accent-dark); }
+
+        /* ── Content ───────────────────────────────────────────────────── */
+        .content { padding: 32px; flex: 1; }
+
+        /* ── Section ───────────────────────────────────────────────────── */
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* ── Stats Grid ────────────────────────────────────────────────── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+        }
+        .stat-card.green::before { background: linear-gradient(90deg, #34d399, #059669); }
+        .stat-card.blue::before { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+        .stat-card.amber::before { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+        .stat-card.purple::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+        .stat-card.rose::before { background: linear-gradient(90deg, #fb7185, #e11d48); }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .stat-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .stat-icon.green { background: #d1fae5; color: #059669; }
+        .stat-icon.blue { background: #dbeafe; color: #2563eb; }
+        .stat-icon.amber { background: #fef3c7; color: #d97706; }
+        .stat-icon.purple { background: #ede9fe; color: #7c3aed; }
+        .stat-icon.rose { background: #ffe4e6; color: #e11d48; }
+        .stat-trend {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+        .stat-trend.up { background: #d1fae5; color: #059669; }
+        .stat-trend.neutral { background: #f1f5f9; color: #64748b; }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Revenue row */
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .revenue-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+        .revenue-card h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .revenue-card .big-num {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+        .revenue-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+        .revenue-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* ── Overview Welcome ───────────────────────────────────────────── */
+        .welcome-card {
+            background: linear-gradient(135deg, #0f2318 0%, #1a5c35 100%);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+        .welcome-card::after {
+            content: '🦁';
+            position: absolute;
+            right: 140px;
+            font-size: 90px;
+            opacity: 0.15;
+            top: -10px;
+        }
+        .welcome-card h2 { font-size: 24px; font-weight: 700; color: white; margin-bottom: 6px; }
+        .welcome-card p { font-size: 14px; color: rgba(255,255,255,0.7); }
+        .welcome-date {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 12px 20px;
+            text-align: center;
+        }
+        .welcome-date .date-num { font-size: 36px; font-weight: 800; color: var(--accent); }
+        .welcome-date .date-info { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+        /* ── Table Card ────────────────────────────────────────────────── */
+        .table-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .table-header h2 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .table-header h2 i { color: var(--accent-dark); }
+        .table-count {
+            background: var(--bg);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+        .btn-add {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-dark), #10b981);
+            color: white;
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-add:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(16,185,129,0.4); }
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .admin-table thead th {
+            background: #f8fafc;
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .admin-table tbody td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+        .admin-table tbody tr:last-child td { border-bottom: none; }
+        .admin-table tbody tr:hover td { background: #f8fafc; }
+        .thumb-img {
+            width: 52px; height: 52px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+        }
+        .thumb-placeholder {
+            width: 52px; height: 52px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .badge-green { background: #d1fae5; color: #065f46; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-amber { background: #fef3c7; color: #92400e; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+        .name-cell strong { display: block; font-size: 14px; font-weight: 600; }
+        .name-cell span { font-size: 12px; color: var(--text-secondary); }
+        .price-cell { font-weight: 700; font-size: 15px; color: var(--accent-dark); }
+        .action-btns { display: flex; gap: 8px; align-items: center; }
+        .btn-icon {
+            width: 34px; height: 34px;
+            border-radius: 8px;
+            border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .btn-edit { background: #dbeafe; color: #2563eb; }
+        .btn-edit:hover { background: #3b82f6; color: white; transform: scale(1.08); }
+        .btn-delete { background: #fee2e2; color: #dc2626; }
+        .btn-delete:hover { background: #ef4444; color: white; transform: scale(1.08); }
+
+        /* ── Modal ─────────────────────────────────────────────────────── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal-box {
+            background: white;
+            border-radius: 20px;
+            padding: 36px;
+            width: 100%;
+            max-width: 560px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+            position: relative;
+            animation: modalIn 0.25s ease;
+        }
+        /* ── Date Filter Bar ────────────────────────────────────────────── */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .filter-bar-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-right: 4px;
+            white-space: nowrap;
+        }
+        .filter-pill {
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: white;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .filter-pill:hover {
+            border-color: var(--accent-dark);
+            color: var(--accent-dark);
+            background: #f0fdf4;
+        }
+        .filter-pill.active {
+            background: linear-gradient(135deg, var(--accent-dark), #10b981);
+            border-color: transparent;
+            color: white;
+            box-shadow: 0 4px 12px rgba(16,185,129,0.35);
+        }
+        .filter-bar-sep { color: var(--border); font-size: 18px; margin: 0 4px; }
+
+        @@keyframes modalIn {
+            from { opacity:0; transform: scale(0.95) translateY(10px); }
+            to   { opacity:1; transform: scale(1) translateY(0); }
+        }
+        .modal-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            padding-right: 30px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: var(--bg); border: none;
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 16px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: #fee2e2; color: #dc2626; }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            color: var(--text-primary);
+            background: white;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--accent-dark);
+            box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--accent-dark), #10b981);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+        .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(16,185,129,0.4); }
+
+        /* ── Alert ─────────────────────────────────────────────────────── */
+        .alert-error {
+            display: flex; align-items: center; gap: 12px;
+            background: #fff1f2;
+            border: 1.5px solid #fecdd3;
+            color: #be123c;
+            padding: 14px 18px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 14px; font-weight: 500;
+        }
+        .alert-error i { font-size: 18px; flex-shrink: 0; }
+
+        /* ── Empty State ───────────────────────────────────────────────── */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        .empty-state i { font-size: 48px; opacity: 0.3; display: block; margin-bottom: 16px; }
+        .empty-state p { font-size: 15px; }
+
+        /* ── Scrollbar ─────────────────────────────────────────────────── */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Stock warning */
+        .stock-low { color: #dc2626; font-weight: 700; }
+        .stock-ok { color: #059669; font-weight: 600; }
+    </style>
+</head>
+<body>
+@Html.AntiForgeryToken()
+
+<!-- ════════════════════════════════════ SIDEBAR ════════════════════════ -->
+<aside class="sidebar">
+    <div class="sidebar-logo">
+        <img src="/Source/General/logo.svg" alt="National Zoo">
+        <p>Admin Console</p>
+    </div>
+
+    <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Main Menu</div>
+
+        <button class="nav-item active" id="nav-overview" onclick="switchSection('overview')">
+            <i class="fa fa-th-large"></i>
+            Overview
+        </button>
+
+        <button class="nav-item" id="nav-events" onclick="switchSection('events')">
+            <i class="fa fa-calendar"></i>
+            Events
+            <span class="nav-badge" id="badge-events">@Model.TotalEvents</span>
+        </button>
+
+        <button class="nav-item" id="nav-shop2" onclick="switchSection('shop2')">
+            <i class="fa fa-shopping-bag"></i>
+            Shop Product
+            <span class="nav-badge" id="badge-shop2">@Model.TotalShop2Products</span>
+        </button>
+
+        <button class="nav-item" id="nav-pending" onclick="switchSection('pending')">
+            <i class="fa fa-clock-o"></i>
+            Pending Orders
+            <span class="nav-badge" id="badge-pending" style="background:#f57f17; color:white;">@Model.TotalPendingOrders</span>
+        </button>
+
+        <button class="nav-item" id="nav-pendingpayments" onclick="switchSection('pendingpayments')">
+            <i class="fa fa-money"></i>
+            Details Pending
+            <span class="nav-badge" id="badge-pendingpayments" style="background:#6a1b9a; color:white;">@Model.PendingPayments.Count</span>
+        </button>
+
+        <button class="nav-item" id="nav-refunds" onclick="switchSection('refunds')">
+            <i class="fa fa-undo"></i>
+            Refund Requests
+            <span class="nav-badge" id="badge-refunds" style="background:#c62828; color:white;">@Model.RefundRequests.Count</span>
+        </button>
+
+        <button class="nav-item" id="nav-contacts" onclick="switchSection('contacts')">
+            <i class="fa fa-envelope"></i>
+            Contact Messages
+            <span class="nav-badge" id="badge-contacts" style="background:#2e7d32; color:white;">@Model.ContactMessages.Count</span>
+        </button>
+
+        <button class="nav-item" id="nav-donations" onclick="switchSection('donations')">
+            <i class="fa fa-heart"></i>
+            Donation History
+            <span class="nav-badge" id="badge-donations" style="background:#dc2626; color:white;">@Model.Donations.Count</span>
+        </button>
+
+        <div class="sidebar-section-label" style="margin-top:8px;">Other Resources</div>
+
+        <a class="nav-item" href="/Tickets" target="_blank">
+            <i class="fa fa-ticket"></i>
+            Tickets
+            <i class="fa fa-external-link" style="margin-left:auto; font-size:11px; opacity:0.5;"></i>
+        </a>
+        <a class="nav-item" href="/CustomerInfo" target="_blank">
+            <i class="fa fa-users"></i>
+            Customers
+            <i class="fa fa-external-link" style="margin-left:auto; font-size:11px; opacity:0.5;"></i>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="/Index"><i class="fa fa-home"></i> Back to Home</a>
+        <a href="/Logout"><i class="fa fa-sign-out"></i> Logout</a>
+    </div>
+</aside>
+
+<!-- ════════════════════════════════════ MAIN ══════════════════════════ -->
+<div class="main-area">
+    <!-- Topbar -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <h1 id="topbar-title">Overview</h1>
+            <p id="topbar-sub">System activity and statistics overview</p>
+        </div>
+        <div class="topbar-right">
+            <a href="/Index" class="topbar-home">
+                <i class="fa fa-globe"></i> View Website
+            </a>
+            <button class="topbar-btn" id="topbar-add-btn" onclick="openAddModal()" style="display:none;">
+                <i class="fa fa-plus"></i> <span id="topbar-add-label">Add New</span>
+            </button>
+            <div class="topbar-avatar">
+                <div class="av-circle">A</div>
+                <div class="av-info">
+                    <p>@User.Identity?.Name</p>
+                    <span>Administrator</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert-error">
+                <i class="fa fa-exclamation-circle"></i>
+                <span>@TempData["ErrorMessage"]</span>
+            </div>
+        }
+
+        <!-- ══════════════ OVERVIEW ════════════════════════════════════════ -->
+        <div class="section active" id="section-overview">
+
+            <!-- Welcome Banner -->
+            <div class="welcome-card">
+                <div>
+                    <h2>Welcome Back! 👋</h2>
+                    <p>This is the National Conservation Zoo administrative dashboard.</p>
+                </div>
+                <div class="welcome-date">
+                    <div class="date-num">@DateTime.Now.Day</div>
+                    <div class="date-info">@DateTime.Now.ToString("MMMM yyyy")</div>
+                </div>
+            </div>
+
+            <!-- Date Filter Bar -->
+            <div class="filter-bar">
+                <span class="filter-bar-label"><i class="fa fa-calendar-o"></i>&nbsp; Filter by:</span>
+                @foreach (var d in new[] { 1, 3, 7, 14, 30 })
+                {
+                    <a href="/AdminDashboard?Days=@d" class="filter-pill @(Model.Days == d ? "active" : "")">
+                        @(d == 1 ? "Today" : d == 3 ? "3 Days" : d == 7 ? "7 Days" : d == 14 ? "14 Days" : "30 Days")
+                    </a>
+                }
+                <span class="filter-bar-sep">|</span>
+                <span style="font-size:12px; color:var(--text-secondary);">
+                    <i class="fa fa-info-circle"></i>
+                    Showing statistics for the last <strong>@Model.Days days</strong>
+                </span>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card green">
+                    <div class="stat-header">
+                        <div class="stat-icon green"><i class="fa fa-shopping-cart"></i></div>
+                        <span class="stat-trend up"><i class="fa fa-arrow-up"></i> Active</span>
+                    </div>
+                    <div class="stat-value">@Model.TotalShopOrders</div>
+                    <div class="stat-label">Shop Orders</div>
+                </div>
+
+                <div class="stat-card blue">
+                    <div class="stat-header">
+                        <div class="stat-icon blue"><i class="fa fa-ticket"></i></div>
+                        <span class="stat-trend up"><i class="fa fa-arrow-up"></i> Sold</span>
+                    </div>
+                    <div class="stat-value">@Model.TotalTicketsSold</div>
+                    <div class="stat-label">Tickets Sold</div>
+                </div>
+
+                <div class="stat-card amber">
+                    <div class="stat-header">
+                        <div class="stat-icon amber"><i class="fa fa-id-card"></i></div>
+                        <span class="stat-trend neutral">Members</span>
+                    </div>
+                    <div class="stat-value">@Model.TotalMemberships</div>
+                    <div class="stat-label">Memberships Active</div>
+                </div>
+
+                <div class="stat-card purple">
+                    <div class="stat-header">
+                        <div class="stat-icon purple"><i class="fa fa-usd"></i></div>
+                        <span class="stat-trend up"><i class="fa fa-arrow-up"></i> Total</span>
+                    </div>
+                    <div class="stat-value" style="font-size:22px;">$@Model.TotalRevenue.ToString("N0")</div>
+                    <div class="stat-label">Total Revenue</div>
+                </div>
+            </div>
+
+            <!-- Revenue Breakdown -->
+            <div class="revenue-grid">
+                @{
+                    decimal totalRev = Model.TotalRevenue > 0 ? Model.TotalRevenue : 1;
+                    int shopPct = (int)(Model.TotalShopRevenue / totalRev * 100);
+                    int ticketPct = (int)(Model.TotalTicketRevenue / totalRev * 100);
+                    int memberPct = (int)(Model.TotalMembershipRevenue / totalRev * 100);
+                }
+                <div class="revenue-card">
+                    <h3><i class="fa fa-shopping-bag" style="color:#059669;"></i> Shop Revenue</h3>
+                    <div class="big-num">$@Model.TotalShopRevenue.ToString("N2")</div>
+                    <div style="font-size:12px; color:var(--text-secondary);">@shopPct% of total revenue</div>
+                    <div class="revenue-bar">
+                        <div class="revenue-bar-fill" style="width:@shopPct%; background: linear-gradient(90deg,#34d399,#059669);"></div>
+                    </div>
+                </div>
+
+                <div class="revenue-card">
+                    <h3><i class="fa fa-ticket" style="color:#2563eb;"></i> Ticket Revenue</h3>
+                    <div class="big-num">$@Model.TotalTicketRevenue.ToString("N2")</div>
+                    <div style="font-size:12px; color:var(--text-secondary);">@ticketPct% of total revenue</div>
+                    <div class="revenue-bar">
+                        <div class="revenue-bar-fill" style="width:@ticketPct%; background: linear-gradient(90deg,#60a5fa,#2563eb);"></div>
+                    </div>
+                </div>
+
+                <div class="revenue-card">
+                    <h3><i class="fa fa-id-card" style="color:#d97706;"></i> Membership Revenue</h3>
+                    <div class="big-num">$@Model.TotalMembershipRevenue.ToString("N2")</div>
+                    <div style="font-size:12px; color:var(--text-secondary);">@memberPct% of total revenue</div>
+                    <div class="revenue-bar">
+                        <div class="revenue-bar-fill" style="width:@memberPct%; background: linear-gradient(90deg,#fbbf24,#d97706);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Row -->
+            <div class="stats-grid" style="grid-template-columns: repeat(2,1fr); margin-bottom:0;">
+                <div class="stat-card rose">
+                    <div class="stat-header">
+                        <div class="stat-icon rose"><i class="fa fa-calendar-check-o"></i></div>
+                    </div>
+                    <div class="stat-value">@Model.TotalEvents</div>
+                    <div class="stat-label">Total Event Types</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-header">
+                        <div class="stat-icon green"><i class="fa fa-cube"></i></div>
+                    </div>
+                    <div class="stat-value">@Model.TotalProducts</div>
+                    <div class="stat-label">Active Products in Shop</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════ EVENTS ═════════════════════════════════════════ -->
+        <div class="section" id="section-events">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-calendar"></i>
+                        Manage Events
+                        <span class="table-count">@Model.Events.Count events</span>
+                    </h2>
+                    <button class="btn-add" onclick="openEventModal()">
+                        <i class="fa fa-plus"></i> Add Event
+                    </button>
+                </div>
+
+                @if (Model.Events.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-calendar-o"></i>
+                        <p>No events found. Click "Add Event" to create a new one.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Event Name</th>
+                                    <th>Date</th>
+                                    <th>Capacity</th>
+                                    <th>Ticket Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var evt in Model.Events)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(evt.ImagePath))
+                                            {
+                                                <img src="@evt.ImagePath" class="thumb-img" alt="@evt.Title">
+                                            }
+                                            else
+                                            {
+                                                <div class="thumb-placeholder"><i class="fa fa-image"></i></div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <strong>@evt.Title</strong>
+                                                <span>ID: @evt.EventId</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-blue">
+                                                <i class="fa fa-clock-o"></i>
+                                                @evt.EventDate.ToString("dd MMM yyyy")
+                                            </span>
+                                        </td>
+                                        <td>@evt.Capacity guests</td>
+                                        <td class="price-cell">$@evt.BasePrice.ToString("N2")</td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="btn-icon btn-edit" title="Edit"
+                                                        data-id="@evt.EventId"
+                                                        data-title="@evt.Title"
+                                                        data-desc="@evt.Description"
+                                                        data-date="@evt.EventDate.ToString("yyyy-MM-ddTHH:mm")"
+                                                        data-cap="@evt.Capacity"
+                                                        data-price="@evt.BasePrice"
+                                                        data-expect="@evt.WhatToExpect"
+                                                        data-details="@evt.EventDetails"
+                                                        data-sponsors="@evt.Sponsors"
+                                                        data-location="@evt.Location"
+                                                        data-status="@evt.Status"
+                                                        onclick="openEventModal(this)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <form method="post" asp-page-handler="Delete" style="display:inline;" onsubmit="event.preventDefault(); showDeleteConfirmModal(this, 'Are you sure you want to delete this event?', 'Confirm Delete Event', 'Delete', '#dc2626');">
+                                                    <input type="hidden" name="id" value="@evt.EventId" />
+                                                    <button type="submit" class="btn-icon btn-delete" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+        <!-- ══════════════ SHOP PRODUCT ═════════════════════════════════════ -->
+        <div class="section" id="section-shop2">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-shopping-bag"></i>
+                        Manage Shop Products
+                        <span class="table-count" id="shop2-count-display">@Model.Shop2Products.Count products</span>
+                    </h2>
+                    <button class="btn-add" onclick="openProductModal()">
+                        <i class="fa fa-plus"></i> Add Product
+                    </button>
+                </div>
+
+                <!-- Control Bar for Filtering and Search -->
+                <div style="display: flex; gap: 16px; padding: 16px 24px; background: #fafaf9; border-bottom: 1px solid var(--border); align-items: center; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex: 1; min-width: 250px;">
+                        <i class="fa fa-search" style="color: var(--text-secondary);"></i>
+                        <input type="text" id="shop2-search" placeholder="Search product name..." 
+                               style="flex: 1; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; outline: none;"
+                               oninput="onShop2Search(this.value)">
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; min-width: 200px;">
+                        <span style="font-size: 13px; font-weight: 600; color: var(--text-secondary); white-space: nowrap;">Category:</span>
+                        <select id="shop2-category-filter" style="padding: 8px 12px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; background: white; outline: none; flex: 1;"
+                                onchange="onShop2CategoryFilter(this.value)">
+                            <option value="">All Categories</option>
+                            @foreach (var cat in Model.ShopCategories)
+                            {
+                                <option value="@cat.Name">@cat.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                @if (Model.Shop2Products.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-shopping-bag"></i>
+                        <p>No products found. Click "Add Product" to create a new one.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th onclick="onShop2Sort('name')" style="cursor: pointer; user-select: none;">
+                                        Product Name <i class="fa fa-sort" id="sort-icon-name" style="margin-left: 4px; opacity: 0.6;"></i>
+                                    </th>
+                                    <th onclick="onShop2Sort('category')" style="cursor: pointer; user-select: none;">
+                                        Category <i class="fa fa-sort" id="sort-icon-category" style="margin-left: 4px; opacity: 0.6;"></i>
+                                    </th>
+                                    <th onclick="onShop2Sort('price')" style="cursor: pointer; user-select: none;">
+                                        Price <i class="fa fa-sort" id="sort-icon-price" style="margin-left: 4px; opacity: 0.6;"></i>
+                                    </th>
+                                    <th onclick="onShop2Sort('stock')" style="cursor: pointer; user-select: none;">
+                                        Stock <i class="fa fa-sort" id="sort-icon-stock" style="margin-left: 4px; opacity: 0.6;"></i>
+                                    </th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="shop2-table-body">
+                                @foreach (var p in Model.Shop2Products)
+                                {
+                                    <tr class="shop2-product-row" 
+                                        data-id="@p.ProductId" 
+                                        data-name="@p.Name.ToLower()" 
+                                        data-category="@p.CategoryName.ToLower()" 
+                                        data-price="@p.Price" 
+                                        data-stock="@p.StockQuantity">
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(p.ImagePath))
+                                            {
+                                                <img src="@p.ImagePath" class="thumb-img" alt="@p.Name">
+                                            }
+                                            else
+                                            {
+                                                <div class="thumb-placeholder"><i class="fa fa-cube"></i></div>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <strong>@p.Name</strong>
+                                                <span>ID: @p.ProductId</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-blue">@p.CategoryName</span>
+                                        </td>
+                                        <td class="price-cell">$@p.Price.ToString("N2")</td>
+                                        <td>
+                                            @if (p.StockQuantity <= 5)
+                                            {
+                                                <span class="stock-low"><i class="fa fa-warning"></i> @p.StockQuantity</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="stock-ok">@p.StockQuantity</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            <div class="action-btns">
+                                                <button class="btn-icon btn-edit" title="Edit"
+                                                         data-id="@p.ProductId"
+                                                         data-name="@p.Name"
+                                                         data-info="@p.ProductInformation"
+                                                         data-detail="@p.ProductDetail"
+                                                         data-care="@p.MaterialAndCare"
+                                                         data-price="@p.Price"
+                                                         data-stock="@p.StockQuantity"
+                                                         data-category="@p.CategoryName"
+                                                         data-image="@p.ImagePath"
+                                                         data-images="@p.AdditionalImages"
+                                                         data-size-enabled="@(p.IsSizeEnabled ? "1" : "0")"
+                                                         data-size-chart-enabled="@(p.IsSizeChartEnabled ? "1" : "0")"
+                                                         data-featured="@(p.IsFeatured ? "1" : "0")"
+                                                         data-new="@(p.IsNew ? "1" : "0")"
+                                                         onclick="openProductModal(this)">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                <form method="post" asp-page-handler="DeleteProduct2" 
+                                                      style="display:inline;" onsubmit="event.preventDefault(); showDeleteConfirmModal(this, 'Are you sure you want to delete this product?', 'Confirm Delete Product', 'Delete', '#dc2626');">
+                                                    <input type="hidden" name="id" value="@p.ProductId" />
+                                                    <button type="submit" class="btn-icon btn-delete" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination Controls -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-top: 1px solid var(--border); background: #fafaf9;">
+                        <span style="font-size: 13px; color: var(--text-secondary);" id="shop2-pagination-info">Showing 1 to 10 of 42 products</span>
+                        <div style="display: flex; gap: 6px;" id="shop2-pagination-buttons">
+                            <!-- JS will inject buttons here -->
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ══════════════ PENDING ORDERS ═════════════════════════════════ -->
+        <div class="section" id="section-pending">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-clock-o"></i>
+                        Pending Cash Orders
+                        <span class="table-count">@Model.PendingOrders.Count orders awaiting approval</span>
+                    </h2>
+                </div>
+
+                @if (Model.PendingOrders.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-check-circle" style="color:#059669; font-size: 48px; opacity: 0.8; display: block; margin-bottom: 16px;"></i>
+                        <p>No orders are currently in Pending status.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Order Date</th>
+                                    <th>Customer / Email</th>
+                                    <th>Shipping & Items Details</th>
+                                    <th>Total Amount</th>
+                                    <th>Payment Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Model.PendingOrders)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong style="color:var(--accent-dark);">#@order.OrderId</strong>
+                                        </td>
+                                        <td>
+                                            <span style="font-size:12px; color:#666;">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</span>
+                                        </td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <strong>@order.CustomerName</strong>
+                                                <span><i class="fa fa-envelope-o" style="width:14px;"></i> @order.Email</span>
+                                                @if (!string.IsNullOrEmpty(order.Phone))
+                                                {
+                                                    <span style="font-size: 11px; color: #475569; display: flex; align-items: center; gap: 4px; margin-top: 2px;"><i class="fa fa-phone" style="width:14px;"></i> @order.Phone</span>
+                                                }
+                                                @if (!string.IsNullOrEmpty(order.Address))
+                                                {
+                                                    <span style="font-size: 11px; color: #64748b; display: flex; align-items: center; gap: 4px; margin-top: 2px;" title="@order.Address"><i class="fa fa-map-marker" style="width:14px;"></i> @order.Address</span>
+                                                }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div style="font-size:13px; line-height:1.5;">
+                                                <div style="color:#475569; font-weight:600; margin-bottom:4px;">
+                                                    📦 Details: <span style="color:#1e293b; font-weight:normal;">@order.ItemsSummary</span>
+                                                </div>
+                                                <div style="color:#64748b;">
+                                                    🚚 Delivery: <span style="font-style:italic;">@order.Notes</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="price-cell">
+                                            $@order.TotalAmount.ToString("N2")
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="background:#fff8e1; color:#f57f17; font-weight:700;">
+                                                @order.PaymentMethod / @order.PaymentStatus
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <form method="post" asp-page-handler="ApproveOrder" onsubmit="event.preventDefault(); showDeleteConfirmModal(this, 'Confirm that the customer has successfully paid cash for order #@order.OrderId? The status will change to Completed.', 'Confirm Cash Payment', 'Confirm', '#059669');">
+                                                <input type="hidden" name="id" value="@order.OrderId" />
+                                                <button type="submit" class="btn-add" style="padding: 6px 14px; font-size:12px; border-radius:6px; background:#059669;">
+                                                    <i class="fa fa-check"></i> Approve Order
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ══════════════ DETAILS PENDING ════════════════════════════════ -->
+        <div class="section" id="section-pendingpayments">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-money"></i>
+                        Details Pending Transactions
+                        <span class="table-count">@Model.PendingPayments.Count pending logs</span>
+                    </h2>
+                </div>
+
+                @if (Model.PendingPayments.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-check-circle" style="color:#059669; font-size: 48px; opacity: 0.8; display: block; margin-bottom: 16px;"></i>
+                        <p>No transaction logs are currently in Pending status.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Log ID</th>
+                                    <th>Order ID</th>
+                                    <th>Transaction Ref</th>
+                                    <th>Type</th>
+                                    <th>Payment Method</th>
+                                    <th>Amount</th>
+                                    <th>Date</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pl in Model.PendingPayments)
+                                {
+                                    <tr>
+                                        <td><strong>#@pl.PaymentLogId</strong></td>
+                                        <td>@(pl.OrderId > 0 ? $"#{pl.OrderId}" : "—")</td>
+                                        <td><span class="badge badge-blue">@pl.TransactionRef</span></td>
+                                        <td><span class="badge" style="background:#f3e5f5; color:#7b1fa2; text-transform:capitalize;">@pl.Type</span></td>
+                                        <td>@pl.PaymentMethod</td>
+                                        <td class="price-cell">$@pl.Amount.ToString("N2")</td>
+                                        <td>@pl.PaymentDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td style="font-size:12px; max-width:200px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="@pl.Notes">@pl.Notes</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ══════════════ REFUND REQUESTS ════════════════════════════════ -->
+        <div class="section" id="section-refunds">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-undo"></i>
+                        Refund Requests Management
+                        <span class="table-count">@Model.RefundRequests.Count pending requests</span>
+                    </h2>
+                </div>
+
+                @if (Model.RefundRequests.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-check-circle" style="color:#059669; font-size: 48px; opacity: 0.8; display: block; margin-bottom: 16px;"></i>
+                        <p>No refund requests are currently pending.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Refund ID</th>
+                                    <th>Order ID / Ref</th>
+                                    <th>Customer / Email</th>
+                                    <th>Refund Amount</th>
+                                    <th>Category</th>
+                                    <th>Requested Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var r in Model.RefundRequests)
+                                {
+                                    <tr>
+                                        <td><strong>#@r.RefundId</strong></td>
+                                        <td>
+                                            <div style="font-size:13px;">
+                                                Order: <strong style="color:var(--accent-dark);">@(r.OrderId > 0 ? r.OrderId.ToString() : "—")</strong><br/>
+                                                Ref: <span style="font-size:11px; color:#666;">@r.TransactionRef</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <strong>@r.CustomerName</strong>
+                                                <span>@r.Email</span>
+                                            </div>
+                                        </td>
+                                        <td class="price-cell" style="color:#c62828; font-weight:700;">$@r.Amount.ToString("N2")</td>
+                                        <td>
+                                            <span class="badge" style="background:#e8f5e9; color:#2e7d32; text-transform:capitalize;">@r.Type</span>
+                                        </td>
+                                        <td>@r.RequestedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>
+                                            <form method="post" asp-page-handler="CompleteRefund" onsubmit="event.preventDefault(); showRefundConfirmModal(this, '@(r.Amount.ToString("N2"))');">
+                                                <input type="hidden" name="refundId" value="@r.RefundId" />
+                                                <button type="submit" class="btn-add" style="padding: 6px 14px; font-size:12px; border-radius:6px; background:#c62828;">
+                                                    <i class="fa fa-check"></i> Complete Refund
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ══════════════ CONTACT MESSAGES ════════════════════════════════ -->
+        <div class="section" id="section-contacts">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-envelope"></i>
+                        Customer Contact Messages
+                        <span class="table-count">@Model.ContactMessages.Count submissions</span>
+                    </h2>
+                </div>
+
+                @if (Model.ContactMessages.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-envelope-o" style="font-size: 48px; opacity: 0.8; display: block; margin-bottom: 16px;"></i>
+                        <p>No contact messages have been received yet.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Subject</th>
+                                    <th>Reason</th>
+                                    <th>Message Details</th>
+                                    <th>Submitted Date</th>
+                                    <th>Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var c in Model.ContactMessages)
+                                {
+                                    <tr>
+                                        <td><strong>#@c.ContactId</strong></td>
+                                        <td>@c.FirstName @c.LastName</td>
+                                        <td><a href="mailto:@c.Email" style="color:var(--primary); text-decoration:none;">@c.Email</a></td>
+                                        <td><strong>@c.Subject</strong></td>
+                                        <td><span class="badge" style="background:#e0f2f1; color:#004d40; font-weight:600;">@c.Reason</span></td>
+                                        <td>
+                                            <div style="max-width: 320px; font-size: 13px; line-height: 1.5; color:#334155; word-break: break-word;">
+                                                @c.Message
+                                            </div>
+                                        </td>
+                                        <td>@c.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                                        <td>
+                                            <span class="badge" style="background:@(c.Source == "ZooShop" ? "#fff3e0" : "#e8f5e9"); color:@(c.Source == "ZooShop" ? "#e65100" : "#1b5e20"); font-weight:700;">
+                                                @c.Source
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ══════════════ DONATIONS ═════════════════════════════════════ -->
+        <div class="section" id="section-donations">
+            <div class="table-card">
+                <div class="table-header">
+                    <h2>
+                        <i class="fa fa-heart"></i>
+                        Donation History
+                        <span class="table-count">@Model.Donations.Count records</span>
+                    </h2>
+                </div>
+
+                @if (Model.Donations.Count == 0)
+                {
+                    <div class="empty-state">
+                        <i class="fa fa-heart-o" style="font-size: 48px; opacity: 0.8; display: block; margin-bottom: 16px;"></i>
+                        <p>No donation records have been received yet.</p>
+                    </div>
+                }
+                else
+                {
+                    <div style="overflow-x:auto;">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Donor</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Amount</th>
+                                    <th>Frequency</th>
+                                    <th>Purpose</th>
+                                    <th>Dedication</th>
+                                    <th>Cover Fees</th>
+                                    <th>Transaction Ref</th>
+                                    <th>Status</th>
+                                    <th>Payment</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var d in Model.Donations)
+                                {
+                                    <tr>
+                                        <td><strong>#@d.DonationId</strong></td>
+                                        <td>
+                                            <div class="name-cell">
+                                                <strong>@d.FirstName @d.LastName</strong>
+                                            </div>
+                                        </td>
+                                        <td><a href="mailto:@d.Email" style="color:var(--accent-dark); text-decoration:none;">@d.Email</a></td>
+                                        <td>@d.Phone</td>
+                                        <td class="price-cell">$@d.Amount.ToString("N2")</td>
+                                        <td>
+                                            <span class="badge" style="background:#ede9fe; color:#5b21b6; font-weight:600;">
+                                                @d.Frequency
+                                            </span>
+                                        </td>
+                                        <td>@d.Purpose</td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(d.DedicationType))
+                                            {
+                                                <span class="badge" style="background:#fef3c7; color:#92400e;">@d.DedicationType</span>
+                                                @if (!string.IsNullOrEmpty(d.DedicationName))
+                                                {
+                                                    <br /><span style="font-size:12px; color:var(--text-secondary);">@d.DedicationName</span>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <span style="color:var(--text-secondary); font-size:12px;">—</span>
+                                            }
+                                        </td>
+                                        <td style="text-align:center;">
+                                            @if (d.CoverFees)
+                                            {
+                                                <i class="fa fa-check-circle" style="color:#059669; font-size:16px;"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-times-circle" style="color:#94a3b8; font-size:16px;"></i>
+                                            }
+                                        </td>
+                                        <td>
+                                            <span style="font-size:12px; font-family:monospace; background:#f1f5f9; padding:3px 6px; border-radius:4px;">
+                                                @(string.IsNullOrEmpty(d.TransactionRef) ? "—" : d.TransactionRef)
+                                            </span>
+                                        </td>
+                                        <td>
+                                            @{
+                                                var donStatusBg = d.Status == "Completed" ? "#d1fae5" : d.Status == "Pending" ? "#fef3c7" : "#fee2e2";
+                                                var donStatusColor = d.Status == "Completed" ? "#065f46" : d.Status == "Pending" ? "#92400e" : "#991b1b";
+                                            }
+                                            <span class="badge" style="background:@donStatusBg; color:@donStatusColor; font-weight:700;">
+                                                @d.Status
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge" style="background:#e0f2fe; color:#075985; font-weight:600;">
+                                                @d.PaymentMethod
+                                            </span>
+                                        </td>
+                                        <td>@d.DonationDate.ToString("dd/MM/yyyy HH:mm")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ════════════════════════════════════ EVENT MODAL ═══════════════════ -->
+<div class="modal-overlay" id="eventModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeEventModal()">&#10005;</button>
+        <h2 class="modal-title" id="eventModalTitle">
+            <i class="fa fa-calendar-plus-o" style="color:var(--accent-dark);"></i> Add Event
+        </h2>
+
+        <form method="post" asp-page-handler="Save" enctype="multipart/form-data" runat="server">
+            <input type="hidden" id="EventId" name="CurrentEvent.EventId" value="0">
+
+            @foreach (var field in Model.EventFormFields)
+            {
+                <div class="form-group">
+                    <label>@field.Label</label>
+                    @if (field.Type == "textarea")
+                    {
+                        <textarea id="@field.Id" name="@field.Name" rows="@field.Rows" placeholder="@field.Placeholder" @(field.IsRequired ? "required" : "")></textarea>
+                    }
+                    else if (field.Type == "select")
+                    {
+                        <select id="@field.Id" name="@field.Name" style="width: 100%; padding: 10px; border: 1.5px solid #ebd4bd; border-radius: 8px; font-size: 14px; outline: none; background: white;">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    }
+                    else if (field.Type == "file")
+                    {
+                        <input type="file" id="@field.Id" name="@field.Name" accept="image/*" @(field.IsRequired ? "required" : "")>
+                    }
+                    else
+                    {
+                        <input type="@field.Type" id="@field.Id" name="@field.Name" placeholder="@field.Placeholder" 
+                               value="@field.Value" min="@field.Min" step="@field.Step" @(field.IsRequired ? "required" : "")>
+                    }
+                </div>
+            }
+
+            <button type="submit" class="btn-submit">
+                <i class="fa fa-save"></i> Save Changes
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ PRODUCT MODAL ═════════════════ -->
+<div class="modal-overlay" id="productModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeProductModal()">&#10005;</button>
+        <h2 class="modal-title" id="productModalTitle">
+            <i class="fa fa-plus-circle" style="color:var(--accent-dark);"></i> Add Product
+        </h2>
+
+        <form id="productForm" method="post" asp-page-handler="SaveProduct" enctype="multipart/form-data" runat="server">
+            <input type="hidden" id="ProductId" name="CurrentProduct.ProductId" value="0">
+
+            @foreach (var field in Model.ProductFormFields)
+            {
+                @if (field.Type == "checkbox")
+                {
+                    <div class="form-group">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <input type="checkbox" id="@field.Id" name="@field.Name" value="true" style="width: 20px; height: 20px; cursor: pointer; accent-color: #72441c;" />
+                            <input type="hidden" name="@field.Name" value="false" />
+                            <label for="@field.Id" style="margin: 0; cursor: pointer; font-weight: 600;">@field.Label</label>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <label>@field.Label</label>
+                        @if (field.Type == "textarea")
+                        {
+                            <textarea id="@field.Id" name="@field.Name" rows="@field.Rows" placeholder="@field.Placeholder" @(field.IsRequired ? "required" : "")></textarea>
+                        }
+                        else if (field.Type == "select")
+                        {
+                            <select id="@field.Id" name="@field.Name" style="width: 100%; padding: 10px; 
+                            border: 1.5px solid #ebd4bd; border-radius: 8px; font-size: 14px; outline: none; background: white;">
+                                @foreach (var cat in Model.ShopCategories)
+                                {
+                                    <option value="@cat.Name">@cat.Name</option>
+                                }
+                                @if (!Model.ShopCategories.Any())
+                                {
+                                    <option value="Souvenirs">Souvenirs</option>
+                                    <option value="Apparel">Apparel</option>
+                                    <option value="Accessories">Accessories</option>
+                                    <option value="Plush">Plush Toys</option>
+                                }
+                            </select>
+                        }
+                        else if (field.Type == "file")
+                        {
+                            <input type="file" id="@field.Id" name="@field.Name" accept="image/*" multiple @(field.IsRequired ? "required" : "")>
+                        }
+                        else
+                        {
+                            <input type="@field.Type" id="@field.Id" name="@field.Name" placeholder="@field.Placeholder" 
+                                   value="@field.Value" min="@field.Min" step="@field.Step" @(field.IsRequired ? "required" : "")>
+                        }
+                    </div>
+                }
+            }
+            <div class="form-group" id="ModalProductGalleryContainer" style="display:none; margin-bottom: 20px;">
+                <label>Gallery Preview</label>
+                <div class="modal-gallery-wrap" 
+                style="display: flex; flex-direction: column; align-items: 
+                    center; border: 2px dashed #ebd4bd; border-radius: 12px; padding: 15px; background: #faf6f0; gap: 12px; position: relative;">
+                    <img id="ModalMainPreview" src="" 
+                        style="max-height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; border: 1.5px solid #ebd4bd; background: #fff; padding: 5px;" />
+                    <div id="ModalThumbnailsStrip" style="display: flex; gap: 8px; overflow-x: auto; width: 100%; padding: 5px 0; justify-content: center; scrollbar-width: none;">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                <i class="fa fa-save"></i> Save Product
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ REFUND CONFIRM MODAL ══════════ -->
+<div class="modal-overlay" id="refundConfirmModal">
+    <div class="modal-box" style="max-width: 450px; text-align: center;">
+        <button class="modal-close" onclick="closeRefundConfirmModal()">&#10005;</button>
+        <div style="margin-bottom: 20px;">
+            <i class="fa fa-exclamation-triangle" style="font-size: 48px; color: #dc2626;"></i>
+        </div>
+        <h2 class="modal-title" style="margin-bottom: 12px; padding-right: 0;">Confirm Refund</h2>
+        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+            Are you sure you want to complete the refund of <strong id="refundConfirmAmount" style="color: #dc2626;">$0.00</strong>?<br/>
+            This action will credit the amount to the customer and update the transaction order status to <strong>Refunded</strong>.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button type="button" class="topbar-home" style="margin: 0; padding: 10px 24px;" onclick="closeRefundConfirmModal()">Cancel</button>
+            <button type="button" class="btn-add" style="background: #dc2626; padding: 10px 24px;" id="refundConfirmSubmitBtn">Confirm Refund</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ REFUND SUCCESS MODAL ══════════ -->
+<div class="modal-overlay" id="refundSuccessModal">
+    <div class="modal-box" style="max-width: 450px; text-align: center;">
+        <button class="modal-close" onclick="closeRefundSuccessModal()">&#10005;</button>
+        <div style="margin-bottom: 20px;">
+            <i class="fa fa-check-circle" style="font-size: 52px; color: #059669;"></i>
+        </div>
+        <h2 class="modal-title" style="margin-bottom: 12px; padding-right: 0;">Refund Successful</h2>
+        <p id="refundSuccessMessage" style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+            The refund has been successfully completed.
+        </p>
+        <button type="button" class="btn-submit" style="margin-top: 0; background: #059669;" onclick="closeRefundSuccessModal()">OK</button>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ DELETE/GENERIC CONFIRM MODAL ══════════ -->
+<div class="modal-overlay" id="deleteConfirmModal">
+    <div class="modal-box" style="max-width: 450px; text-align: center;">
+        <button class="modal-close" onclick="closeDeleteConfirmModal()">&#10005;</button>
+        <div style="margin-bottom: 20px;">
+            <i class="fa fa-exclamation-triangle" style="font-size: 52px; color: #dc2626;"></i>
+        </div>
+        <h2 class="modal-title" style="margin-bottom: 12px; padding-right: 0;" id="deleteConfirmTitle">Confirm Action</h2>
+        <p id="deleteConfirmMessage" style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+            Are you sure you want to perform this action?
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center;">
+            <button type="button" class="topbar-home" style="margin: 0; padding: 10px 24px; border: 1.5px solid var(--border); background: white; color: var(--text-primary); cursor: pointer;" onclick="closeDeleteConfirmModal()">Cancel</button>
+            <button type="button" class="btn-add" style="background: #dc2626; padding: 10px 24px;" id="deleteConfirmSubmitBtn">Confirm</button>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════ SAVE SUCCESS MODAL ══════════ -->
+<div class="modal-overlay" id="saveSuccessModal">
+    <div class="modal-box" style="max-width: 450px; text-align: center;">
+        <button class="modal-close" onclick="closeSaveSuccessModal()">&#10005;</button>
+        <div style="margin-bottom: 20px;">
+            <i class="fa fa-check-circle" style="font-size: 52px; color: #059669;"></i>
+        </div>
+        <h2 class="modal-title" style="margin-bottom: 12px; padding-right: 0;">Success</h2>
+        <p id="saveSuccessMessage" style="color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-bottom: 24px;">
+            Saved successfully.
+        </p>
+        <button type="button" class="btn-submit" style="margin-top: 0; background: #059669;" onclick="closeSaveSuccessModal()">OK</button>
+    </div>
+</div>
+
+<script>
+    // ── Section Switching ──────────────────────────────────────────────
+    const sectionMeta = {
+        overview: { title: 'Overview', sub: 'System activity and statistics overview', addBtn: false },
+        events:   { title: 'Manage Events', sub: 'Add, edit, or delete zoo events', addBtn: true, addLabel: 'Add Event', addFn: 'openEventModal' },
+        shop2:    { title: 'Manage Shop Products', sub: 'Manage products in the zoo store', addBtn: true, addLabel: 'Add Product', addFn: 'openProductModal' },
+        pending:  { title: 'Pending Cash Orders', sub: 'Approve and complete cash-on-delivery orders', addBtn: false },
+        pendingpayments: { title: 'Details Pending', sub: 'View all transaction logs currently in pending state', addBtn: false },
+        refunds:  { title: 'Refund Requests', sub: 'Manage active customer refund requests', addBtn: false },
+        contacts: { title: 'Contact Messages', sub: 'View contact form inquiries submitted by visitors', addBtn: false },
+        donations: { title: 'Donation History', sub: 'View all donation records and details', addBtn: false }
+    };
+
+    function switchSection(name) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById('section-' + name).classList.add('active');
+        document.getElementById('nav-' + name).classList.add('active');
+
+        const meta = sectionMeta[name];
+        document.getElementById('topbar-title').textContent = meta.title;
+        document.getElementById('topbar-sub').textContent = meta.sub;
+
+        const addBtn = document.getElementById('topbar-add-btn');
+        if (meta.addBtn) {
+            addBtn.style.display = 'flex';
+            document.getElementById('topbar-add-label').textContent = meta.addLabel;
+            addBtn.onclick = window[meta.addFn];
+        } else {
+            addBtn.style.display = 'none';
+        }
+    }
+
+    // ── Shop 2 Pagination, Filtering & Sorting State ────────────────────
+    let shop2State = {
+        search: '',
+        category: '',
+        sortBy: 'name',
+        sortDesc: false,
+        page: 1,
+        pageSize: 10
+    };
+    let shop2AllRows = [];
+
+    function onShop2Search(val) {
+        shop2State.search = val.trim().toLowerCase();
+        shop2State.page = 1;
+        applyShop2FilterSortPaginate();
+    }
+
+    function onShop2CategoryFilter(val) {
+        shop2State.category = val.trim().toLowerCase();
+        shop2State.page = 1;
+        applyShop2FilterSortPaginate();
+    }
+
+    function onShop2Sort(field) {
+        if (shop2State.sortBy === field) {
+            shop2State.sortDesc = !shop2State.sortDesc;
+        } else {
+            shop2State.sortBy = field;
+            shop2State.sortDesc = false;
+        }
+        
+        // Update sort icons
+        const fields = ['name', 'category', 'price', 'stock'];
+        fields.forEach(f => {
+            const icon = document.getElementById('sort-icon-' + f);
+            if (icon) {
+                if (f === field) {
+                    icon.className = shop2State.sortDesc ? 'fa fa-sort-desc' : 'fa fa-sort-asc';
+                    icon.style.opacity = '1';
+                } else {
+                    icon.className = 'fa fa-sort';
+                    icon.style.opacity = '0.6';
+                }
+            }
+        });
+        
+        applyShop2FilterSortPaginate();
+    }
+
+    function applyShop2FilterSortPaginate() {
+        // 1. Filter
+        let filtered = shop2AllRows.filter(row => {
+            const name = row.dataset.name || '';
+            const category = row.dataset.category || '';
+            
+            const matchesSearch = !shop2State.search || name.includes(shop2State.search);
+            const matchesCategory = !shop2State.category || category === shop2State.category;
+            
+            return matchesSearch && matchesCategory;
+        });
+        
+        // 2. Sort
+        filtered.sort((a, b) => {
+            let valA = a.dataset[shop2State.sortBy];
+            let valB = b.dataset[shop2State.sortBy];
+            
+            if (shop2State.sortBy === 'price' || shop2State.sortBy === 'stock') {
+                valA = parseFloat(valA) || 0;
+                valB = parseFloat(valB) || 0;
+            } else {
+                valA = (valA || '').toString();
+                valB = (valB || '').toString();
+            }
+            
+            if (valA < valB) return shop2State.sortDesc ? 1 : -1;
+            if (valA > valB) return shop2State.sortDesc ? -1 : 1;
+            return 0;
+        });
+        
+        // 3. Paginate
+        const total = filtered.length;
+        const pageCount = Math.ceil(total / shop2State.pageSize) || 1;
+        if (shop2State.page > pageCount) shop2State.page = pageCount;
+        if (shop2State.page < 1) shop2State.page = 1;
+        
+        const startIdx = (shop2State.page - 1) * shop2State.pageSize;
+        const endIdx = Math.min(startIdx + shop2State.pageSize, total);
+        
+        // Show/hide rows in DOM
+        shop2AllRows.forEach(row => {
+            row.style.display = 'none';
+        });
+        
+        for (let i = startIdx; i < endIdx; i++) {
+            filtered[i].style.display = '';
+        }
+        
+        // Put rows in order in tbody
+        const tbody = document.getElementById('shop2-table-body');
+        if (tbody) {
+            filtered.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Update count display
+        const countDisplay = document.getElementById('shop2-count-display');
+        if (countDisplay) {
+            countDisplay.textContent = total + ' product' + (total !== 1 ? 's' : '');
+        }
+        
+        // Update pagination labels
+        const pagInfo = document.getElementById('shop2-pagination-info');
+        if (pagInfo) {
+            if (total === 0) {
+                pagInfo.textContent = 'Showing 0 products';
+            } else {
+                pagInfo.textContent = `Showing ${startIdx + 1} to ${endIdx} of ${total} products`;
+            }
+        }
+        
+        // Render pagination buttons
+        const pagButtons = document.getElementById('shop2-pagination-buttons');
+        if (pagButtons) {
+            pagButtons.innerHTML = '';
+            
+            // Prev button
+            const prevBtn = document.createElement('button');
+            prevBtn.type = 'button';
+            prevBtn.className = 'filter-pill';
+            prevBtn.style.padding = '5px 12px';
+            prevBtn.disabled = shop2State.page === 1;
+            prevBtn.innerHTML = '<i class="fa fa-angle-left"></i>';
+            prevBtn.onclick = () => {
+                if (shop2State.page > 1) {
+                    shop2State.page--;
+                    applyShop2FilterSortPaginate();
+                }
+            };
+            pagButtons.appendChild(prevBtn);
+            
+            // Page numbers
+            for (let i = 1; i <= pageCount; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.type = 'button';
+                pageBtn.className = 'filter-pill' + (i === shop2State.page ? ' active' : '');
+                pageBtn.style.padding = '5px 12px';
+                pageBtn.textContent = i;
+                pageBtn.onclick = () => {
+                    shop2State.page = i;
+                    applyShop2FilterSortPaginate();
+                };
+                pagButtons.appendChild(pageBtn);
+            }
+            
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.type = 'button';
+            nextBtn.className = 'filter-pill';
+            nextBtn.style.padding = '5px 12px';
+            nextBtn.disabled = shop2State.page === pageCount;
+            nextBtn.innerHTML = '<i class="fa fa-angle-right"></i>';
+            nextBtn.onclick = () => {
+                if (shop2State.page < pageCount) {
+                    shop2State.page++;
+                    applyShop2FilterSortPaginate();
+                }
+            };
+            pagButtons.appendChild(nextBtn);
+        }
+    }
+
+    // Auto-select section from URL query string if present
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const section = urlParams.get('section') || 'overview';
+        if (sectionMeta[section]) {
+            switchSection(section);
+        }
+        
+        // Cache and initialize Shop 2 elements
+        const rows = document.querySelectorAll('.shop2-product-row');
+        shop2AllRows = Array.from(rows);
+        applyShop2FilterSortPaginate();
+    });
+
+    function openAddModal() {
+        const activeSection = document.querySelector('.nav-item.active')?.id?.replace('nav-','');
+        if (activeSection === 'events') openEventModal();
+        else if (activeSection === 'shop' || activeSection === 'shop2') openProductModal();
+    }
+
+    // ── Event Modal ────────────────────────────────────────────────────
+    function openEventModal(btnOrId) {
+        let id = 0, title = '', desc = '', date = '', cap = 100, price = 0.00, expect = '', details = '', sponsors = '', location = '', status = 'Active';
+        if (btnOrId && typeof btnOrId === 'object' && btnOrId.nodeType === 1) {
+            id = parseInt(btnOrId.dataset.id) || 0;
+            title = btnOrId.dataset.title || '';
+            desc = btnOrId.dataset.desc || '';
+            date = btnOrId.dataset.date || '';
+            cap = parseInt(btnOrId.dataset.cap) || 100;
+            price = parseFloat(btnOrId.dataset.price) || 0.00;
+            expect = btnOrId.dataset.expect || '';
+            details = btnOrId.dataset.details || '';
+            sponsors = btnOrId.dataset.sponsors || '';
+            location = btnOrId.dataset.location || '';
+            status = btnOrId.dataset.status || 'Active';
+        } else if (typeof btnOrId === 'number' || typeof btnOrId === 'string') {
+            id = parseInt(btnOrId) || 0;
+            title = arguments[1] || '';
+            desc = arguments[2] || '';
+            date = arguments[3] || '';
+            cap = parseInt(arguments[4]) || 100;
+            price = parseFloat(arguments[5]) || 0.00;
+        }
+
+        document.getElementById('eventModalTitle').innerHTML =
+            id === 0 ? '<i class="fa fa-calendar-plus-o" style="color:var(--accent-dark);"></i> Add New Event'
+                     : '<i class="fa fa-edit" style="color:var(--accent-dark);"></i> Edit Event';
+        document.getElementById('EventId').value = id;
+        document.getElementById('EvtTitle').value = title;
+        document.getElementById('EvtDescription').value = desc;
+        document.getElementById('EvtWhatToExpect').value = expect;
+        document.getElementById('EvtEventDetails').value = details;
+        document.getElementById('EvtSponsors').value = sponsors;
+        document.getElementById('EvtLocation').value = location;
+        document.getElementById('EvtStatus').value = status;
+        document.getElementById('ImageUpload').value = '';
+        if (!date) {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            date = now.toISOString().slice(0,16);
+        }
+        document.getElementById('EventDate').value = date;
+        document.getElementById('Capacity').value = cap;
+        document.getElementById('BasePrice').value = price;
+        document.getElementById('eventModal').classList.add('open');
+    }
+    function closeEventModal() {
+        document.getElementById('eventModal').classList.remove('open');
+    }
+
+    // ── Product Modal ──────────────────────────────────────────────────
+    function openProductModal(btnOrId) {
+        let id = 0, name = '', info = '', detail = '', care = '', price = 0.00, stock = 50, cat = '', image = '', images = '';
+        let sizeEnabled = false, sizeChartEnabled = false, featured = false, isNew = false;
+        if (btnOrId && typeof btnOrId === 'object' && btnOrId.nodeType === 1) {
+            id = parseInt(btnOrId.dataset.id) || 0;
+            name = btnOrId.dataset.name || '';
+            info = btnOrId.dataset.info || '';
+            detail = btnOrId.dataset.detail || '';
+            care = btnOrId.dataset.care || '';
+            price = parseFloat(btnOrId.dataset.price) || 0.00;
+            stock = parseInt(btnOrId.dataset.stock) || 50;
+            cat = btnOrId.dataset.category || '';
+            image = btnOrId.dataset.image || '';
+            images = btnOrId.dataset.images || '';
+            sizeEnabled = btnOrId.dataset.sizeEnabled === "1";
+            sizeChartEnabled = btnOrId.dataset.sizeChartEnabled === "1";
+            featured = btnOrId.dataset.featured === "1";
+            isNew = btnOrId.dataset.new === "1";
+        } else if (typeof btnOrId === 'number' || typeof btnOrId === 'string') {
+            id = parseInt(btnOrId) || 0;
+            name = arguments[1] || '';
+            info = arguments[2] || '';
+            price = parseFloat(arguments[3]) || 0.00;
+            stock = parseInt(arguments[4]) || 50;
+            cat = arguments[5] || '';
+        }
+
+        const form = document.getElementById('productForm');
+        const activeSection = document.querySelector('.nav-item.active')?.id?.replace('nav-','');
+        if (activeSection === 'shop2') {
+            form.action = '/AdminDashboard?handler=SaveProduct2';
+        } else {
+            form.action = '/AdminDashboard?handler=SaveProduct';
+        }
+
+        document.getElementById('productModalTitle').innerHTML =
+            id === 0 ? '<i class="fa fa-plus-circle" style="color:var(--accent-dark);"></i> Add New Product'
+                     : '<i class="fa fa-edit" style="color:var(--accent-dark);"></i> Edit Product';
+        document.getElementById('ProductId').value = id;
+        document.getElementById('ProdName').value = name;
+        document.getElementById('ProdInformation').value = info;
+        document.getElementById('ProdDetail').value = detail;
+        document.getElementById('ProdMaterialAndCare').value = care;
+        document.getElementById('ProdPrice').value = price;
+        document.getElementById('ProdStock').value = stock;
+        document.getElementById('ProductImageUpload').value = '';
+        document.getElementById('ProdIsSizeEnabled').checked = sizeEnabled;
+        document.getElementById('ProdIsSizeChartEnabled').checked = sizeChartEnabled;
+        document.getElementById('ProdIsFeatured').checked = featured;
+        document.getElementById('ProdIsNew').checked = isNew;
+        const catSel = document.getElementById('ProdCategory');
+        if (cat && catSel) {
+            for (let i = 0; i < catSel.options.length; i++) {
+                if (catSel.options[i].value === cat) { catSel.selectedIndex = i; break; }
+            }
+        }
+
+        // Live Image Gallery Preview logic
+        const container = document.getElementById('ModalProductGalleryContainer');
+        const mainPreview = document.getElementById('ModalMainPreview');
+        const strip = document.getElementById('ModalThumbnailsStrip');
+        strip.innerHTML = '';
+
+        let allImages = [];
+        if (image) allImages.push(image);
+        if (images) {
+            images.split(',').forEach(img => {
+                const cleaned = img.trim();
+                if (cleaned && !allImages.includes(cleaned)) allImages.push(cleaned);
+            });
+        }
+
+        if (allImages.length > 0) {
+            container.style.display = 'block';
+            mainPreview.src = allImages[0];
+            allImages.forEach((imgUrl, index) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.style = 'border: 2px solid ' + (index === 0 ? '#72441c' : '#ebd4bd') + '; padding: 2px; background: #fff; cursor: pointer; border-radius: 4px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;';
+                btn.innerHTML = `<img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: contain;" />`;
+                btn.onclick = function() {
+                    mainPreview.src = imgUrl;
+                    Array.from(strip.children).forEach(c => c.style.borderColor = '#ebd4bd');
+                    btn.style.borderColor = '#72441c';
+                };
+                strip.appendChild(btn);
+            });
+        } else {
+            container.style.display = 'none';
+        }
+
+        document.getElementById('productModal').classList.add('open');
+    }
+    function closeProductModal() {
+        document.getElementById('productModal').classList.remove('open');
+    }
+
+    // Dynamic Multi-Image Gallery preview for local files selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const imgInput = document.getElementById('ProductImageUpload');
+        if (imgInput) {
+            imgInput.addEventListener('change', function(e) {
+                const files = e.target.files;
+                const container = document.getElementById('ModalProductGalleryContainer');
+                const mainPreview = document.getElementById('ModalMainPreview');
+                const strip = document.getElementById('ModalThumbnailsStrip');
+                strip.innerHTML = '';
+                if (files && files.length > 0) {
+                    container.style.display = 'block';
+                    mainPreview.src = URL.createObjectURL(files[0]);
+                    Array.from(files).forEach((file, index) => {
+                        const imgUrl = URL.createObjectURL(file);
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.style = 'border: 2px solid ' + (index === 0 ? '#72441c' : '#ebd4bd') + '; padding: 2px; background: #fff; cursor: pointer; border-radius: 4px; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;';
+                        btn.innerHTML = `<img src="${imgUrl}" style="width: 100%; height: 100%; object-fit: contain;" />`;
+                        btn.onclick = function() {
+                            mainPreview.src = imgUrl;
+                            Array.from(strip.children).forEach(c => c.style.borderColor = '#ebd4bd');
+                            btn.style.borderColor = '#72441c';
+                        };
+                        strip.appendChild(btn);
+                    });
+                } else {
+                                    container.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+
+                    // ── Refund Modals Logic ─────────────────────────────────────────────
+                    let currentRefundForm = null;
+                    function showRefundConfirmModal(form, amount) {
+                        currentRefundForm = form;
+                        document.getElementById('refundConfirmAmount').textContent = '$' + amount;
+                        document.getElementById('refundConfirmModal').classList.add('open');
+                    }
+                    function closeRefundConfirmModal() {
+                        document.getElementById('refundConfirmModal').classList.remove('open');
+                        currentRefundForm = null;
+                    }
+                    function closeRefundSuccessModal() {
+                        document.getElementById('refundSuccessModal').classList.remove('open');
+                    }
+                    function closeSaveSuccessModal() {
+                        document.getElementById('saveSuccessModal').classList.remove('open');
+                    }
+
+                    // ── Delete Modals Logic ─────────────────────────────────────────────
+                    let currentDeleteForm = null;
+                    function showDeleteConfirmModal(form, message, title = 'Confirm Action', confirmText = 'Confirm', confirmBgColor = '#dc2626') {
+                        currentDeleteForm = form;
+                        document.getElementById('deleteConfirmTitle').textContent = title;
+                        document.getElementById('deleteConfirmMessage').textContent = message;
+                        const submitBtn = document.getElementById('deleteConfirmSubmitBtn');
+                        if (submitBtn) {
+                            submitBtn.textContent = confirmText;
+                            submitBtn.style.backgroundColor = confirmBgColor;
+                        }
+                        document.getElementById('deleteConfirmModal').classList.add('open');
+                    }
+                    function closeDeleteConfirmModal() {
+                        document.getElementById('deleteConfirmModal').classList.remove('open');
+                        currentDeleteForm = null;
+                    }
+                    
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const confirmBtn = document.getElementById('refundConfirmSubmitBtn');
+                        if (confirmBtn) {
+                            confirmBtn.addEventListener('click', function() {
+                                if (currentRefundForm) {
+                                    currentRefundForm.submit();
+                                }
+                            });
+                        }
+
+                        const deleteBtn = document.getElementById('deleteConfirmSubmitBtn');
+                        if (deleteBtn) {
+                            deleteBtn.addEventListener('click', function() {
+                                if (currentDeleteForm) {
+                                    currentDeleteForm.submit();
+                                }
+                            });
+                        }
+                    });
+
+                    // Close modals on overlay click
+                    document.getElementById('eventModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeEventModal();
+                    });
+                    document.getElementById('productModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeProductModal();
+                    });
+                    document.getElementById('refundConfirmModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeRefundConfirmModal();
+                    });
+                    document.getElementById('refundSuccessModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeRefundSuccessModal();
+                    });
+                    document.getElementById('deleteConfirmModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeDeleteConfirmModal();
+                    });
+                    document.getElementById('saveSuccessModal').addEventListener('click', function(e) {
+                        if (e.target === this) closeSaveSuccessModal();
+                    });
+
+                    // Escape key
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') {
+                            closeEventModal();
+                            closeProductModal();
+                            closeRefundConfirmModal();
+                            closeRefundSuccessModal();
+                            closeDeleteConfirmModal();
+                            closeSaveSuccessModal();
+                        }
+                    });
+                </script>
+
+                @if (TempData["RefundSuccess"] != null)
+                {
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            document.getElementById('refundSuccessMessage').textContent = "@Html.Raw(TempData["RefundSuccess"])";
+                            document.getElementById('refundSuccessModal').classList.add('open');
+                        });
+                    </script>
+                }
+
+                @if (TempData["SaveSuccess"] != null)
+                {
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            document.getElementById('saveSuccessMessage').textContent = "@Html.Raw(TempData["SaveSuccess"])";
+                            document.getElementById('saveSuccessModal').classList.add('open');
+                        });
+                    </script>
+                }
+</body>
+</html>

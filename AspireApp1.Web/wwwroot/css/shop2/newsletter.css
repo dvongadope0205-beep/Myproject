@@ -1,0 +1,267 @@
+        @font-face {
+          font-family: "Naturalist";
+          /* Đường dẫn này tính từ file CSS đi ngược ra ngoài 1 thư mục rồi chui vào thư mục fonts */
+          src: url('./Naturalist-Regular.woff2') format('woff2'); 
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap;
+        }
+        /* =====================================================
+                               CHARACTERS
+        ===================================================== */
+        .custom {
+          line-height: calc(1 + 0.8/ 1.0);
+          letter-spacing: 0.6px;
+          font-size: 16px;
+        }
+
+        .color-scheme-1 {
+          color: rgb(18, 18, 18);
+          background-attachment: scroll;
+          background-origin: padding-box;
+          background-color: transparent;
+          background-clip: border-box;
+          background-image: none;
+          background-repeat: repeat;
+          background-size: auto;
+          background-position-x: 0%;
+          background-position-y: 0%;
+        }
+
+        .section-custom {
+          text-align: center;
+          box-sizing: border-box;
+          padding-top: 40px;
+          color: rgb(18, 18, 18);
+        }
+
+        .chars-img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+        }
+
+        .chars-img img {
+          max-width: 400px;
+          box-sizing: border-box;
+          display: block;
+          overflow: clip;
+          text-align: center;
+          overflow-clip-margin: content-box;
+          align-items: center;
+          margin: 0 auto;
+        }
+
+        /* =====================================================
+                                 NEWSLETTER FORM
+        ===================================================== */
+        .custom-newsletter {
+          box-sizing: border-box;
+          color: rgb(18, 18, 18);
+          letter-spacing: 0.6px;
+          line-height: calc(1 + 0.8/ 1.0);
+          font-size: 16px;
+        }
+
+        .newsletter-center {
+          text-align: center;
+          box-sizing: border-box;
+        }
+
+        .newsletter-wrapper {
+          position: relative;
+          box-sizing: border-box;
+          padding: 0 90px 52px;
+          text-align: center;
+          color: #593211;
+          background-attachment: scroll;
+          background-origin: padding-box;
+          background-color: transparent;
+          background-clip: border-box;
+          background-image: none;
+          background-repeat: repeat;
+          background-size: auto;
+          background-position-x: 0%;
+          background-position-y: 0%;
+          border-block: 0px solid rgba(89,50,17,0.1);
+          border-inline: 0px none #593211;
+          border-radius: 0;
+          z-index: 0;
+        }
+
+        .newsletter-wrapper h2 {
+          box-sizing: border-box;
+          margin-top: 20px;
+          font-family: "Naturalist";
+          font-size: 60px;
+          font-weight: 900;
+          letter-spacing: -2px;
+          line-height: 0.8;
+          text-align: center;
+          word-break: break-word;
+          color: #c7853c;
+          animation: none;
+          transform: none;
+          opacity: 1;
+        }
+
+        .newsletter-wrapper::after {
+          content: "";
+          position: absolute;
+          box-sizing: border-box;
+          inset: 0;
+          letter-spacing: 0.6px;
+          line-height: calc(1 + 0.8/ 1.0);
+          text-align: center;
+          color: #593211;
+          box-shadow: 0px 4px 5px 0px rgba(18,18,18,0);
+          border-radius: 0;
+          z-index: -1;
+        }
+
+        .newsletter-subheading {
+          box-sizing: border-box;
+          margin: 20px auto 0px;
+          max-height: 700px;
+          font-size: 14.5px;
+          font-style: normal;
+          letter-spacing: normal;
+          line-height: 1.5;
+          text-align: center;
+          color: #593211;
+          transform: none;
+          opacity: 1;
+        }
+
+        .newsletter-subheading::after {
+          content: "";
+          box-sizing: border-box;
+          clear: both;
+          display: block;
+          font-size: 14.5px;
+          font-style: normal;
+          letter-spacing: normal;
+          line-height: 1.5;
+          text-align: center;
+          color: #593211;
+        }
+
+        .email-form {
+          box-sizing: border-box;
+          margin-top: 20px;
+        }
+
+        .newsletter-form {
+          width: 100%;
+          position: relative;
+          align-items: flex-start;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin: 0px auto 0px;
+          max-width: 360px;
+          font-size: 16px;
+          letter-spacing: 0.6px;
+          line-height: calc(1 + 0.8/ 1.0);
+          text-align: center;
+          color: #593211;
+        }
+
+        .newsletter-form-field-wrapper {
+          width: 100%;
+          max-width: 360px;
+        }
+
+        .field {
+          width: 100%;
+          max-width: 360px;
+        }
+
+        .field::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          box-sizing: border-box;
+          clear: both;
+          display: block;
+          font-size: 16px;
+          font-style: normal;
+          letter-spacing: 0.6px;
+          line-height: calc(1 + 0.8/ 1.0);
+          text-align: center;
+          color: #593211;
+          transform: none;
+          box-shadow: 0px 4px 5px 0px rgba(18,18,18,0);
+          pointer-events: none;
+          border-radius: 5px;
+          z-index: -1;
+        }
+
+        .field::after {
+          content: "";
+          position: absolute;
+          inset: 1px;
+          box-sizing: border-box;
+          font-size: 16px;
+          font-style: normal;
+          letter-spacing: 0.6px;
+          line-height: calc(1 + 0.8/ 1.0);
+          text-align: center;
+          color: #593211;
+          transform: none;
+          border: 1px solid transparent;
+          box-shadow: 0px 0px 0px 1px rgba(89,50,17,0.55);
+          border-radius: 4px;
+          transition: box-shadow 0.1s ease;
+          z-index: 1;
+        }
+
+        .field:hover {
+          border-color: #593211;
+          border-radius: 4px;
+        }
+
+        .newsletter-form-button {
+          height: 100%;
+          width: 64px;
+          position: absolute;
+          align-items: center;
+          display: flex;
+          justify-content: flex-end;
+          overflow: hidden;
+          padding-right: 15px;
+          right: 1px;
+          top: 0;
+          text-align: center;
+          text-indent: 0px;
+          text-shadow: none;
+          text-transform: none;
+          word-spacing: 0px;
+          color: #593211;
+          background-color: transparent;
+          border: 0px none #593211;
+          border-image: none;
+          cursor: pointer;
+          -webkit-border-image: none;
+          appearance: auto;
+          text-rendering: auto;          
+          z-index: 2;
+        }
+
+        .svg-newsletter {
+          height: 25px;
+          width: 25px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .svg-newsletter svg {
+          height: 100%;
+          width: 15px;
+          overflow: hidden;
+          fill: none;
+          overflow-clip-margin: content-box;
+        }

@@ -1,0 +1,803 @@
+﻿@page
+@model WebApps.Pages.Animals.ZebraModel
+@{
+    ViewData["Title"] = "zebra";
+    ViewData["HideFooter"] = true;
+}
+
+@section Styles {
+<link rel="stylesheet" href="~/css/animals/zebra.css">
+}
+
+<div class="dv">
+    <div class="app-flex" data-theme="default">
+        <main class="main-grow" id="main">
+<section class="page-header-sp">
+                <div class="page-header-sp-creature">
+                    <img srcset="
+                    /Source/zebra/pic/thumbnail/zebra 1275x1275.jpg 1275w,
+                    /Source/zebra/pic/thumbnail/zebra 1358x1358.jpg 1358w,
+                    /Source/zebra/pic/thumbnail/zebra 2400x2400.jpg 2400w
+                    " 
+                    sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                    src="/Source/zebra/pic/thumbnail/zebra 2400x2400.jpg" alt="Ngựa vằn">
+                </div>
+
+                <div class="flex">
+                    <div class="flex-contain">
+                        <div class="flex-1">
+                            <h1 class="tiger-heading">Grévy's zebra</h1>
+                            <div class="under-name">
+                                <p>
+                                    <em>
+                                        <span class="normal-text">Equus grevyi</span>
+                                    </em>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="iucn">
+                            <div class="iucn-badge">
+                                <div class="iucn-flex">
+                                    <div class="shape" style="background-color: #fc7f3f"></div>
+                                    <div class="iucn-badge-content">
+                                        <span class="iucn-badge-content-subtitle">IUCN Red List Status</span>
+                                        <span class="iucn-badge-content-title">Endangered</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="embla">
+                    <div class="embla-viewport-draggable">
+                        <div class="embla-container">
+                            <!-- Card 1 -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-1/zebra-card-1 2400x2400.jpg"
+                                        alt="zebra-1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-2/zebra-card-2 2400x2400.jpg"
+                                        alt="zebra-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-3/zebra-card-3 2400x2400.jpg"
+                                        alt="zebra-3">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-4/zebra-card-4 2400x2400.jpg"
+                                        alt="zebra-4">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 1 Dupe -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-1/zebra-card-1 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-1/zebra-card-1 2400x2400.jpg"
+                                        alt="zebra-1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 Dupe -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-2/zebra-card-2 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-2/zebra-card-2 2400x2400.jpg"
+                                        alt="zebra-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 Dupe -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-3/zebra-card-3 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-3/zebra-card-3 2400x2400.jpg"
+                                        alt="zebra-3">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 Dupe -->
+                            <div class="embla-slide">
+                                <div class="card-media">
+                                    <div class="card-image">
+                                        <img srcset="
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 1275x1275.jpg 1275w,
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 1358x1358.jpg 1358w,
+                                        /Source/zebra/pic/card/card-4/zebra-card-4 2400x2400.jpg 2400w
+                                        " 
+                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                        src="/Source/zebra/pic/card/card-4/zebra-card-4 2400x2400.jpg"
+                                        alt="zebra-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="embla-control">
+                            <div class="embla-button">
+                                <button class="embla-button-flex" type="button">
+                                    <div class="mr-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="24"
+                                            viewBox="0 0 15 24">
+                                            <path
+                                                d="M-1.84048e-06 8.42105L15 0L15 3.53684C15 6.69474 14.3852 6.57895 12.2459 7.74737L4.92787 11.9789L12.3639 16.2526C14.3852 17.3684 15 17.2632 15 20.5895L15 24L-3.39338e-06 15.5263L-1.84048e-06 8.42105Z"
+                                                fill="#002526"></path>
+                                        </svg>
+                                    </div>
+                                </button>
+
+                                <button class="embla-button-flex" type="button">
+                                    <div class="ml-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="24"
+                                            viewBox="0 0 15 24">
+                                            <path
+                                                d="M15 15.5789L0 24L4.22846e-08 20.4632C8.00386e-08 17.3053 0.614754 17.4211 2.7541 16.2526L10.0721 12.0211L2.63606 7.74737C0.614754 6.63158 2.06228e-07 6.73684 2.45996e-07 3.41052L2.8677e-07 0L15 8.47368L15 15.5789Z"
+                                                fill="#002526"></path>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            <div class>
+                <div class="layout" data-layout="oneColumn">
+                    <div class="wrapper">
+                        <div class="column">
+                            <!--$-->
+                            <section class=text-image>
+                                <div class>
+                                    <div class="container-animal-information">
+                                        <div class="grid-animal-information">
+                                            <div class="about">
+                                                <h2 class="about-animal">About</h2>
+                                                <div class="text-animal">
+                                                    <div class="OutlineElement Ltr SCXW171254536 BCX0">
+                                                        <p class="Paragraph SCXW5247660 BCX8">
+                                                            <span class="NormalTextRun SCXW5247660 BCX8">
+                                                               Grévy's zebra are the largest of the three species of zebra. 
+                                                               They have distinctive long, narrow heads which differ from plains 
+                                                               and mountain zebras. They also have very different social structures 
+                                                               to the other two species; stallions establish territories of up to 10km2 
+                                                               which mares will enter to breed. 
+                                                            </span>
+                                                        </p>                          
+
+                                                        <p class="Paragraph SCXW5247660 BCX8">
+                                                            <span class="NormalTextRun SCXW5247660 BCX8"></span>
+                                                            <span class="NormalTextRun SCXW5247660 BCX8">
+                                                                Zebras are part of the horse family but are no doubt the most 
+                                                                striking species in this family! Each individual has a unique 
+                                                                stripe pattern, just like a human fingerprint. Grévy's zebras 
+                                                                are actually black with white stripes! Scientists have struggled 
+                                                                to find out why zebras have stripes, but there are a few theories. 
+                                                                Some believe it is to prevent fly bites, or to help cool them down. 
+                                                                The most common theory is that the stripes break up their body shapes 
+                                                                in a crowd, making it more difficult for predators to single out individuals. 
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-image-section">
+                                                <div class="animal-image-box">
+                                                    <img srcset="
+                                                        /Source/zebra/pic/fact/zebra-fact 1275x1275.jpg 1275w,
+                                                        /Source/zebra/pic/fact/zebra-fact 1358x1358.jpg 1358w,
+                                                        /Source/zebra/pic/fact/zebra-fact 2400x2400.jpg 2400w
+                                                        " 
+                                                        sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                                        src="/Source/zebra/pic/fact/zebra-fact 2400x2400.jpg"
+                                                        alt="juan">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--$-->
+                            <!--$-->
+                            <section class="quiz-title-section">
+                                <div class="container-creature-dv">
+                                    <header class="quiz-title-section-header">
+                                        <h3 class="heading-2" id="Indochinese tiger facts">Grévy's zebra facts</h3>
+                                    </header>
+                                    <div class="embla-dv">
+                                        <div class="embla-viewport-dv">
+                                            <div class="embla-fact-container">
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-pink"> <!--Pink-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-mammal.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">SPECIES</div>
+                                                            <div class="card-category-heading-5">I am a mammal</div>
+                                                            <div class="body-title">
+                                                                <p>No two zebra are identical – each has a different pattern of stripes unique to any other, just like fingerprints.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-blue"> <!--Blue-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-blue"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-found-in.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">FOUND IN</div>
+                                                            <div class="card-category-heading-5">Ethiopia & Kenya</div>
+                                                            <div class="body-title">
+                                                                <p>Due to declines in their population, the Grévy's zebra is only found in southern Ethiopia and northern Kenya.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-green"> <!--Green-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-green"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-habitat.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">HABITAT</div>
+                                                            <div class="card-category-heading-5">Dry grasslands</div>
+                                                            <div class="body-title">
+                                                                <p>Predominantly found in semi-desert areas where they have access to a water source.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-orange"> <!--Orange-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-orange"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-diet.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">DIET</div>
+                                                            <div class="card-category-heading-5">Herbivore</div>
+                                                            <div class="body-title">
+                                                                <p>Mainly shrubs, herbs, twigs, leaves, fruit, roots & bark. They can also survive up to 5 days without water.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-yellow"> <!--Yellow-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-yellow"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-size.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">AVERAGE SIZE</div>
+                                                            <div class="card-category-heading-5">200 to 450kg</div>
+                                                            <div class="body-title">
+                                                                <p>Grévy's zebras are the largest of the three zebra species, measuring around 50 - 60 inches in length.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-orange"> <!--Purple-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-orange"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-life-span.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">LIFE SPAN</div>
+                                                            <div class="card-category-heading-5">20 to 25 years</div>
+                                                            <div class="body-title">
+                                                                <p>In the wild, zebras typically live to around 20 years old, but some can live up to 30.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-pink"> <!--Blue-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-pink"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-behaviour.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">BEHAVIOUR</div>
+                                                            <div class="card-category-heading-5">Sociable & territorial</div>
+                                                            <div class="body-title">
+                                                                <p>Within herds dominance isn't always asserted by one male, only once a male has found a breeding mate will they become more defensive and territorial.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="embla-fact-slide">
+                                                    <div class="card-quiz-blue"> <!--Innocent Green-->
+                                                        <div class="card-animal-fact">
+                                                            <div class="card-flex-item">
+                                                                <div class="card-quiz-icon-blue"
+                                                                    style="mask-image:url('/Source/animal-icon/illustrated-zoo-location.png')">
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-category">ZOO LOCATION</div>
+                                                            <div class="card-category-heading-5">Heart of Africa</div>
+                                                            <div class="body-title">
+                                                                <p>Find the Grevy's zebra in our African savannah habitat.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="embla-control">
+                                            <div class="embla-dots">
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                                <button type="button" class="embla-dot"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!--$-->
+                            <!--$-->
+                            <div class="iucn-red">
+                                <div class="iucn-red-list">
+                                    <div class="iucn-red-list-status">
+                                        <div class="iucn-info">
+                                            <div class="shape" style="background-color: #fc7f3f"></div>
+                                            <div class="iucn-badge-content-2">
+                                                <span class="iucn-badge-content-subtitle-footer">IUCN red list status</span>
+                                                <span class="iucn-badge-content-title-footer">Endangered</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="image-wrapper">
+                                        <img alt="Animal vulnerability index" loading="lazy" width="539" height="113"
+                                            decoding="async" class="max-w" style="color: transparent"
+                                            src="/Source/animal-iucn/Screenshot 2026-02-28 105646.png">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!--$-->
+                            <!--$-->
+                            <section class="icon-grid">
+                                <div class="container-creature-threat">
+                                    <header class="icon-grid-header">
+                                        <h2 class="heading-2" id="threats">Threats</h2>
+                                        <div class="rte-body-base">
+                                            <div class="OutlineElement Ltr SCXW145517775 BCX8">
+                                                <p class="Paragraph SCXW145517775 BCX8">
+                                                    <span class="NormalTextRun SCXW145517775 BCX8">
+                                                        With fewer than 2,000 left in the wild, Grévy's zebras 
+                                                        are one of Africa's most endangered mammals. Habitat loss 
+                                                        and hunting for their striking skins are major threats.
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </header>
+
+                                    <div class="threat-icon">
+                                        <div class="icon-1">
+                                            <div class="the-icon">
+                                                <img srcset="
+                                                /Source/animal-icon/threat-humans 100x100.png 100w,
+                                                /Source/animal-icon/threat-humans 200x200.png 200w
+                                                " sizes="(max-width: 575px) 100px, (max-width: 991px) 200px"
+                                                    src="/Source/animal-icon/threat-humans 200x200.png"
+                                                    alt="Threat Humans">
+                                            </div>
+                                            <div class="text-under">
+                                                <h5 class="human" id="human-intervention">Human intervention</h5>
+                                                <div class="rte-2">
+                                                    <p>
+                                                        <span style="font-size: 11pt; line-height: 107%; font-family: 'Prodigy Sans';">
+                                                            As human populations expand, zebra habitats shrink. Roads, settlements and farms cut through vital grazing grounds, forcing zebras into smaller, fragmented areas where survival becomes harder.
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="icon-1">
+                                            <div class="the-icon">
+                                                <img srcset="
+                                                /Source/animal-icon/threat-hunting 100x100.png 100w,
+                                                /Source/animal-icon/threat-hunting 200x200.png 200w
+                                                " sizes="(max-width: 575px) 100px, (max-width: 991px) 200px"
+                                                    src="/Source/animal-icon/threat-hunting 200x200.png"
+                                                    alt="Threat hunting">
+                                            </div>
+                                            <div class="text-under">
+                                                <h5 class="human" id="hunting-collection">Hunting or collection</h5>
+                                                <div class="rte-2">
+                                                    <p>
+                                                        <span style="font-size: 11pt; line-height: 107%; font-family: 'Prodigy Sans';">
+                                                            Grévy's zebras are hunted illegally for their skins — a trade that continues despite protections.
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </section>
+                            <!---Vertical carousel-->
+                            <section class="vertical-carousel" style="--slide-height: 400dvh;">
+                                <span style="font-size: 0px;"></span>
+                                <div class="carousel-frame">
+                                    <div class="carousel-viewport" style="transform: translate3d(0px, 0vh, 0px);">
+                                        <div class="carousel-slide">
+                                            <div class="carousel-img">
+                                                <img srcset="
+                                                /Source/animal-carousel/carousel-19/carousel-19 1275x1275.jpg 1275w,
+                                                /Source/animal-carousel/carousel-19/carousel-19 1358x1358.jpg 1358w,
+                                                /Source/animal-carousel/carousel-19/carousel-19 2400x2400.jpg 2400w
+                                                "
+                                                sizes="(max-width: 575px) 1275px, (max-width: 991px) 1359px, 2400px"
+                                                src="/Source/animal-carousel/carousel-19/carousel-19 2400x2400.jpg"
+                                                alt="carousel-19">
+                                            </div>
+                                            <div class="carousel-content">
+                                                <div>
+                                                    <div class="carousel-box">
+                                                        <div class="wfull">
+                                                            <h2 class="mirror" id="visit-your-favourite-animals">Visit your favourite animals</h2>
+                                                            <div class="body-lg">
+                                                                <p>Book your visit today and see all the amazing animals at the zoo!</p>
+                                                            </div>
+                                                            <div class="mt-6">
+                                                                <a class="bt" href="/Tickets">
+                                                                    <span class="button-icon">
+                                                                        <span class="button-text">Book now</span>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="carousel-slide">
+                                            <div class="carousel-img">
+                                                <img srcset="
+                                                /Source/animal-carousel/carousel-5/carousel-5 1275x1275.jpg 1275w,
+                                                /Source/animal-carousel/carousel-5/carousel-5 1358x1358.jpg 1358w,
+                                                /Source/animal-carousel/carousel-5/carousel-5 2400x2400.jpg 2400w
+                                                "
+                                                sizes="(max-width: 575px) 1275px, (max-width: 991px) 1358px, 2400px"
+                                                src="/Source/animal-carousel/carousel-5/carousel-5 2400x2400.jpg"
+                                                alt="carousel-5">
+                                            </div>
+                                            <div class="carousel-content">
+                                                <div>
+                                                    <div class="carousel-box">
+                                                        <div class="wfull">
+                                                            <h2 class="mirror" id="become-member">Become a member and don't miss a thing</h2>
+                                                            <div class="body-lg">
+                                                                <p>See these magnificent animals any day you like with free unlimited entry for a year, plus up to 10% off future experiences.</p>
+                                                            </div>
+                                                            <div class="mt-6">
+                                                                <a class="bt" href="/Join">
+                                                                    <span class="button-icon">
+                                                                        <span class="button-text">Become a member</span>
+                                                                    </span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="controlss">
+                                        <div class="dots">
+                                            <button type="button" class="dot"></button>
+                                            <button type="button" class="dot"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="absolute" style="top: 100vh;">
+                                    <span style="font-size: 0px;"></span>
+                                </div>
+                                <div class="absolute" style="top: 200vh;">
+                                    <span style="font-size: 0px;"></span>
+                                </div>
+                                <div class="absolute" style="top: 300vh;">
+                                    <span style="font-size: 0px;"></span>
+                                </div>
+                                <div class="absolute-bottom">
+                                    <span style="font-size: 0px;"></span>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+@section Scripts {
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script>
+        // --- Header JS ---
+        const header = document.getElementById('mainHeader');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 48) {
+                header.classList.add('sticky');
+            } else {
+                header.classList.remove('sticky');
+            }
+        });
+
+        function openSearch() {
+            document.getElementById("fullSearchOverlay").classList.add("active");
+            setTimeout(() => document.getElementById("zooSearchInput").focus(), 100);
+        }
+        function closeSearch() { document.getElementById("fullSearchOverlay").classList.remove("active"); }
+        document.addEventListener('keydown', e => { if (e.key === "Escape") closeSearch(); });
+
+        // --- Carousel JS (Using Embla for infinite looping) ---
+        const emblaNode = document.querySelector('.embla-viewport-draggable');
+        const embla = EmblaCarousel(emblaNode, { loop: true, align: 'start', duration: 35 });
+
+        const prevBtn = document.querySelectorAll('.embla-button-flex')[0];
+        const nextBtn = document.querySelectorAll('.embla-button-flex')[1];
+
+        prevBtn.addEventListener('click', () => embla.scrollPrev(), false);
+        nextBtn.addEventListener('click', () => embla.scrollNext(), false);
+
+        // --- Modal JS ---
+        const modalHtml = `
+        <div class="tiger-modal" id="tigerModal">
+            <div class="tiger-modal-content">
+                <button class="tiger-modal-close" id="tigerModalClose">&times;</button>
+                <button class="tiger-modal-prev" id="tigerModalPrev">&#10094;</button>
+                <img id="tigerModalImg" src="" alt="Zoomed in">
+                <button class="tiger-modal-next" id="tigerModalNext">&#10095;</button>
+            </div>
+        </div>
+        <style>
+            /* Fix Centering for Facts */
+            .contain-card-fact { display: flex; justify-content: center; width: 100%; }
+            .list-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; padding: 0; margin: 0 auto; list-style-type: none; }
+            .card-li { flex: 0 0 auto; }
+            
+            /* Hidden Carousel arrows until hover */
+            .embla { position: relative; }
+            .embla-button-flex { opacity: 0; transition: opacity 0.3s ease; }
+            .embla:hover .embla-button-flex { opacity: 1; }
+            
+            /* Modal Styling matching Image 3 */
+            .tiger-modal {
+                display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%;
+                background-color: rgba(235, 240, 230, 0.95);
+                align-items: center; justify-content: center;
+            }
+            .tiger-modal.active { display: flex; }
+            .tiger-modal-content { position: relative; max-width: 90%; max-height: 90%; display:flex; flex-direction: column; align-items:center; justify-content:center; }
+            
+            .tiger-modal-close {
+                position: absolute; top: -60px; left: 50%; transform: translateX(-50%); width: 40px; height: 40px;
+                background: #002526; color: #fff; border: 2px solid #002526; border-radius: 50%;
+                font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index:1001; transition: background 0.3s;
+            }
+            .tiger-modal-close:hover { background: #e1e755; color: #002526; }
+            
+            .tiger-modal-content img { width: 85vw; height: 85vh; max-width: 1000px; border-radius: 16px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+            
+            .tiger-modal-prev, .tiger-modal-next {
+                position: absolute; top: 50%; width: 48px; height: 48px; transform: translateY(-50%);
+                background: #fff; color: #002526; border: none; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+                opacity: 0; transition: opacity 0.3s, background 0.3s; z-index:1001; font-weight:bold;
+            }
+            .tiger-modal-content:hover .tiger-modal-prev,
+            .tiger-modal-content:hover .tiger-modal-next { opacity: 1; }
+            .tiger-modal-prev { left: -64px; }
+            .tiger-modal-next { right: -64px; }
+            .tiger-modal-prev:hover, .tiger-modal-next:hover { background: #e1e755; }
+            .tiger-modal-prev:active, .tiger-modal-next:active { background: #c5cc4b; }
+            
+            .embla-slide { cursor: zoom-in; }
+        </style>
+        `;
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        const tigerModal = document.getElementById('tigerModal');
+        const tigerModalImg = document.getElementById('tigerModalImg');
+        const tigerModalClose = document.getElementById('tigerModalClose');
+        const tigerModalPrev = document.getElementById('tigerModalPrev');
+        const tigerModalNext = document.getElementById('tigerModalNext');
+
+        let currentModalIndex = 0;
+        const slidesForModal = Array.from(document.querySelectorAll('.embla-slide:not(.is-cloned)')); // Using non-cloned for modal mapping
+
+        let images = [];
+        slidesForModal.forEach((slide, idx) => {
+            const imgEl = slide.querySelector('img');
+            if (imgEl) {
+                images.push(imgEl.src);
+                slide.addEventListener('click', () => {
+                    currentModalIndex = idx;
+                    openModal(images[currentModalIndex]);
+                });
+            }
+        });
+
+        // Add listeners to cloned slides created by Embla as well
+        embla.on('init', () => {
+            document.querySelectorAll('.embla-slide').forEach((slide) => {
+                slide.addEventListener('click', () => {
+                    const imgEl = slide.querySelector('img');
+                    if (!imgEl) return;
+                    const findIndex = images.indexOf(imgEl.src);
+                    if (findIndex > -1) {
+                        currentModalIndex = findIndex;
+                        openModal(images[currentModalIndex]);
+                    }
+                });
+            });
+        });
+
+        function openModal(src) {
+            tigerModalImg.src = src;
+            tigerModal.classList.add('active');
+        }
+
+        tigerModalClose.addEventListener('click', () => {
+            tigerModal.classList.remove('active');
+        });
+
+        tigerModalPrev.addEventListener('click', () => {
+            currentModalIndex = (currentModalIndex > 0) ? currentModalIndex - 1 : images.length - 1;
+            tigerModalImg.src = images[currentModalIndex];
+        });
+
+        tigerModalNext.addEventListener('click', () => {
+            currentModalIndex = (currentModalIndex < images.length - 1) ? currentModalIndex + 1 : 0;
+            tigerModalImg.src = images[currentModalIndex];
+        });
+
+        // Close on click outside image
+        tigerModal.addEventListener('click', (e) => {
+            if (e.target === tigerModal || e.target === document.querySelector('.tiger-modal-content')) {
+                tigerModal.classList.remove('active');
+            }
+        });
+
+        // --- Vertical Carousel Scroll JS ---
+        const verticalSection = document.querySelector('.vertical-carousel');
+        const carouselViewport = document.querySelector('.carousel-viewport');
+        const verticalDots = document.querySelectorAll('.dots .dot');
+
+        if (verticalSection && carouselViewport && verticalDots.length > 0) {
+            // Initialize first dot
+            verticalDots[0].classList.add('active');
+
+            window.addEventListener('scroll', () => {
+                const scrollableDistance = verticalSection.offsetHeight - window.innerHeight;
+                const scrollPosition = window.scrollY - verticalSection.offsetTop;
+                const progress = Math.max(0, Math.min(1, scrollPosition / scrollableDistance));
+                
+                const activeIndex = progress >= 0.5 ? 1 : 0;
+                
+                // Mapped to snap to specific slides when reaching the threshold
+                const translateValue = activeIndex * 100;
+                carouselViewport.style.transform = `translate3d(0px, -${translateValue}vh, 0px)`;
+                
+                verticalDots.forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            });
+
+            // Click dots to scroll
+            verticalDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    const scrollableDistance = verticalSection.offsetHeight - window.innerHeight;
+                    const targetScrollY = verticalSection.offsetTop + (index === 0 ? 0 : scrollableDistance);
+                    window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+                });
+            });
+        }
+    </script>
+}

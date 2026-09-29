@@ -1,0 +1,100 @@
+@page
+@model WebApps.Pages.PrivateeventsModel
+@{
+    ViewData["Title"] = "Private Events - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/pages.css">
+}
+
+<main>
+        <section class="page-hero">
+            <h1>Host Your Private Event</h1>
+            <p>From romantic weddings to corporate retreats, our wild backdrops elevate any occasion.</p>
+        </section>
+        <section class="page-content-wrap" style="max-width: 1000px; padding: 40px 20px; margin: auto;">
+            <div style="text-align:center; margin-bottom: 50px;">
+                <h2 style="font-size: 36px; font-family: Georgia, serif; color: var(--zoo-dark);">A Venue Like No Other
+                </h2>
+                <p style="font-size: 18px; color: #555; max-width: 800px; margin: 20px auto; line-height: 1.6;">Whether
+                    you are planning an intimate gathering or a massive corporate gala, National Conservation Zoo
+                    guarantees an unforgettable backdrop. Choose from our lush botanical gardens, historic architecture,
+                    or open-air animal exhibits.</p>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="/Source/Picture/privateevents.jpg" alt="Weddings at the Zoo" style="width: 100%; height: 100%; object-fit: cover; min-height: 300px;">
+                </div>
+                <div style="flex: 1; padding: 40px; min-width: 300px;">
+                    <h3 style="font-size: 28px; margin-bottom: 15px; color: var(--zoo-dark);">Wildly Romantic Weddings
+                    </h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Say "I do" among exotic wildlife and
+                        vibrant botanical gardens. Our dedicated events team provides full-service catering, stunning
+                        floral arrangements, and complete setup. We can accommodate everything from an elopement to a
+                        grand reception of up to 500 guests!</p>
+                    <div style="background: #f4f6f5; padding: 15px; border-left: 4px solid var(--zoo-green); margin-bottom: 25px;">
+                        <p style="margin: 0; color: #333;"><strong>Capacities:</strong> 50 to 500 guests</p>
+                        <p style="margin: 5px 0 0 0; color: #333;"><strong>Perks:</strong> Complimentary engagement
+                            photo session</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; flex-direction: row-reverse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 40px;">
+                <div style="flex: 1; min-width: 300px; background: #ddd;">
+                    <img src="/Source/General/CorporateGatherings.jpg" alt="Corporate Gatherings" style="width: 100%; height: 100%; object-fit: cover; min-height: 300px; filter: grayscale(50%);">
+                </div>
+                <div style="flex: 1; padding: 40px; min-width: 300px;">
+                    <h3 style="font-size: 28px; margin-bottom: 15px; color: var(--zoo-dark);">Corporate Gatherings</h3>
+                    <p style="color: #666; line-height: 1.6; margin-bottom: 20px;">Take your team out of the boardroom
+                        and into the wild. We offer private pavilions, modern A/V equipped meeting rooms, and
+                        team-building scavenger hunts. You can also add a private animal ambassador encounter to truly
+                        impress your VIP clients!</p>
+                    <div style="background: #f4f6f5; padding: 15px; border-left: 4px solid var(--zoo-green); margin-bottom: 25px;">
+                        <p style="margin: 0; color: #333;"><strong>Capacities:</strong> Groups up to 2,000 (Full Park
+                            Buyout)</p>
+                        <p style="margin: 5px 0 0 0; color: #333;"><strong>Add-ons:</strong> Private feedings and
+                            Behind-the-scenes access</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 50px;">
+                <h3 style="font-size: 24px; margin-bottom: 20px; color: var(--zoo-dark); text-align: center;">Contact
+                    the Events Team</h3>
+
+
+
+                <form method="post" class="contact-form" style="max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px;">
+                    @Html.AntiForgeryToken()
+                    <div class="form-group"><label style="font-weight:bold;">Name</label><input type="text" name="ContactName" required style="width:100%; padding: 10px; border:1px solid #ccc; border-radius:4px;"></div>
+                    <div class="form-group"><label style="font-weight:bold;">Event Type</label><input type="text" name="EventType" required style="width:100%; padding: 10px; border:1px solid #ccc; border-radius:4px;"></div>
+                    <div class="form-group"><label style="font-weight:bold;">Estimated Guests</label><input type="number" name="EstimatedGuests" min="1" required style="width:100%; padding: 10px; border:1px solid #ccc; border-radius:4px;"></div>
+                    <div class="form-group"><button type="submit" class="btn-primary" style="width: 100%; padding: 15px; border:none; border-radius:4px; font-size:16px; cursor:pointer; background-color: var(--zoo-green); color: white; font-weight: bold;">Request Info</button></div>
+                </form>
+            </div>
+        </section>
+    <partial name="_AdventureBar" />
+    </main>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (TempData["EventSuccess"] != null)
+            {
+                <text>
+                showPremiumAlert('@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(TempData["EventSuccess"].ToString()))');
+                </text>
+            }
+            @if (TempData["EventError"] != null)
+            {
+                <text>
+                showPremiumAlert('@Html.Raw(System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(TempData["EventError"].ToString()))');
+                </text>
+            }
+        });
+    </script>
+}
+

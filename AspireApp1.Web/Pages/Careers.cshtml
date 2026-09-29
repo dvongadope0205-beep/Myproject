@@ -1,0 +1,172 @@
+@page
+@model WebApps.Pages.CareersModel
+@{
+    ViewData["Title"] = "Careers - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/pages.css">
+<style>
+    .careers-hero-banner {
+        display: flex; align-items: stretch; background: white; border-radius: 16px;
+        overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); max-width: 1100px;
+        margin: 0 auto 60px;
+    }
+    .careers-hero-img { flex: 1; min-width: 320px; }
+    .careers-hero-img img { width: 100%; height: 100%; object-fit: cover; min-height: 380px; }
+    .careers-hero-content { flex: 1; min-width: 320px; padding: 50px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .careers-hero-content h2 { font-size: 30px; color: var(--zoo-dark); margin-bottom: 16px; font-family: Georgia, serif; }
+    .careers-hero-content p { color: #555; line-height: 1.7; font-size: 16px; margin-bottom: 12px; }
+
+    .benefits-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 24px; max-width: 1100px; margin: 0 auto 60px;
+    }
+    .benefit-card {
+        background: linear-gradient(135deg, #f0faf5 0%, #e8f5e9 100%);
+        padding: 30px; border-radius: 14px; text-align: center;
+        border: 1px solid #d4edda; transition: transform 0.3s ease;
+    }
+    .benefit-card:hover { transform: translateY(-5px); }
+    .benefit-card i { font-size: 32px; color: var(--zoo-green); margin-bottom: 14px; display: block; }
+    .benefit-card h4 { font-size: 17px; color: var(--zoo-dark); margin-bottom: 8px; font-weight: 700; }
+    .benefit-card p { font-size: 14px; color: #555; line-height: 1.5; }
+
+    .culture-section {
+        background: var(--zoo-dark); color: white; border-radius: 16px;
+        padding: 50px; max-width: 1100px; margin: 0 auto 60px; text-align: center;
+    }
+    .culture-section h2 { font-size: 30px; margin-bottom: 16px; font-family: Georgia, serif; }
+    .culture-section p { max-width: 700px; margin: 0 auto; line-height: 1.7; font-size: 16px; opacity: 0.9; }
+
+    .positions-list { max-width: 1100px; margin: 0 auto 60px; }
+    .position-item {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 22px 28px; background: white; border-radius: 10px;
+        margin-bottom: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .position-item:hover { transform: translateX(6px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .position-title { font-weight: 700; color: var(--zoo-dark); font-size: 16px; }
+    .position-type { font-size: 13px; color: #888; margin-top: 4px; }
+    .position-dept { background: #e8f5e9; color: var(--zoo-green); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+
+    .careers-cta {
+        background: linear-gradient(135deg, #119864, #0d7a4f); border-radius: 16px;
+        padding: 50px; text-align: center; max-width: 1100px; margin: 0 auto 40px; color: white;
+    }
+    .careers-cta h3 { font-size: 28px; margin-bottom: 12px; font-family: Georgia, serif; }
+    .careers-cta p { opacity: 0.9; margin-bottom: 24px; font-size: 16px; }
+    .careers-cta a {
+        display: inline-block; padding: 14px 36px; background: white;
+        color: #119864; font-weight: 700; border-radius: 8px; text-decoration: none;
+        font-size: 16px; transition: transform 0.2s;
+    }
+    .careers-cta a:hover { transform: translateY(-2px); }
+</style>
+}
+
+<!-- MAIN CONTENT START -->
+    <main>
+        <section class="page-hero">
+            <h1>Join Our Pack</h1>
+            <p>Work at the National Conservation Zoo and help us create a better world for animals and people alike.</p>
+        </section>
+
+        <section class="page-content-wrap" style="max-width: 1200px; padding: 40px 20px; margin: auto;">
+
+            <!-- Life at the Zoo -->
+            <div class="careers-hero-banner">
+                <div class="careers-hero-img">
+                    <img src="/Source/Picture/animalcare.jpg" alt="Life at the Zoo">
+                </div>
+                <div class="careers-hero-content">
+                    <h2>Life at the Zoo</h2>
+                    <p>At the National Conservation Zoo, every day brings a new adventure. Our team of over 400 passionate professionals works together to deliver outstanding animal care, world-class guest experiences, and groundbreaking conservation research that spans five continents.</p>
+                    <p>From sunrise feedings to twilight keeper talks, our staff shares an unwavering commitment to protecting endangered species and inspiring the next generation of wildlife advocates. We believe diverse perspectives strengthen our mission, and we actively cultivate an inclusive workplace where every voice matters.</p>
+                </div>
+            </div>
+
+            <!-- Benefits Grid -->
+            <h2 style="text-align: center; font-size: 30px; color: var(--zoo-dark); margin-bottom: 10px; font-family: Georgia, serif;">Why Work With Us?</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 16px;">We invest in our people the same way we invest in our animals — with care, dedication, and heart.</p>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fa fa-medkit"></i>
+                    <h4>Comprehensive Healthcare</h4>
+                    <p>Full medical, dental, and vision coverage for employees and their families from day one.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fa fa-graduation-cap"></i>
+                    <h4>Professional Growth</h4>
+                    <p>Ongoing training programs, conference sponsorships, and tuition reimbursement up to $5,000 per year.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fa fa-leaf"></i>
+                    <h4>Green Environment</h4>
+                    <p>Work in a 50-acre park surrounded by beautiful botany, fresh air, and incredible wildlife every single day.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fa fa-gift"></i>
+                    <h4>Zoo Perks</h4>
+                    <p>Free zoo admission, discounted gift shop and dining, plus complimentary guest passes throughout the year.</p>
+                </div>
+            </div>
+
+            <!-- Culture -->
+            <div class="culture-section">
+                <h2>Our Culture</h2>
+                <p>We are explorers, educators, and advocates bound by a shared love for the natural world. Whether you are a seasoned veterinarian or a first-time intern, you will find a supportive community that celebrates curiosity, rewards initiative, and never forgets that our ultimate purpose is the wellbeing of every creature in our care.</p>
+            </div>
+
+            <!-- Open Positions -->
+            <h2 style="text-align: center; font-size: 30px; color: var(--zoo-dark); margin-bottom: 40px; font-family: Georgia, serif;">Open Positions</h2>
+            <div class="positions-list">
+                <div class="position-item">
+                    <div>
+                        <div class="position-title">Senior Zookeeper — Primates</div>
+                        <div class="position-type">Full-time · Animal Care Department</div>
+                    </div>
+                    <span class="position-dept">Animal Care</span>
+                </div>
+                <div class="position-item">
+                    <div>
+                        <div class="position-title">Veterinary Technician</div>
+                        <div class="position-type">Full-time · Veterinary Services</div>
+                    </div>
+                    <span class="position-dept">Veterinary</span>
+                </div>
+                <div class="position-item">
+                    <div>
+                        <div class="position-title">Guest Relations Associate</div>
+                        <div class="position-type">Part-time · Seasonal · Guest Services</div>
+                    </div>
+                    <span class="position-dept">Guest Services</span>
+                </div>
+                <div class="position-item">
+                    <div>
+                        <div class="position-title">Marketing Coordinator</div>
+                        <div class="position-type">Full-time · Marketing & Communications</div>
+                    </div>
+                    <span class="position-dept">Marketing</span>
+                </div>
+                <div class="position-item">
+                    <div>
+                        <div class="position-title">Conservation Research Fellow</div>
+                        <div class="position-type">Contract · 12 months · Research Division</div>
+                    </div>
+                    <span class="position-dept">Research</span>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="careers-cta">
+                <h3>Ready to Make a Difference?</h3>
+                <p>Send your resume and cover letter to our HR team. We review applications on a rolling basis.</p>
+                <a href="mailto:careers@nationalconservzoo.org"><i class="fa fa-envelope"></i> careers@nationalconservzoo.org</a>
+            </div>
+
+        </section>
+    <partial name="_AdventureBar" />
+    </main>
+    <!-- MAIN CONTENT END -->

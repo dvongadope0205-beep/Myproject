@@ -1,0 +1,980 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════ RESET ═══════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+:root {
+  --primary: #142688;
+  --left-bg: #f7dd9b;
+  --right-bg: #f5f5f5;
+  --white: #fff;
+  --border: #d9d9d9;
+  --header-border: #cfbf99;
+  --text: #333;
+  --text-light: #737373;
+  --radius: 6px;
+  --font: 'Fredoka', sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none
+}
+
+/* ═══════════ SPLIT SCREEN ═══════════ */
+.tian {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  letter-spacing: normal;
+  line-height: 21px;
+  text-transform: none;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.sha {
+  position: relative;
+}
+
+.blade {
+  display: grid;
+  min-height: 482px;
+  grid-template-areas: "announcement" "header" "buyer-journey" "disclosure" "shell-content" "footer";
+  grid-template-rows: auto auto auto auto 1fr auto;
+}
+
+.star {
+  display: grid;
+  grid-area: shell-content;
+  grid-template-areas: "main order-summary";
+  grid-template-columns: minmax(min-content, calc(50% + calc(calc(58rem - 48rem)/2))) 1fr;
+}
+
+.checkout-main {
+  display: flex;
+  height: 100%;
+  justify-content: flex-end;
+  background-color: var(--left-bg);
+  grid-area: main;
+}
+
+.checkout-sidebar {
+  background: var(--right-bg);
+  display: block;
+}
+
+/* ─── LEFT HEADER ─── */
+.checkout-header {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: var(--left-bg);
+  background-image: none;
+  background-position: 50% 50%;
+  background-size: cover;
+  border-bottom: 1px solid var(--header-border);
+  grid-area: header;
+  z-index: 1;
+}
+
+.help {
+  display: block;
+  padding: 21px 38px;
+  width: 100%;
+}
+
+.me {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 17px;
+}
+
+.dont {
+  position: relative;
+  align-items: center;
+  align-content: center;
+  display: grid;
+  min-width: 100%;
+  grid-template-columns: minmax(0, 1fr) minmax(auto, max-content);
+  grid-template-rows: 50.625px;
+  gap: 38px;
+}
+
+.checkout-logo {
+  position: relative;
+  display: block;
+  max-width: 250px;
+}
+
+.checkout-logo a {
+  position: relative;
+  width: fit-content;
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: all 0.13333s ease-in-out;
+  border-radius: 9px;
+}
+
+.checkout-logo img {
+  height: auto;
+  width: 250px;
+  max-width: 100%;
+  overflow: clip;
+  border-style: none;
+  aspect-ratio: auto 250 / 50.6436;
+  pointer-events: none;
+  overflow-clip-margin: content-box;
+}
+
+.header-cart-link {
+  display: block;
+  position: relative;
+  width: 24px;
+  text-decoration-color: rgb(114, 68, 28);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: auto;
+  color: rgb(114, 68, 28);
+  cursor: pointer;
+  outline: 2px solid transparent;
+  outline-offset: 3px;
+  transition: all 0.133333s ease-in-out;
+  border-radius: 8px;
+}
+
+.header-cart-link svg {
+  width: 24px;
+  height: 24px
+}
+
+/* ─── LEFT CONTENT ─── */
+.checkout-content {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  max-width: 580px;
+  padding: 38px;
+  border-right: 1px solid var(--header-border);
+  grid-template-rows: auto auto 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header" "buyer-journey" "main-content-primary" "footer";
+}
+
+/* ─── BREADCRUMB ─── */
+.checkout-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 24px
+}
+
+.checkout-breadcrumb a {
+  color: var(--primary);
+  font-weight: 500
+}
+
+.checkout-breadcrumb .sep {
+  color: var(--border)
+}
+
+/* ═══════════ SECTIONS ═══════════ */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 4px
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 16px
+}
+
+.section-block {
+  margin-bottom: 28px
+}
+
+/* ═══════════ FORM ═══════════ */
+.form-row {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 12px
+}
+
+.form-row.two-col {
+  grid-template-columns: 1fr 1fr
+}
+
+.form-row.three-col {
+  grid-template-columns: 1fr 1fr 1fr
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text)
+}
+
+.form-group input,
+.form-group select {
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  transition: border .2s;
+  background: var(--white);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(20, 38, 136, .15)
+}
+
+.optional {
+  font-size: 11px;
+  color: var(--text-light);
+  font-weight: 400
+}
+
+/* ═══════════ SHIPPING METHOD ═══════════ */
+.shipping-option {
+  display: flex;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border .2s, background .2s;
+  margin-bottom: 8px;
+  background: var(--white);
+}
+
+.shipping-option:hover {
+  border-color: var(--primary)
+}
+
+.shipping-option.selected {
+  border-color: var(--primary);
+  background: rgba(20, 38, 136, .04)
+}
+
+.shipping-option input[type=radio] {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+  flex-shrink: 0
+}
+
+.shipping-option .ship-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500
+}
+
+.shipping-option .ship-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--primary)
+}
+
+.shipping-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px
+}
+
+.help-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all .2s;
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+.help-icon:hover {
+  border-color: var(--primary);
+  color: var(--primary)
+}
+
+/* ═══════════ PAYMENT BOX (Shopify style) ═══════════ */
+.payment-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white);
+  overflow: hidden;
+}
+
+.payment-box-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #f9f9f9;
+  border-bottom: 1px solid var(--border);
+}
+
+.payment-method-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.payment-method-label input[type=radio] {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px
+}
+
+/* Select luôn có value → label luôn ở trên */
+/* ═══════════ FLOATING LABEL ═══════════ */
+.floating-label {
+  position: relative;
+}
+
+.floating-label input,
+.floating-label select {
+  width: 100%;
+  height: 52px;
+  padding: 20px 12px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  background: var(--white);
+  outline: none;
+  transition: border .2s;
+  -webkit-appearance: none;
+  appearance: none;
+  color: var(--text);
+}
+
+.floating-label input:focus,
+.floating-label select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(20,38,136,.15);
+}
+
+.floating-label label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: var(--text-light);
+  pointer-events: none;
+  transition: all .15s ease;
+}
+
+/* Input: nổi lên khi focus hoặc có giá trị */
+.floating-label input:focus ~ label,
+.floating-label input:not(:placeholder-shown) ~ label {
+  top: 10px;
+  transform: none;
+  font-size: 11px;
+}
+
+/* Select: LUÔN nổi lên vì luôn có giá trị sẵn */
+.floating-label select ~ label {
+  top: 10px;
+  transform: none;
+  font-size: 11px;
+}
+
+/* Mũi tên dropdown cho select */
+.floating-label select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23737373' stroke-width='1.5' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+.card-icons-group {
+  display: flex;
+  align-items: center;
+  gap: 5px
+}
+
+.card-icon {
+  width: 38px;
+  height: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.card-icon svg {
+  width: 34px;
+  height: 20px
+}
+
+/* +N badge */
+.more-cards-trigger {
+  position: relative;
+  display: inline-flex
+}
+
+.more-cards-badge {
+  width: 28px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  background: #f0f0f0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.more-cards-badge:hover {
+  border-color: var(--primary);
+  color: var(--primary)
+}
+
+.more-cards-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  gap: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, .12);
+  opacity: 0;
+  visibility: hidden;
+  transition: all .25s;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.more-cards-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 14px;
+  border: 6px solid transparent;
+  border-top-color: var(--white);
+}
+
+.more-cards-trigger:hover .more-cards-tooltip {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto
+}
+
+/* Payment body (inputs) */
+.payment-box-body {
+  padding: 16px
+}
+
+.payment-box-body .form-row {
+  margin-bottom: 0
+}
+
+.payment-box-body .form-group {
+  margin-bottom: 12px
+}
+
+.payment-box-body .form-group:last-child {
+  margin-bottom: 0
+}
+
+/* Card number with inline icon area */
+.card-number-wrap {
+  position: relative
+}
+
+.card-number-wrap input {
+  padding-right: 52px
+}
+
+.card-number-wrap .inline-card-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  opacity: .5;
+}
+
+/* ═══════════ BILLING CHECKBOX ═══════════ */
+.billing-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.billing-check input[type=checkbox] {
+  accent-color: var(--primary);
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.billing-form {
+  display: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--white);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.billing-form.visible {
+  display: block;
+  animation: fadeSlide .3s ease
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}
+
+/* ═══════════ PAY BUTTON ═══════════ */
+.pay-btn {
+  width: 100%;
+  height: 54px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .3s;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.pay-btn:hover {
+  background: #0d1a5e;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 38, 136, .3)
+}
+
+.pay-btn svg {
+  width: 18px;
+  height: 18px
+}
+
+/* ═══════════ RIGHT SIDEBAR ═══════════ */
+.sidebar-inner {
+  padding: 32px 40px;
+  max-width: 480px
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px
+}
+
+.summary-item {
+  display: flex;
+  gap: 14px;
+  align-items: center
+}
+
+.item-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  background: #fff;
+}
+
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover
+}
+
+.item-qty-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+.item-variant {
+  font-size: 12px;
+  color: var(--text-light)
+}
+
+.item-price {
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0
+}
+
+/* Discount */
+.discount-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px
+}
+
+.discount-row input {
+  flex: 1;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.discount-row input:focus {
+  border-color: var(--primary)
+}
+
+.discount-row button {
+  height: 44px;
+  padding: 0 20px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity .2s;
+}
+
+.discount-row button:hover {
+  opacity: .85
+}
+
+/* Summary lines */
+.summary-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 20px 0
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 10px
+}
+
+.summary-line.total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0;
+  padding-top: 10px;
+  border-top: 2px solid var(--primary);
+}
+
+/* Tax tooltip */
+.tax-row-label {
+  display: flex;
+  align-items: center;
+  gap: 4px
+}
+
+.tax-help {
+  position: relative;
+  display: inline-flex
+}
+
+.tax-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 240px;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .25s;
+  z-index: 10;
+  pointer-events: none;
+  line-height: 1.4;
+}
+
+.tax-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #333
+}
+
+.tax-help:hover .tax-tooltip {
+  opacity: 1;
+  visibility: visible
+}
+
+/* ═══════════ MODAL ═══════════ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .3s;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible
+}
+
+.modal-box {
+  background: var(--white);
+  border-radius: 12px;
+  max-width: 520px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 28px;
+  position: relative;
+  transform: scale(.9);
+  transition: transform .3s;
+}
+
+.modal-overlay.active .modal-box {
+  transform: scale(1)
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .2s;
+}
+
+.modal-close:hover {
+  background: #e0e0e0
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 12px
+}
+
+/* ═══════════ MOBILE SUMMARY TOGGLE ═══════════ */
+.mobile-summary-toggle {
+  display: none;
+  background: var(--primary);
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mobile-summary-toggle svg {
+  transition: transform .3s
+}
+
+.mobile-summary-toggle.open svg {
+  transform: rotate(180deg)
+}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:960px) {
+  .checkout-split {
+    flex-direction: column
+  }
+
+  .checkout-main,
+  .checkout-sidebar {
+    width: 100%
+  }
+
+  .checkout-sidebar {
+    min-height: auto;
+    position: static;
+    order: -1
+  }
+
+  .checkout-content {
+    max-width: 100%;
+    margin: 0
+  }
+
+  .sidebar-inner {
+    max-width: 100%
+  }
+
+  .mobile-summary-toggle {
+    display: flex;
+    margin: 16px 16px 0
+  }
+
+  .sidebar-inner.collapsed {
+    display: none
+  }
+
+  .checkout-content,
+  .sidebar-inner {
+    padding-left: 16px;
+    padding-right: 16px
+  }
+
+  .checkout-header {
+    padding-left: 16px;
+    padding-right: 16px
+  }
+}
+
+/* Scrollbar */
+.summary-items::-webkit-scrollbar {
+  width: 4px
+}
+
+.summary-items::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px
+}
+
+/* Footer links */
+.checkout-footer {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  padding: 20px 0;
+  font-size: 12px;
+  color: var(--text-light);
+  border-top: 1px solid var(--header-border);
+  margin-top: 20px;
+}
+
+.checkout-footer a {
+  color: var(--text-light);
+  transition: color .2s
+}
+
+.checkout-footer a:hover {
+  color: var(--primary)
+}

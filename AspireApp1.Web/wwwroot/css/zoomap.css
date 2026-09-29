@@ -1,0 +1,88 @@
+﻿.map-hero {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    background-color: var(--zoo-dark);
+}
+
+    .map-hero img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.6;
+    }
+
+.map-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 37, 38, 0.4);
+    z-index: 1;
+}
+
+.map-hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+    .map-hero-content h1 {
+        color: white;
+        font-family: Georgia, serif;
+        font-size: 72px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+.map-main-container {
+    max-width: 1200px;
+    margin: 60px auto 100px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 5;
+    text-align: center;
+}
+
+.map-intro {
+    margin-bottom: 40px;
+}
+
+    .map-intro p {
+        font-size: 18px;
+        color: #4a4f58;
+        line-height: 1.6;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        font-family: Georgia, serif;
+    }
+
+.map-image-wrapper {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: inline-block;
+    width: 100%;
+}
+
+    .map-image-wrapper img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+    }
+
+@media (max-width: 768px) {
+    .map-hero-content h1 {
+        font-size: 48px;
+    }
+}

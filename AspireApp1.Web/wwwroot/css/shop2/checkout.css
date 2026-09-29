@@ -1,0 +1,432 @@
+/* ═══════════ CHECKOUT LAYOUT OVERRIDES ═══════════ */
+.checkout-page-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Fredoka', sans-serif !important;
+}
+
+.checkout-split-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media screen and (max-width: 991px) {
+  .checkout-split-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* ─── CARD WRAPPERS ─── */
+.checkout-form-card,
+.checkout-summary-card {
+  background: #ffffff;
+  border: 1px solid #ebd393;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(114, 68, 28, 0.05);
+}
+
+.checkout-section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: rgb(114, 68, 28);
+  margin-bottom: 20px;
+  border-bottom: 2px solid #ebd393;
+  padding-bottom: 8px;
+}
+
+.checkout-subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgb(114, 68, 28);
+  margin: 20px 0 12px 0;
+}
+
+/* ─── FORM GROUP & INPUTS ─── */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label-custom {
+  font-size: 14px;
+  font-weight: 500;
+  color: #593211;
+}
+
+.checkout-input {
+  height: 48px;
+  width: 100%;
+  padding: 0 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  background: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select.checkout-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2372441c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.checkout-input:focus {
+  border-color: #ec993c;
+  box-shadow: 0 0 0 3px rgba(236, 153, 60, 0.2);
+}
+
+.form-row.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .form-row.two-col {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* ─── CHECKBOX & TOGGLES ─── */
+.billing-same-wrap {
+  margin: 18px 0;
+}
+
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #ec993c;
+}
+
+/* ─── PAYMENT BOX ─── */
+.payment-card-box {
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.payment-card-header {
+  background: #f9f9f9;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.payment-card-header .radio-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #593211;
+}
+
+.payment-card-header .radio-label input {
+  accent-color: #ec993c;
+}
+
+.card-icons {
+  display: flex;
+  gap: 6px;
+}
+
+.payment-card-body {
+  padding: 20px;
+  background: #ffffff;
+}
+
+/* ─── SHIPPING METHOD OPTIONS ─── */
+#shipping-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.shipping-option {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.shipping-option.selected {
+  border-color: #ec993c;
+  background: rgba(236, 153, 60, 0.05);
+}
+
+.shipping-option .custom-radio {
+  accent-color: #ec993c;
+  margin-right: 12px;
+}
+
+.shipping-option .ship-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.shipping-option .ship-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #593211;
+}
+
+/* ─── INTERACTIVE SUMMARY ITEMS ─── */
+.checkout-summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.summary-item {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed rgba(18, 18, 18, 0.1);
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.item-thumb {
+  width: 70px;
+  height: 70px;
+  border-radius: 8px;
+  border: 1px solid #ebd393;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+.item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.item-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-variant {
+  font-size: 12px;
+  color: #737373;
+  font-weight: 500;
+}
+
+.item-qty-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checkout-qty-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+  background: #ffffff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.checkout-qty-btn:hover {
+  background: #f0f0f0;
+  border-color: #ec993c;
+}
+
+.checkout-qty-input {
+  width: 40px;
+  height: 24px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  text-align: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 13px;
+  color: #333;
+  outline: none;
+  appearance: textfield;
+}
+
+.checkout-qty-input::-webkit-outer-spin-button,
+.checkout-qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.checkout-item-remove {
+  background: none;
+  border: none;
+  color: #d93838;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+
+.checkout-item-remove:hover {
+  color: #b02020;
+}
+
+.item-price {
+  font-size: 15px;
+  font-weight: 700;
+  color: #593211;
+  flex-shrink: 0;
+}
+
+/* ─── DISCOUNT & GENERAL SUMMARY ─── */
+.discount-row {
+  display: flex;
+  gap: 8px;
+}
+
+.discount-row input {
+  flex: 1;
+}
+
+.discount-row button {
+  height: 48px;
+  padding: 0 20px;
+  background: #593211;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.discount-row button:hover {
+  background: #72441c;
+}
+
+.checkout-divider {
+  border: none;
+  border-top: 1px solid #ebd393;
+  margin: 20px 0;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: #737373;
+}
+
+.summary-line span:last-child {
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-line.total-line {
+  font-size: 18px;
+  font-weight: 700;
+  color: #593211;
+}
+
+.summary-line.total-line span:last-child {
+  font-size: 24px;
+  color: #593211;
+}
+
+/* ─── CONFIRM ACTION BUTTON ─── */
+.confirm-pay-btn {
+  width: 100%;
+  height: 54px;
+  background: #ec993c !important;
+  color: #000000 !important;
+  border: 2px solid #000000 !important;
+  border-radius: 6px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.confirm-pay-btn:hover {
+  background: #e5952e !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 15px rgba(236, 153, 60, 0.35);
+}
+
+.confirm-pay-btn:active {
+  transform: translateY(0);
+}

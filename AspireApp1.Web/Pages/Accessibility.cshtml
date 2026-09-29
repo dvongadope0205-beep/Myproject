@@ -1,0 +1,249 @@
+@page
+@model WebApps.Pages.AccessibilityModel
+@{
+    ViewData["Title"] = "Accessibility - National Conservation Zoo";
+}
+
+@section Styles {
+    <style>
+        .access-hero {
+            background-color: var(--zoo-dark);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .access-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-family: Georgia, serif;
+        }
+        
+        .access-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .access-content {
+            max-width: 1000px;
+            margin: 60px auto;
+
+            padding: 0 20px;
+        }
+
+        .access-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            background: #fff;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #fafafa;
+        }
+
+        .accordion-header h2 {
+            font-size: 26px;
+            color: var(--zoo-dark);
+            margin: 0;
+            font-family: Georgia, serif;
+            transition: color 0.3s;
+        }
+
+        .accordion-icon {
+            font-size: 24px;
+            color: var(--zoo-green);
+            font-weight: 300;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+        }
+
+        .accordion-icon::after {
+            font-family: FontAwesome;
+            content: '\f107'; /* FontAwesome angle-down */
+        }
+
+        .accordion-body {
+            padding: 0 40px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .accordion-body p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        .accordion-body ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .accordion-body li {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 8px;
+        }
+
+        /* Active State */
+        .access-section.active .accordion-header {
+            border-bottom: 1px solid #eee;
+        }
+
+        .access-section.active .accordion-header h2 {
+            color: var(--zoo-green);
+        }
+
+        .access-section.active .accordion-icon::after {
+            content: '\f106'; /* FontAwesome angle-up */
+        }
+
+        .access-section.active .accordion-body {
+            max-height: 800px; /* Big enough for content */
+            padding: 30px 40px 40px 40px;
+            opacity: 1;
+        }
+    </style>
+}
+
+<main>
+    <section class="access-hero">
+        <h1>Accessibility at the Zoo</h1>
+        <p>National Conservation Zoo strives to help everyone have a meaningful visit and find inspiring connections with wildlife here at home and around the world.</p>
+    </section>
+
+    <div class="access-content">
+        <!-- 1 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Getting Here</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>We offer designated accessible parking spaces in all of our primary parking lots, available on a first-come, first-served basis for vehicles bearing valid state-issued disability parking placards or license plates. Drop-off zones are prominently marked near the main entrance.</p>
+            </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Mobility</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>Our zoo is fully accessible to guests using manual wheelchairs, power wheelchairs, and electric conveyance vehicles (ECVs). The terrain is primarily paved with gradual inclines. <br><br>Manual wheelchairs and ECVs are available for rent at the Main Entrance on a first-come, first-served basis.</p>
+                <ul>
+                    <li><strong>Manual Wheelchair:</strong> $15.00 per day</li>
+                    <li><strong>ECV (Electric Scooter):</strong> $35.00 per day</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Service Animals</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>Trained service animals are permitted on zoo grounds in accordance with ADA guidelines. Under the ADA, a service animal is defined as a dog or miniature horse that has been individually trained to do work or perform tasks for an individual with a disability. For the safety of our zoo animals, service animals must be checked in at Guest Services and are restricted from certain interactive animal contact areas (such as the free-flight aviary and kangaroo walkabout).</p>
+            </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Visitors Requiring Personal Care Attendants</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>Guests who require the assistance of a Personal Care Attendant (PCA) will receive one complimentary general admission ticket for the PCA when purchasing their own daily admission ticket. Please request this accommodation at the ticketing window or contact Guest Services prior to your visit.</p>
+            </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Sensory Sensitivity</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>We are proudly certified as a sensory-inclusive facility. We recognize that crowded environments and loud noises can be overwhelming for some guests.</p>
+                <ul>
+                    <li><strong>Sensory Bags:</strong> Available for checkout at Guest Services. Bags include noise-canceling headphones, fidget tools, verbal cue cards, and weighted lap pads.</li>
+                    <li><strong>Quiet Zones:</strong> Designated quiet zones are marked throughout the zoo map for guests needing a break from sensory input.</li>
+                    <li><strong>Headphone Zones:</strong> Signs are posted in areas where loud noises are common (like the indoor primate house) to indicate it's a good place to use headphones.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Dietary & Medicinal Needs</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>While outside food and coolers are generally not permitted inside the zoo, exceptions are always made for visitors with specific medical conditions, food allergies, or special dietary needs. Refrigeration for critical medications is available at our First Aid station located near the main entrance.</p>
+            </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Restroom Facilities</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>All main public restrooms are wheelchair accessible and equipped with infant changing tables. We also offer two private Companion/Family restrooms equipped with adult-sized changing tables (located near the main entrance and the central food pavilion).</p>
+            </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="access-section">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <h2>Other Accommodations</h2>
+                <div class="accordion-icon"></div>
+            </div>
+            <div class="accordion-body">
+                <p>If you have questions about specific accommodations or need further assistance planning your visit, please contact our Guest Experiences team prior to your arrival. We are happy to help ensure your visit is safe, comfortable, and memorable.</p>
+            </div>
+        </div>
+    </div>
+
+    <partial name="_AdventureBar" />
+
+</main>
+
+@section Scripts {
+    <script>
+        function toggleAccordion(element) {
+            const parent = element.parentElement;
+            // Thay đổi trạng thái thẻ hiện tại (cho phép mở nhiều thẻ cùng lúc)
+            parent.classList.toggle('active');
+        }
+    </script>
+}

@@ -1,0 +1,844 @@
+is_global = true
+build_property.TargetFramework = net10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.EntryPointFilePath = 
+build_property.RootNamespace = AspireApp1.Web
+build_property.RootNamespace = AspireApp1.Web
+build_property.ProjectDir = C:\WEBDEV\AspireApp1\AspireApp1.Web\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 10.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\WEBDEV\AspireApp1\AspireApp1.Web
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Accessibility.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWNjZXNzaWJpbGl0eS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/AdminDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5EYXNoYm9hcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/AsianElephant.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcQXNpYW5FbGVwaGFudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/AsiaticLion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcQXNpYXRpY0xpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/CapybaraNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcQ2FweWJhcmFOZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/CheetahNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcQ2hlZXRhaE5ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/ChimpanzeeNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcQ2hpbXBhbnplZU5ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/FlamingoNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcRmxhbWluZ29OZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/FruitBat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcRnJ1aXRCYXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/GreatGreenMacaw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcR3JlYXRHcmVlbk1hY2F3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/Jaguar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcSmFndWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/KomodoDragon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcS29tb2RvRHJhZ29uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/MandrillNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcTWFuZHJpbGxOZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/MeerkatNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcTWVlcmthdE5ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/NorthernGiraffe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcTm9ydGhlcm5HaXJhZmZlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/OrangutanNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcT3Jhbmd1dGFuTmV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/OtterNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcT3R0ZXJOZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/Parson'SChameleon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcUGFyc29uJ1NDaGFtZWxlb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/RadiatedTortoise.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcUmFkaWF0ZWRUb3J0b2lzZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/RhinocerosHornbill.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcUmhpbm9jZXJvc0hvcm5iaWxsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/RhinoNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcUmhpbm9OZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/RingTailLemur.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcUmluZ1RhaWxMZW11ci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/SunBearNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcU3VuQmVhck5ldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/SundaGharial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcU3VuZGFHaGFyaWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/TigerNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcVGlnZXJOZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals2/ZebraNew.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsczJcWmVicmFOZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Bao.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xCYW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Bat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xCYXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Bear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xCZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Capybara.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xDYXB5YmFyYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Chameleon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xDaGFtZWxlb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Chimpanzee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xDaGltcGFuemVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Crocodile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xDcm9jb2RpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Flamingo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xGbGFtaW5nby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Giraffe.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xHaXJhZmZlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Ho.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xIby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Hornbill.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xIb3JuYmlsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Komodo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xLb21vZG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Lemur.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xMZW11ci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Lion.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xMaW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Macaw.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xNYWNhdy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Mandrill.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xNYW5kcmlsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Meerkat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xNZWVya2F0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Orangutan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xPcmFuZ3V0YW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Otter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xPdHRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/RadiatedTortoise.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xSYWRpYXRlZFRvcnRvaXNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Rhino.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xSaGluby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Voi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xWb2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Animals/Zebra.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQW5pbWFsc1xaZWJyYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Attractions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXR0cmFjdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Camp.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FtcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Careers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ2FyZWVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Conservation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29uc2VydmF0aW9uLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/CustomerInfo.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ3VzdG9tZXJJbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/dining/dining.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZGluaW5nXGRpbmluZy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Directions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGlyZWN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Donate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9uYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Encounters.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW5jb3VudGVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/EventDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnREZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Events.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/chameleon-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxjaGFtZWxlb24tZXhwZXJpZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/curious-creature-tour.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxjdXJpb3VzLWNyZWF0dXJlLXRvdXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/elephant-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxlbGVwaGFudC1leHBlcmllbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/fruit-bat-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxmcnVpdC1iYXQtZXhwZXJpZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/giraffe-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxnaXJhZmZlLWV4cGVyaWVuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/jaguar-dine.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxqYWd1YXItZGluZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/komodo-dragon-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxrb21vZG8tZHJhZ29uLWV4cGVyaWVuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/meerkat-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxtZWVya2F0LWV4cGVyaWVuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/orangutan-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxvcmFuZ3V0YW4tZXhwZXJpZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/predator-tour.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxwcmVkYXRvci10b3VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/rhino-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVxyaGluby1leHBlcmllbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/tortoise-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVx0b3J0b2lzZS1leHBlcmllbmNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/experience/zoo-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZXJpZW5jZVx6b28tZXhwZXJpZW5jZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Groups.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcR3JvdXBzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Join.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSm9pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/NotificationApi.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uQXBpLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/face-painting.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXGZhY2UtcGFpbnRpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/handimals.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXGhhbmRpbWFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/lazy-river-boat-trip.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXGxhenktcml2ZXItYm9hdC10cmlwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/madagasca-play.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXG1hZGFnYXNjYS1wbGF5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/nature-play.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXG5hdHVyZS1wbGF5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/play-area.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXHBsYXktYXJlYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/treetop-challenge.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXHRyZWV0b3AtY2hhbGxlbmdlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/vr-experience.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXHZyLWV4cGVyaWVuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/play-area/wildlife-wood.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGxheS1hcmVhXHdpbGRsaWZlLXdvb2QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/PrivateEvents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmF0ZUV2ZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/purchase-history.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccHVyY2hhc2UtaGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/RefundRequest.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVmdW5kUmVxdWVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzZXRQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/ScanQR.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2NhblFSLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shared/_AdventureBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9BZHZlbnR1cmVCYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shared/_Suggestions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9TdWdnZXN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/accessories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcYWNjZXNzb3JpZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/apparel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcYXBwYXJlbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/bundles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcYnVuZGxlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcY2FydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcY2hlY2tvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/contact-us.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcY29udGFjdC11cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/do-not-sell.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcZG8tbm90LXNlbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcRm9yZ290UGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/game.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcZ2FtZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/gift-cards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcZ2lmdC1jYXJkcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcaW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcaW5mby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcbG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/new.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcbmV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJccGx1c2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/privacy-policy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJccHJpdmFjeS1wb2xpY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/Product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcUHJvZHVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/purchase-history.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJccHVyY2hhc2UtaGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/refund-request.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJccmVmdW5kLXJlcXVlc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcc2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/shipping-returns.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcc2hpcHBpbmctcmV0dXJucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/shop-all.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcc2hvcC1hbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/stationery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcc3RhdGlvbmVyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shop2/terms-of-service.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcDJcdGVybXMtb2Ytc2VydmljZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/123123.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1wxMjMxMjMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/123123123.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1wxMjMxMjMxMjMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/accessories.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xhY2Nlc3Nvcmllcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/albie-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xhbGJpZS1waW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/albie-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xhbGJpZS1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/apparel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xhcHBhcmVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/ashley-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xhc2hsZXktcGluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/axolotl-tee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xheG9sb3RsLXRlZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/batrick-crewneck.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xiYXRyaWNrLWNyZXduZWNrLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/batrick-hoodie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xiYXRyaWNrLWhvb2RpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/batrick-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xiYXRyaWNrLXBsdXNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/batrick-tee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xiYXRyaWNrLXRlZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/board-game.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xib2FyZC1nYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/bro-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xicm8tcGx1c2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/bundles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xidW5kbGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/card.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xjYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xjYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xjaGVja291dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/chris-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xjaHJpcy1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/contact-us.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xjb250YWN0LXVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/do-not-sell.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xkby1ub3Qtc2VsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/emily-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xlbWlseS1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/game.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xnYW1lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/gift-cards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xnaWZ0LWNhcmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/holiday-sticker.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xob2xpZGF5LXN0aWNrZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xpbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/info.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xpbmZvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/jason-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xqYXNvbi1waW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/jason-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xqYXNvbi1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/kevin-backpack.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xrZXZpbi1iYWNrcGFjay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/kevin-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xrZXZpbi1waW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/kevin-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xrZXZpbi1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/line-art.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaW5lLWFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/lineart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaW5lYXJ0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/lisa-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaXNhLXBpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/lisa-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaXNhLXBsdXNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/lisa-tee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaXNhLXRlZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/lizard-pin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsaXphcmQtcGluLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xsb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/mouth-albie-bundle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xtb3V0aC1hbGJpZS1idW5kbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/mouth-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xtb3V0aC1wbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/new.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/nh-fall-hoodie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuaC1mYWxsLWhvb2RpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/nh-lineart-hoodie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuaC1saW5lYXJ0LWhvb2RpZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/nh-notebook.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuaC1ub3RlYm9vay5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/nh-sticker.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuaC1zdGlja2VyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/nh-tee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xuaC10ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xwbHVzaC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/privacy-policy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xwcml2YWN5LXBvbGljeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/purchase-history.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xwdXJjaGFzZS1oaXN0b3J5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/rat-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xyYXQtcGx1c2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/refund-request.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xyZWZ1bmQtcmVxdWVzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/robert-bro-bundle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xyb2JlcnQtYnJvLWJ1bmRsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/robert-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xyb2JlcnQtcGx1c2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/robert-tee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xyb2JlcnQtdGVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzZWFyY2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xTaGFyZWRcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/shipping-returns.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzaGlwcGluZy1yZXR1cm5zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/shop-all.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzaG9wLWFsbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/spring-magnetic-plush.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzcHJpbmctbWFnbmV0aWMtcGx1c2guY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/spring-sticker.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzcHJpbmctc3RpY2tlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/stationery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzdGF0aW9uZXJ5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/summer-hoodie.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzdW1tZXItaG9vZGllLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/summer-sticker.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzdW1tZXItc3RpY2tlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/summer-tote-bag.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1xzdW1tZXItdG90ZS1iYWcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shopnew/terms-of-service.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hvcG5ld1x0ZXJtcy1vZi1zZXJ2aWNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Sponsorship.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU3BvbnNvcnNoaXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Terms.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVybXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Tickets.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGlja2V0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Tours.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVG91cnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Volunteers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVm9sdW50ZWVycy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Zoomap.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcWm9vbWFwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/WEBDEV/AspireApp1/AspireApp1.Web/Pages/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-us99ysm8tj

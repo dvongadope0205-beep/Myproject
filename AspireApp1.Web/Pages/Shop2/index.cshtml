@@ -1,0 +1,127 @@
+@page
+@model WebProject.Pages.IndexModel
+@{
+    Layout = "~/Pages/Shop2/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Mixed Collection Layout";
+}
+
+
+
+<!-- PHẦN 1: HERO OVERLAY -->
+<section class="hero-section">
+<a href="/Shop2/new">
+<div class="hero-bg-right">
+<!-- Thay đường dẫn hình nền của bạn vào đây (vd: phòng tối có con chim to đùng) -->
+<img alt="New Collection Background" src="~/Source/shop2-img/main page/new-coll-fall-collection.jpg"/>
+<div class="hero-content-right">
+</div>
+</div>
+<div class="tag-new">NEW!</div>
+</a>
+</section>
+<!-- PHẦN 2: 4-COLUMN GRID -->
+<section class="collections-grid">
+<a class="col-item" href="/Shop2/bundles">
+<!-- Xóa hình trống để tự fill màu thẻ fallback bên trên, hoặc để img vào -->
+<!-- <img src="~/..." alt="Bundles"> -->
+<img alt="Bundles" src="~/Source/shop2-img/main page/bundles-collection.jpg"/>
+<div class="col-tag">BUNDLES</div>
+</a>
+<a class="col-item" href="/Shop2/apparel">
+<img alt="Apparel" src="~/Source/shop2-img/main page/apparel-collection.jpg"/>
+<div class="col-tag">APPAREL</div>
+</a>
+<a class="col-item" href="/Shop2/plush">
+<img alt="Plush" src="~/Source/shop2-img/main page/plush-collection.jpg"/>
+<div class="col-tag">PLUSH</div>
+</a>
+<a class="col-item" href="/Shop2/accessories">
+<img alt="Accessories" src="~/Source/shop2-img/main page/accessories-collection.jpg"/>
+<div class="col-tag">ACCESSORIES</div>
+</a>
+</section>
+<!-- PHẦN 3: GAME BANNER (Theo Hình 1 mới) -->
+<section class="game-banner-section">
+<img alt="game-banner" class="full-banner-img" src="~/Source/shop2-img/main page/Game_LaunchWeb_Banner_2.jpg"/>
+<div class="banner-action-container">
+<a class="btn-shop-black" href="/Shop2/board-game"><span class="btn-text-anim">SHOP NOW</span></a>
+</div>
+</section>
+<!-- PHẦN 4: FEATURED PRODUCTS GRID (Theo Hình 3 mới) -->
+<section class="product-section">
+<div class="recommend">
+<product-recommendations class="related-product-page">
+<h2 class="related-heading">Feature Products</h2>
+<slider-component class="slider-mobile-gutter">
+<!-- Related Card 1: Plush -->
+<ul class="product-grid" id="Slider-template" role="list"></ul>
+</slider-component>
+</product-recommendations>
+</div></section>
+<a class="btn-view-all" href="/Shop2/shop-all">VIEW ALL</a>
+
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="~/Source/shop2-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+@section Scripts {
+    <script>
+        renderShopProducts('featured');
+    </script>
+}

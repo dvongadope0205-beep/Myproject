@@ -1,0 +1,594 @@
+﻿@page
+@model ZooProject.Pages.RingTailLemur
+@{
+    ViewData["HideHeader"] = true;
+    ViewData["HideFooter"] = true;
+}
+
+<style>
+
+        /* === BẢNG MÀU CHỦ ĐẠO XANH LÁ, TRẮNG PHỤ ĐẠO === */
+        :root {
+            --bg-main: #161D08;       
+            --text-primary: #ffffff;  
+            --text-muted: #C8D0BF;    
+            --accent-green: #424D2C;  
+            --band-bg: #293416;       
+            --band-border: #636D4B;   
+            --iucn-endangered: #e8834b; /* Màu cam trạng thái Endangered */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1360px; 
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* --- FIG IMAGE BANNER TRẢI DÀI NẰM NGANG & OVERLAY TIÊU ĐỀ --- */
+        .fig-image-wrapper {
+            position: relative;
+            margin: 0 0 60px 0;
+            width: 100%;
+            height: 520px; 
+            overflow: hidden;
+            background: #111; 
+        }
+
+        .fig-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fig-image-wrapper::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(22, 29, 8, 0.95) 0%, rgba(22, 29, 8, 0.4) 50%, transparent 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-text-overlay {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
+            z-index: 3; 
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .header-title {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: #FEB800; 
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .header-title::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 14px;
+            background: #FEB800;
+        }
+
+        .header-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .iucn-badge-inline {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .iucn-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .iucn-status-value {
+            color: var(--iucn-endangered); 
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        /* --- BỐ CỤC NỘI DUNG HAI CỘT --- */
+        .content-split {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; 
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        .carousel-container {
+            position: relative;
+            padding-right: 20px;
+        }
+
+        /* Đường gạch đứt phân cách */
+        .carousel-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 1px;
+            background-image: linear-gradient(to bottom, var(--band-border) 70%, transparent 30%);
+            background-size: 100% 8px;
+        }
+
+        .carousel-slide {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            display: block;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .carousel-italic {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-style: italic;
+            line-height: 1.35;
+            color: var(--text-primary);
+            margin-bottom: 25px;
+        }
+
+        .carousel-body {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .image-placeholder-slot {
+            width: 100%;
+            height: 140px; 
+            background-color: #0c1104;
+            border: 1px dashed var(--band-border);
+            margin-bottom: 15px;
+            overflow: hidden; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .image-placeholder-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
+        }
+
+        .carousel-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .carousel-controls button {
+            background: none;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .carousel-controls button:hover {
+            background: var(--text-primary);
+            color: var(--bg-main);
+        }
+
+        .slide-indicator {
+            letter-spacing: 2px;
+        }
+
+        /* Fact Grid */
+        .fact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px 40px;
+        }
+
+        .fact-item {
+            border-top: 2px solid var(--text-primary);
+            padding-top: 15px;
+        }
+
+        .fact-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px; 
+        }
+
+        .fact-label svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: var(--text-muted);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .fact-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--text-primary);
+        }
+
+        /* --- DOCUMENTARY BAND --- */
+        .doc-band {
+            position: relative;
+            background-color: var(--band-bg);
+            padding: 70px 40px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .dashed-border-top, .dashed-border-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background-image: linear-gradient(to right, var(--band-border) 50%, transparent 50%);
+            background-size: 16px 100%;
+        }
+
+        .dashed-border-top { top: 0; }
+        .dashed-border-bottom { bottom: 0; }
+
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .doc-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .doc-text p {
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .doc-btn {
+            background-color: var(--text-primary);
+            color: var(--bg-main);
+            text-decoration: none;
+            padding: 16px 32px;
+            font-family: 'Space Mono', monospace;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.3s ease;
+        }
+
+        .doc-btn:hover {
+            background-color: var(--accent-green);
+            color: #ffffff;
+        }
+
+        .play-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--bg-main);
+            border-radius: 50%;
+            font-size: 10px;
+            padding-left: 2px;
+        }
+
+        /* Responsive */
+        @@media (max-width: 900px) {
+            .content-split { grid-template-columns: 1fr; gap: 60px; }
+            .fig-image-wrapper { height: 350px; }
+            .doc-container { flex-direction: column; align-items: flex-start; }
+        }
+    
+</style>
+
+
+
+    
+<a href="/Animals2" class="back-to-animals2" style="position: fixed; top: 30px; left: 30px; z-index: 9999; display: inline-flex; align-items: center; gap: 10px; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); box-shadow: 0 4px 15px rgba(0,0,0,0.3);" onmouseover="this.style.background='#119864'; this.style.borderColor='#119864'; this.style.transform='translateX(-5px)';" onmouseout="this.style.background='rgba(0, 0, 0, 0.6)'; this.style.borderColor='rgba(255, 255, 255, 0.15)'; this.style.transform='translateX(0)';">
+    <i class="fa fa-chevron-left" style="font-size: 14px;"></i>
+    <span>back to Animal</span>
+</a>
+
+<main class="container">
+        
+        <!-- BANNER HÌNH ẢNH THEO IDENTITY NATIONAL GEOGRAPHIC -->
+        <section class="fig-image-wrapper">
+            <img src="/Source/Animals2/ring-tail-lemur/ring-tail-lemur.jpg" alt="Ring-tailed Lemur Expedition">
+            
+            <div class="hero-text-overlay">
+                <div class="header-title">The Striped Spirit of Madagascar</div>
+                <h2 class="header-subtitle">Ring-tailed lemur (Lemur catta)</h2>
+                <div class="iucn-badge-inline">
+                    <span class="iucn-tag">IUCN Status:</span>
+                    <span class="iucn-status-value">Endangered</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-split">
+            
+            <!-- Khối bên trái: Carousel (Nội dung Lemur được chia thành 3 Slide) -->
+            <div class="carousel-container">
+                <div id="carouselTrack">
+                    
+                    <!-- Slide 1: About -->
+                    <div class="carousel-slide active">
+                        <div class="carousel-italic">
+                            Instantly recognizable by their <span style="color: var(--iucn-endangered); border-bottom: 2px solid var(--text-primary); font-weight: 700;">iconic stripy tails</span> and bright orange eyes, these highly agile primates are famous for engaging in fierce, territorial <span style="border-bottom: 2px solid var(--text-primary); font-weight: 700;">stink fights</span>.
+                        </div>
+                        <div class="carousel-body">
+                            <p style="margin-bottom: 12px;">Native to the harsh environments of Madagascar's forests and rock canyons, they live in deeply social, female-dominated groups of 3 to 20 individuals. Their remarkable tails—featuring strictly 12 or 13 white rings, 13 or 14 black rings, and always ending in a black tip—exceed their body length, providing vital balance and acting as high-visibility flags to keep the troop together.</p>
+                            <p>They use opposable thumbs to expertly navigate branches and communicate through loud, distinctive calls to warn of danger. In their tightly-knit societies, females even switch babies and generously nurse the infants of other mothers, while males rely on specialized wrist scent glands to compete for mates during their staggered breeding season.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Threats -->
+                    <div class="carousel-slide">
+                        <div class="carousel-italic">
+                            A highly sociable primate battling for a future on a changing island. Their wild populations are facing severe declines driven by rapid <span style="color: var(--iucn-endangered); border-bottom: 2px solid var(--text-primary); font-weight: 700;">habitat loss</span> and aggressive <span style="border-bottom: 2px solid var(--text-primary); font-weight: 700;">agricultural expansion</span>.
+                        </div>
+                        <div class="carousel-body">
+                            <p style="margin-bottom: 12px;">Like most lemur species across Madagascar, these iconic animals are heavily threatened by the relentless destruction of their natural homes. As local agriculture continuously expands into their native ranges in the south and southwest, their available territory is rapidly shrinking.</p>
+                            <p>To combat this devastating crisis, dedicated conservation efforts are currently underway in the Mangabe New Protected Area, focusing intensively on safeguarding these fragile, deeply social populations before it is too late.</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Tickets & Membership (Lemur Walkthrough Version) -->
+                    <div class="carousel-slide">
+                        <div class="carousel-italic" style="font-size: 26px; margin-bottom: 25px;">
+                            Support & Experience the Wildlife Firsthand
+                        </div>
+                        <div class="carousel-body">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;">
+                                
+                                <div style="border-left: 2px solid var(--text-muted); padding-left: 15px;">
+                                    <div class="image-placeholder-slot">
+                                        <img src="/Source/Animals2/ring-tail-lemur/lemur-ticket.jpg" alt="Lemur Walkthrough Ticket">
+                                    </div>
+                                    <h4 style="font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text-primary); margin-bottom: 6px;">Explore the Lemur Walkthrough</h4>
+                                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">Book your visit today and experience our immersive Lemur Walkthrough up close!</p>
+                                    <a href="#" class="doc-btn" style="padding: 8px 16px; font-size: 11px;">Book Now</a>
+                                </div>
+                                
+                                <div style="border-left: 2px solid var(--text-muted); padding-left: 15px;">
+                                    <div class="image-placeholder-slot">
+                                        <img src="/Source/Animals2/ring-tail-lemur/lemur-membership.jpg" alt="Lemur Member">
+                                    </div>
+                                    <h4 style="font-family: 'Playfair Display', serif; font-size: 18px; color: var(--text-primary); margin-bottom: 6px;">Become a member and don't miss a thing</h4>
+                                    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4;">See these magnificent animals any day you like with free unlimited entry for a year, plus up to 10% off future experiences.</p>
+                                    <a href="#" class="doc-btn" style="padding: 8px 16px; font-size: 11px;">Become a Member</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="carousel-controls">
+                    <button id="prevBtn" aria-label="Previous Slide">←</button>
+                    <span class="slide-indicator" id="slideIndicator">01 / 03</span>
+                    <button id="nextBtn" aria-label="Next Slide">→</button>
+                </div>
+            </div>
+
+            <!-- Khối bên phải: Fact Grid (Tích hợp dữ liệu từ file txt của Lemur) -->
+            <div class="fact-grid">
+                
+                <!-- Species Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7 11a3 3 0 1 1-3-3M17 11a3 3 0 1 0 3-3"/>
+                            <path d="M12 3a7 7 0 0 0-7 7c0 4.5 3.5 8 7 8s7-3.5 7-8a7 7 0 0 0-7-7z"/>
+                            <path d="M9 9c1-1 2-1 3 0s2 1 3 0"/>
+                            <circle cx="9.5" cy="11.5" r="0.5"/>
+                            <circle cx="14.5" cy="11.5" r="0.5"/>
+                            <path d="M10 14h4"/>
+                        </svg>
+                        Species
+                    </div>
+                    <div class="fact-value">Primate</div>
+                </div>
+                
+                <!-- Life Span Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24"><path d="M5 2h14M5 22h14M7 2l5 8 5-8M7 22l5-8 5 8"/></svg>
+                        Life Span
+                    </div>
+                    <div class="fact-value">16 to 19 years </div>
+                    <span style="font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text-muted);">First litter at 3 years old</span>
+                </div>
+                
+                <!-- Habitat Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24"><polygon points="12,2 3,17 21,17"/><line x1="12" y1="17" x2="12" y2="22"/></svg>
+                        Habitat
+                    </div>
+                    <div class="fact-value">Forests & rock canyons </div>
+                    <span style="font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text-muted);">Harsh environments</span>
+                </div>
+                
+                <!-- Region Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="2" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        Region
+                    </div>
+                    <div class="fact-value">Madagascar </div>
+                    <span style="font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text-muted);">South & southwest</span>
+                </div>
+                
+                <!-- Diet Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 20l2-4" />
+                            <path d="M6 16A7 7 0 0 1 11 6A7 7 0 0 1 6 16z" />
+                            <path d="M6 16l3-4" />
+                            
+                            <path d="M14 5v5c0 1.5 1.5 2.5 3 2.5s3-1 3-2.5V5" />
+                            <line x1="17" y1="5" x2="17" y2="19" />
+                        </svg>
+                        Diet
+                    </div>
+                    <div class="fact-value">Omnivore </div>
+                    <span style="font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text-muted);">Primarily fruit & leaves, occasional insects</span>
+                </div>
+                
+                <!-- Avg Size Fact -->
+                <div class="fact-item">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24"><rect x="1" y="8" width="22" height="8" rx="1"/><line x1="5" y1="8" x2="5" y2="12"/><line x1="9" y1="8" x2="9" y2="14"/><line x1="13" y1="8" x2="13" y2="12"/><line x1="17" y1="8" x2="17" y2="14"/></svg>
+                        Avg Size
+                    </div>
+                    <div class="fact-value">Up to 55 cm </div>
+                    <span style="font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 400; color: var(--text-muted);">Including tail</span>
+                </div>
+                
+                <!-- Behaviour & Zoo Location Fact -->
+                <div class="fact-item" style="grid-column: span 2;">
+                    <div class="fact-label">
+                        <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                        Behaviour & Zoo Location
+                    </div>
+                    <div class="fact-value" style="font-size: 21px; line-height: 1.3;">
+                        Sociable & active<br>
+                        <span style="font-size: 14px; font-family: 'Space Mono', monospace; font-weight: 400; color: var(--text-muted); margin-top: 8px; display: inline-block;">Located in the Lemur Walkthrough</span>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Khối tư liệu phim / Hoạt động bảo tồn bên dưới (Mangabe New Protected Area) -->
+    <section class="doc-band">
+        <div class="dashed-border-top"></div>
+        <div class="doc-container">
+            <div class="doc-text">
+                <h3>Safeguarding Madagascar's Future</h3>
+                <p>Focused efforts in the Mangabe New Protected Area to combat habitat loss and agricultural expansion.</p>
+            </div>
+            <a href="https://youtu.be/GA2hA5QCq7A?si=OgGRDOn1P38TSJDZ" target="_blank" class="doc-btn">
+                <span class="play-icon">▶</span> Watch Film
+            </a>
+        </div>
+        <div class="dashed-border-bottom"></div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const totalSlides = slides.length;
+            const indicator = document.getElementById('slideIndicator');
+            let currentSlide = 0;
+
+            function updateSlide(index) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[index].classList.add('active');
+                indicator.textContent = `0${index + 1} / 0${totalSlides}`;
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlide(currentSlide);
+            });
+
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateSlide(currentSlide);
+            });
+
+            updateSlide(currentSlide);
+        });
+    </script>
+
+

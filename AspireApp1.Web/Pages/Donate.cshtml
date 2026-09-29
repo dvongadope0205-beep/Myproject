@@ -1,0 +1,588 @@
+@page
+@model WebApps.Pages.DonateModel
+@{
+    ViewData["Title"] = "Donate - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/pages.css">
+<style>
+    .donate-hero {
+        background: linear-gradient(135deg, rgba(0,37,38,0.85), rgba(17,152,100,0.7)), url('/Source/Picture/encounter.jpg') center/cover;
+        padding: 80px 20px 60px;
+        text-align: center;
+        color: white;
+    }
+    .donate-hero h1 {
+        font-size: 48px; font-weight: 800; margin: 0 0 12px;
+        font-family: Georgia, serif;
+    }
+    .donate-hero p {
+        font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto;
+    }
+    .donate-container {
+        max-width: 1100px; margin: -30px auto 40px; padding: 0 20px;
+        display: flex; gap: 30px; flex-wrap: wrap; position: relative; z-index: 2;
+    }
+    .donate-form-panel {
+        flex: 2; min-width: 400px; background: white; border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.08); padding: 40px; 
+    }
+    .donate-summary-panel {
+        flex: 1; min-width: 280px; position: sticky; top: 100px; align-self: flex-start;
+    }
+    .donate-summary-card {
+        background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        padding: 30px; border-top: 4px solid #119864;
+    }
+    .donate-section { margin-bottom: 32px; }
+    .donate-section-title {
+        font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px;
+        color: #888; font-weight: 700; margin: 0 0 16px; display: flex;
+        align-items: center; gap: 8px;
+    }
+    .donate-section-title i { color: #119864; font-size: 16px; }
+
+    /* Frequency Toggle */
+    .freq-toggle {
+        display: flex; background: #f0f0f0; border-radius: 30px; padding: 4px; gap: 0;
+    }
+    .freq-btn {
+        flex: 1; padding: 12px 20px; border: none; border-radius: 26px;
+        font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s;
+        background: transparent; color: #666;
+    }
+    .freq-btn.active {
+        background: #119864; color: white; box-shadow: 0 4px 12px rgba(17,152,100,0.3);
+    }
+
+    /* Amount Buttons */
+    .amount-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+    }
+    .amount-btn {
+        padding: 16px; border: 2px solid #e0e0e0; border-radius: 12px;
+        font-size: 22px; font-weight: 800; cursor: pointer; transition: all 0.2s;
+        background: white; color: #333; text-align: center;
+    }
+    .amount-btn:hover { border-color: #119864; background: #f0faf5; }
+    .amount-btn.active {
+        border-color: #119864; background: #119864; color: white;
+        box-shadow: 0 4px 15px rgba(17,152,100,0.3);
+    }
+    .custom-amount-wrap {
+        display: flex; align-items: center; border: 2px solid #e0e0e0;
+        border-radius: 12px; padding: 0 16px; transition: border-color 0.2s;
+    }
+    .custom-amount-wrap:focus-within { border-color: #119864; }
+    .custom-amount-wrap span { font-size: 22px; font-weight: 800; color: #333; }
+    .custom-amount-input {
+        flex: 1; border: none; outline: none; font-size: 22px; font-weight: 700;
+        padding: 14px 8px; color: #333; background: transparent;
+    }
+
+    /* Purpose Select */
+    .purpose-select {
+        width: 100%; padding: 14px 16px; border: 2px solid #e0e0e0;
+        border-radius: 12px; font-size: 15px; color: #333;
+        background: white; cursor: pointer; appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat; background-position: right 16px center;
+    }
+    .purpose-select:focus { border-color: #119864; outline: none; }
+
+    /* Dedication */
+    .dedication-toggle {
+        display: flex; gap: 12px; margin-bottom: 16px;
+    }
+    .ded-btn {
+        padding: 10px 20px; border: 2px solid #e0e0e0; border-radius: 10px;
+        font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+        background: white; color: #555;
+    }
+    .ded-btn.active { border-color: #119864; background: #f0faf5; color: #119864; }
+    .ded-name-input {
+        width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0;
+        border-radius: 10px; font-size: 14px; box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+    .ded-name-input:focus { border-color: #119864; outline: none; }
+
+    /* Donor Info */
+    .donor-grid {
+        display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .donor-field { display: flex; flex-direction: column; gap: 6px; }
+    .donor-field.full { grid-column: span 2; }
+    .donor-field label {
+        font-size: 13px; font-weight: 600; color: #555;
+    }
+    .donor-field input, .donor-field select {
+        padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 10px;
+        font-size: 14px; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .donor-field input:focus { border-color: #119864; outline: none; }
+
+    /* Cover Fees */
+    .cover-fees-box {
+        display: flex; align-items: center; gap: 12px; padding: 16px;
+        background: #f0faf5; border-radius: 12px; border: 1px solid #d4edda;
+        cursor: pointer;
+    }
+    .cover-fees-box input[type="checkbox"] {
+        width: 20px; height: 20px; accent-color: #119864; cursor: pointer;
+    }
+    .cover-fees-box label { cursor: pointer; font-size: 14px; color: #333; }
+    .cover-fees-box .fee-amount { font-weight: 700; color: #119864; }
+
+    /* Summary */
+    .summary-row {
+        display: flex; justify-content: space-between; padding: 10px 0;
+        font-size: 14px; color: #555; border-bottom: 1px solid #f0f0f0;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-total {
+        display: flex; justify-content: space-between; padding: 16px 0 0;
+        margin-top: 10px; border-top: 2px solid #119864;
+        font-size: 24px; font-weight: 800; color: #119864;
+    }
+    .summary-impact {
+        background: #f0faf5; border-radius: 10px; padding: 14px;
+        margin: 16px 0; text-align: center;
+    }
+    .summary-impact i { font-size: 24px; color: #119864; display: block; margin-bottom: 6px; }
+    .summary-impact p { margin: 0; font-size: 13px; color: #555; line-height: 1.5; }
+
+    /* Give Now Button */
+    .give-now-btn {
+        width: 100%; padding: 18px; background: linear-gradient(135deg, #119864, #0d7a4f);
+        color: white; border: none; border-radius: 12px; font-size: 20px;
+        font-weight: 800; cursor: pointer; transition: all 0.3s;
+        box-shadow: 0 6px 20px rgba(17,152,100,0.3);
+        text-transform: uppercase; letter-spacing: 1px;
+    }
+    .give-now-btn:hover {
+        transform: translateY(-2px); box-shadow: 0 8px 30px rgba(17,152,100,0.4);
+    }
+    .give-now-btn:active { transform: translateY(0); }
+    .give-now-btn:disabled {
+        background: #ccc; cursor: not-allowed; box-shadow: none; transform: none;
+    }
+    .tax-note {
+        text-align: center; font-size: 12px; color: #999; margin-top: 12px;
+    }
+    .tax-note i { margin-right: 4px; }
+
+    /* Success overlay */
+    .donate-success-overlay {
+        display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(8px); z-index: 10000;
+        justify-content: center; align-items: center;
+    }
+    .donate-success-card {
+        background: white; border-radius: 20px; padding: 50px;
+        text-align: center; max-width: 450px; width: 90%;
+        box-shadow: 0 25px 80px rgba(0,0,0,0.25);
+        animation: donateSlideUp 0.4s ease;
+    }
+    @@keyframes donateSlideUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .success-icon {
+        width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px;
+        background: linear-gradient(135deg, #119864, #0d7a4f);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .success-icon i { font-size: 36px; color: white; }
+
+    @@media (max-width: 768px) {
+        .donate-container { flex-direction: column; }
+        .donate-form-panel { min-width: auto; }
+        .donate-summary-panel { position: static; }
+        .amount-grid { grid-template-columns: repeat(2, 1fr); }
+        .donor-grid { grid-template-columns: 1fr; }
+        .donor-field.full { grid-column: span 1; }
+        .donate-hero h1 { font-size: 32px; }
+    }
+</style>
+}
+
+<main>
+    <!-- Hero -->
+    <section class="donate-hero">
+        <h1>Make a Difference Today</h1>
+        <p>Your generous donation helps protect endangered species and supports wildlife conservation around the world.</p>
+    </section>
+
+    <div class="donate-container">
+        <!-- Left: Donation Form -->
+        <div class="donate-form-panel">
+
+            <!-- Frequency -->
+            <div class="donate-section">
+                <div class="donate-section-title"><i class="fa fa-refresh"></i> Donation Frequency</div>
+                <div class="freq-toggle">
+                    <button class="freq-btn active" onclick="setFrequency('OneTime', this)">One-Time Gift</button>
+                    <button class="freq-btn" onclick="setFrequency('Monthly', this)">Monthly Giving</button>
+                </div>
+            </div>
+
+            <!-- Amount -->
+            <div class="donate-section">
+                <div class="donate-section-title"><i class="fa fa-dollar"></i> Select Amount</div>
+                <div class="amount-grid">
+                    <button class="amount-btn" onclick="setAmount(25, this)">$25</button>
+                    <button class="amount-btn" onclick="setAmount(50, this)">$50</button>
+                    <button class="amount-btn active" onclick="setAmount(100, this)">$100</button>
+                    <button class="amount-btn" onclick="setAmount(250, this)">$250</button>
+                    <button class="amount-btn" onclick="setAmount(500, this)">$500</button>
+                    <button class="amount-btn" onclick="setAmount(1000, this)">$1,000</button>
+                </div>
+                <div class="custom-amount-wrap">
+                    <span>$</span>
+                    <input type="number" class="custom-amount-input" id="customAmount" placeholder="Other amount" oninput="setCustomAmount(this.value)">
+                </div>
+            </div>
+
+            <!-- Gift Purpose -->
+            <div class="donate-section">
+                <div class="donate-section-title"><i class="fa fa-heart"></i> Gift Purpose</div>
+                <select class="purpose-select" id="giftPurpose" onchange="updateSummary()">
+                    <option value="GreatestNeed">Area of Greatest Need</option>
+                    <option value="AnimalCare">Animal Care Fund</option>
+                    <option value="Conservation">Conservation Fund</option>
+                    <option value="Education">Education Programs</option>
+                    <option value="Habitat">Habitat Restoration</option>
+                </select>
+            </div>
+
+            <!-- Dedication -->
+            <div class="donate-section">
+                <div class="donate-section-title"><i class="fa fa-gift"></i> Dedicate This Gift (Optional)</div>
+                <div class="dedication-toggle">
+                    <button class="ded-btn active" onclick="setDedication('None', this)">No Dedication</button>
+                    <button class="ded-btn" onclick="setDedication('InHonorOf', this)">In Honor Of</button>
+                    <button class="ded-btn" onclick="setDedication('InMemoryOf', this)">In Memory Of</button>
+                </div>
+                <div id="dedicationNameWrap" style="display:none;">
+                    <input type="text" class="ded-name-input" id="dedicationName" placeholder="Enter the honoree's name" oninput="updateSummary()">
+                </div>
+            </div>
+
+            <!-- Donor Information -->
+            <div class="donate-section">
+                <div class="donate-section-title"><i class="fa fa-user"></i> Your Information</div>
+                <div class="donor-grid">
+                    <div class="donor-field">
+                        <label>First Name *</label>
+                        <input type="text" id="donorFirst" required placeholder="Jane">
+                    </div>
+                    <div class="donor-field">
+                        <label>Last Name *</label>
+                        <input type="text" id="donorLast" required placeholder="Doe">
+                    </div>
+                    <div class="donor-field">
+                        <label>Email Address *</label>
+                        <input type="email" id="donorEmail" required placeholder="jane@example.com">
+                    </div>
+                    <div class="donor-field">
+                        <label>Phone (Optional)</label>
+                        <input type="tel" id="donorPhone" placeholder="(024) 123-4567">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cover Fees -->
+            <div class="donate-section">
+                <label class="cover-fees-box">
+                    <input type="checkbox" id="coverFees" onchange="updateSummary()">
+                    <span style="display: block;">
+                        <strong>I'd like to cover the processing fees</strong><br>
+                        <span style="font-size:12px; color:#666;">Adding <span class="fee-amount" id="feeDisplay">$3.00</span> ensures 100% of your gift supports wildlife.</span>
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Right: Summary Panel -->
+        <div class="donate-summary-panel">
+            <div class="donate-summary-card">
+                <h3 style="margin: 0 0 20px; font-size: 20px; color: #333; font-weight: 800;">
+                    <i class="fa fa-heart" style="color: #119864; margin-right: 8px;"></i>Your Gift
+                </h3>
+
+                <div class="summary-impact">
+                    <i class="fa fa-paw"></i>
+                    <p>Your donation directly funds <strong>animal care</strong>, <strong>conservation research</strong>, and <strong>education programs</strong>.</p>
+                </div>
+
+                <div id="summaryDetails">
+                    <div class="summary-row">
+                        <span>Frequency</span>
+                        <strong id="sumFreq">One-Time</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Donation</span>
+                        <strong id="sumAmount">$100.00</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Purpose</span>
+                        <strong id="sumPurpose">Greatest Need</strong>
+                    </div>
+                    <div class="summary-row" id="sumDedRow" style="display:none;">
+                        <span>Dedication</span>
+                        <strong id="sumDedication">—</strong>
+                    </div>
+                    <div class="summary-row" id="sumFeeRow" style="display:none;">
+                        <span>Processing Fee</span>
+                        <strong id="sumFee">$0.00</strong>
+                    </div>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="sumTotal">$100.00</span>
+                </div>
+
+                <button class="give-now-btn" id="giveNowBtn" onclick="submitDonation()" style="margin-top: 20px;">
+                    <i class="fa fa-heart"></i> Give Now!
+                </button>
+                <p class="tax-note">
+                    <i class="fa fa-lock"></i> National Conservation Zoo is a 501(c)(3) nonprofit.<br>Your gift is tax-deductible.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="donate-success-overlay" id="donateSuccessModal">
+        <div class="donate-success-card">
+            <div class="success-icon"><i class="fa fa-check"></i></div>
+            <h2 style="margin: 0 0 10px; font-size: 28px; color: #119864;">Thank You!</h2>
+            <p style="color: #666; font-size: 16px; line-height: 1.6; margin: 0 0 10px;">
+                Your generous donation of <strong id="successAmount">$100</strong> has been received.
+            </p>
+            <p style="color: #999; font-size: 14px; margin: 0 0 20px;">
+                Transaction: <strong id="successTxRef">—</strong>
+            </p>
+            <a href="/Index" style="display: inline-block; padding: 14px 32px; background: #119864; color: white; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 16px;">
+                Return to Home
+            </a>
+        </div>
+    </div>
+</main>
+
+@Html.AntiForgeryToken()
+
+@section Scripts {
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    let donateState = {
+        frequency: 'OneTime',
+        amount: 100,
+        customAmount: false,
+        purpose: 'GreatestNeed',
+        dedication: 'None',
+        coverFees: false
+    };
+
+    function setFrequency(freq, btn) {
+        donateState.frequency = freq;
+        document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateSummary();
+    }
+
+    function setAmount(val, btn) {
+        donateState.amount = val;
+        donateState.customAmount = false;
+        document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('customAmount').value = '';
+        updateSummary();
+    }
+
+    function setCustomAmount(val) {
+        const num = parseFloat(val);
+        if (num > 0) {
+            donateState.amount = num;
+            donateState.customAmount = true;
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
+        }
+        updateSummary();
+    }
+
+    function setDedication(type, btn) {
+        donateState.dedication = type;
+        document.querySelectorAll('.ded-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('dedicationNameWrap').style.display = type === 'None' ? 'none' : 'block';
+        updateSummary();
+    }
+
+    const purposeLabels = {
+        'GreatestNeed': 'Greatest Need',
+        'AnimalCare': 'Animal Care Fund',
+        'Conservation': 'Conservation Fund',
+        'Education': 'Education Programs',
+        'Habitat': 'Habitat Restoration'
+    };
+
+    function updateSummary() {
+        donateState.purpose = document.getElementById('giftPurpose').value;
+        donateState.coverFees = document.getElementById('coverFees').checked;
+
+        const fee = donateState.amount * 0.03;
+        const total = donateState.coverFees ? donateState.amount + fee : donateState.amount;
+
+        document.getElementById('sumFreq').textContent = donateState.frequency === 'OneTime' ? 'One-Time' : 'Monthly';
+        document.getElementById('sumAmount').textContent = '$' + donateState.amount.toFixed(2);
+        document.getElementById('sumPurpose').textContent = purposeLabels[donateState.purpose] || donateState.purpose;
+
+        // Fee display
+        document.getElementById('feeDisplay').textContent = '$' + fee.toFixed(2);
+        document.getElementById('sumFeeRow').style.display = donateState.coverFees ? 'flex' : 'none';
+        document.getElementById('sumFee').textContent = '$' + fee.toFixed(2);
+
+        // Dedication
+        const dedName = document.getElementById('dedicationName')?.value || '';
+        if (donateState.dedication !== 'None') {
+            document.getElementById('sumDedRow').style.display = 'flex';
+            const prefix = donateState.dedication === 'InHonorOf' ? 'In Honor of ' : 'In Memory of ';
+            document.getElementById('sumDedication').textContent = prefix + (dedName || '...');
+        } else {
+            document.getElementById('sumDedRow').style.display = 'none';
+        }
+
+        document.getElementById('sumTotal').textContent = '$' + total.toFixed(2);
+    }
+
+    async function submitDonation() {
+        const first = document.getElementById('donorFirst').value.trim();
+        const last = document.getElementById('donorLast').value.trim();
+        const email = document.getElementById('donorEmail').value.trim();
+        const phone = document.getElementById('donorPhone').value.trim();
+        const dedName = document.getElementById('dedicationName')?.value.trim() || '';
+
+        if (!first || !last || !email) {
+            showPremiumAlert('Please fill in your First Name, Last Name, and Email.');
+            return;
+        }
+
+        const btn = document.getElementById('giveNowBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+
+        const fee = donateState.amount * 0.03;
+        const total = donateState.coverFees ? donateState.amount + fee : donateState.amount;
+
+        const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+        // Generate dynamic transaction reference
+        const refId = "DON-" + new Date().toISOString().slice(0, 10).replace(/-/g, "") + "-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+        // Create QR Modal Overlay
+        var qrOverlay = document.createElement('div');
+        qrOverlay.style.position = 'fixed';
+        qrOverlay.style.top = '0';
+        qrOverlay.style.left = '0';
+        qrOverlay.style.width = '100%';
+        qrOverlay.style.height = '100%';
+        qrOverlay.style.background = 'rgba(0, 0, 0, 0.6)';
+        qrOverlay.style.backdropFilter = 'blur(8px)';
+        qrOverlay.style.display = 'flex';
+        qrOverlay.style.alignItems = 'center';
+        qrOverlay.style.justifyContent = 'center';
+        qrOverlay.style.zIndex = '100000';
+        qrOverlay.style.fontFamily = "'Outfit', sans-serif";
+        qrOverlay.style.color = '#333';
+
+        qrOverlay.innerHTML = `
+          <div style="background: #fff; border: 2.5px solid #119864; border-radius: 20px; width: 90%; max-width: 440px; padding: 30px; box-shadow: 0 20px 45px rgba(0,0,0,0.3); text-align: center; position: relative; box-sizing: border-box; animation: pModalScale 0.3s ease;">
+            <div style="background: linear-gradient(135deg, #119864, #0d7a4f); padding: 18px; border-radius: 12px; color: #fff; margin-bottom: 20px;">
+              <h3 style="margin: 0; font-size: 20px; font-weight: 700; color: #fff;">📱 Donate via QR Code</h3>
+              <span style="font-size: 13px; opacity: 0.9;">Scan the QR code below using your banking app</span>
+            </div>
+            <div id="donateQrContainer" style="margin: 20px auto; width: 180px; height: 180px; display: flex; align-items: center; justify-content: center; background: #faf9f6; padding: 10px; border-radius: 12px; border: 1.5px dashed #119864;"></div>
+            <div style="background: #fafcfb; border-radius: 10px; padding: 15px; margin: 15px 0; font-size: 14px; text-align: left; line-height: 1.6; border: 1px solid #c3e6cb;">
+              <strong>Reference ID:</strong> <span style="font-family: monospace; color: #119864; font-weight: 700;">` + refId + `</span><br>
+              <strong>Amount:</strong> <span style="color: #119864; font-weight: 800; font-size: 18px;">$` + total.toFixed(2) + `</span><br>
+              <strong>Status:</strong> <span style="color: #e65100; font-weight: bold; animation: pulseText 1.5s infinite;">Waiting for scan...</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 10px; background: #fafaf9; border-radius: 8px; font-size: 13px; color: #666; margin-top: 15px;">
+              <div style="width: 16px; height: 16px; border: 2.5px solid #e8f5e9; border-top: 2.5px solid #119864; border-radius: 50%; animation: donateSpin 0.8s linear infinite;"></div>
+              <span>Processing payment (simulating 5s scan)...</span>
+            </div>
+            <style>
+              @@keyframes donateSpin { to { transform: rotate(360deg); } }
+              @@keyframes pulseText { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+            </style>
+          </div>
+        `;
+        document.body.appendChild(qrOverlay);
+
+        // Generate QR Code dynamically
+        setTimeout(function() {
+          var container = document.getElementById('donateQrContainer');
+          if (container) {
+            var qrPayload = window.location.origin + '/ScanQR?r=' + encodeURIComponent(refId);
+            new QRCode(container, {
+              text: qrPayload,
+              width: 180,
+              height: 180,
+              colorDark: '#0d7a4f',
+              colorLight: '#ffffff',
+              correctLevel: QRCode.CorrectLevel.M
+            });
+          }
+        }, 50);
+
+        // Wait 5 seconds, then perform database insert
+        setTimeout(async function() {
+            try {
+                const response = await fetch('/Donate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': token
+                    },
+                    body: JSON.stringify({
+                        firstName: first,
+                        lastName: last,
+                        email: email,
+                        phone: phone,
+                        amount: total,
+                        frequency: donateState.frequency,
+                        purpose: donateState.purpose,
+                        dedicationType: donateState.dedication,
+                        dedicationName: dedName,
+                        coverFees: donateState.coverFees
+                    })
+                });
+
+                const result = await response.json();
+                qrOverlay.remove();
+                
+                if (result.success) {
+                    document.getElementById('successAmount').textContent = '$' + total.toFixed(2);
+                    document.getElementById('successTxRef').textContent = result.transactionRef;
+                    document.getElementById('donateSuccessModal').style.display = 'flex';
+                } else {
+                    showPremiumAlert(result.message || 'Donation failed. Please try again.');
+                }
+            } catch (err) {
+                qrOverlay.remove();
+                showPremiumAlert('An error occurred. Please try again.');
+                console.error(err);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa fa-heart"></i> Give Now!';
+            }
+        }, 5000);
+    }
+
+    // Init
+    updateSummary();
+</script>
+}

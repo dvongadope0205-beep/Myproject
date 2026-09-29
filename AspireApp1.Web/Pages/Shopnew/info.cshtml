@@ -1,0 +1,567 @@
+@page
+@model WebApps.Pages.Shopnew.ShopInfoModel
+@{
+    Layout = "~/Pages/Shopnew/Shared/_Layout.cshtml";
+    ViewData["Title"] = "My Account - Natural Habitat Store";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.5/css/all.min.css" />
+    <style>
+        .shop-info-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            font-family: 'Fredoka', sans-serif;
+            color: #492719;
+        }
+
+        .shop-info-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(135deg, #f5ecd7 0%, #eadaa2 100%);
+            padding: 30px 40px;
+            border-radius: 20px;
+            border: 2px solid #72441c;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 24px rgba(114, 68, 28, 0.1);
+        }
+
+        .shop-info-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #72441c;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #72441c;
+        }
+
+        .shop-info-title h1 {
+            margin: 0 0 5px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #72441c;
+        }
+
+        .shop-info-title p {
+            margin: 0;
+            font-size: 16px;
+            opacity: 0.85;
+        }
+
+        .shop-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .shop-info-card {
+            background: #ffffff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .shop-info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(114, 68, 28, 0.08);
+            border-color: #ebd4bd;
+        }
+
+        .shop-info-card-header {
+            padding: 20px 25px;
+            background-color: #faf6f0;
+            border-bottom: 2px solid #eee;
+            font-size: 20px;
+            font-weight: 700;
+            color: #72441c;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .shop-info-card-body {
+            padding: 25px;
+        }
+
+        .shop-info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f6f0;
+            font-size: 15px;
+        }
+
+        .shop-info-row:last-child {
+            border-bottom: none;
+        }
+
+        .shop-info-label {
+            color: #888;
+            font-weight: 500;
+        }
+
+        .shop-info-value {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .edit-profile-btn {
+            background: #72441c;
+            color: #fff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s;
+        }
+
+        .edit-profile-btn:hover {
+            background: #ec993c;
+        }
+
+        /* Purchased Lists inside Info page */
+        .info-purchased-box {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .purchased-item-card {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.15s;
+        }
+
+        .purchased-item-card:hover {
+            background: #fbf6f0;
+        }
+
+        .purchased-item-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .purchased-item-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #492719;
+        }
+
+        .purchased-item-meta {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .purchased-item-price {
+            font-weight: 700;
+            color: #ec993c;
+            font-size: 16px;
+        }
+
+        .purchased-empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+        }
+
+        .purchased-empty-state i {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: #ebd7c5;
+        }
+
+        .shop-status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-left: 8px;
+        }
+
+        .status-Completed { background: #e8f5e9; color: #2e7d32; }
+        .status-Pending { background: #fff8e1; color: #f57f17; }
+        .status-Failed { background: #fbe9e7; color: #c62828; }
+
+        /* Modal popup edit profile styling */
+        .info-pp-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .info-pp-overlay.active {
+            display: flex;
+        }
+
+        .info-pp-modal {
+            background: #fff;
+            border-radius: 20px;
+            width: 480px;
+            max-width: 95%;
+            box-shadow: 0 12px 30px rgba(114,68,28,0.2);
+            border: 2px solid #72441c;
+            overflow: hidden;
+            animation: infoSlideUp 0.3s ease;
+        }
+
+        @@keyframes infoSlideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-pp-header {
+            background: #72441c;
+            color: #fff;
+            padding: 20px 25px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .info-pp-body {
+            padding: 25px;
+        }
+
+        .info-pp-field {
+            margin-bottom: 16px;
+        }
+
+        .info-pp-field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .info-pp-field input, .info-pp-field select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Fredoka', sans-serif;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .info-pp-field input:focus, .info-pp-field select:focus {
+            border-color: #ec993c;
+        }
+
+        .info-pp-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .info-pp-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+
+        .info-pp-btn-save {
+            background: #72441c;
+            color: #fff;
+        }
+
+        .info-pp-btn-save:hover {
+            opacity: 0.9;
+        }
+
+        .info-pp-btn-cancel {
+            background: #f5f5f5;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+
+        .info-pp-btn-cancel:hover {
+            background: #eee;
+        }
+    </style>
+}
+
+<main>
+    <div class="shop-info-wrapper">
+        <!-- Header -->
+        <div class="shop-info-header">
+            <div class="shop-info-avatar">
+                @if (Model.CustomerName.Length > 0)
+                {
+                    @Model.CustomerName.Trim().Substring(0,1).ToUpper()
+                }
+                else
+                {
+                    <i class="fa fa-user"></i>
+                }
+            </div>
+            <div class="shop-info-title">
+                <h1>Hello, @Model.CustomerName!</h1>
+                <p><i class="far fa-envelope"></i> @Model.Email</p>
+                <p><i class="far fa-user-circle"></i> @@@Model.Username</p>
+            </div>
+        </div>
+
+        <!-- Personal Info Card and Stats -->
+        <div class="shop-info-grid">
+            <!-- Box: Personal Details -->
+            <div class="shop-info-card">
+                <div class="shop-info-card-header">
+                    <span><i class="far fa-id-card"></i> Personal Information</span>
+                    <button class="edit-profile-btn" onclick="openEditModal()">
+                        <i class="fas fa-pen"></i> Edit
+                    </button>
+                </div>
+                <div class="shop-info-card-body">
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Full Name</span>
+                        <span class="shop-info-value">@Model.CustomerName</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Email Address</span>
+                        <span class="shop-info-value">@Model.Email</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Phone Number</span>
+                        <span class="shop-info-value">@(string.IsNullOrEmpty(Model.Phone) ? "—" : Model.Phone)</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Shipping Address</span>
+                        <span class="shop-info-value">@(string.IsNullOrEmpty(Model.Address) ? "—" : Model.Address)</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Gender</span>
+                        <span class="shop-info-value">@(string.IsNullOrEmpty(Model.Gender) ? "—" : Model.Gender)</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Date of Birth</span>
+                        <span class="shop-info-value">@(string.IsNullOrEmpty(Model.DateOfBirth) ? "—" : DateTime.Parse(Model.DateOfBirth).ToString("dd/MM/yyyy"))</span>
+                    </div>
+                    <div class="shop-info-row">
+                        <span class="shop-info-label">Member Since</span>
+                        <span class="shop-info-value">@Model.MemberSince</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats/Membership summary -->
+            <div class="shop-info-card" style="background-color: #fffaf5; border-color: #ebd4bd;">
+                <div class="shop-info-card-header" style="background-color: #fcf4ea;">
+                    <span><i class="fas fa-chart-line"></i> Dashboard Status</span>
+                </div>
+                <div class="shop-info-card-body" style="display: flex; flex-direction: column; justify-content: center; height: calc(100% - 70px); box-sizing: border-box; gap: 20px;">
+                    <div style="display: flex; gap: 20px; align-items: center; justify-content: space-around; width: 100%;">
+                        <div style="text-align: center;">
+                            <span style="font-size: 40px; font-weight: 800; color: #72441c; display: block;">@Model.TotalShopPurchases</span>
+                            <span style="font-size: 13px; color: #888; text-transform: uppercase;">Shop Items Bought</span>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 40px; font-weight: 800; color: #72441c; display: block;">@Model.TotalMembershipPurchases</span>
+                            <span style="font-size: 13px; color: #888; text-transform: uppercase;">Memberships Bought</span>
+                        </div>
+                    </div>
+                    <hr style="border: 0; border-top: 1.5px solid #ebd4bd; width: 100%; margin: 10px 0;" />
+                    <div style="text-align: center; color: #666; font-size: 14px; line-height: 1.5;">
+                        <p style="margin: 0 0 10px 0;">Configure your shipping info by clicking Edit to enable quick checkout next time you shop!</p>
+                        <a href="/Shopnew" style="display: inline-block; background: #ec993c; color: #fff; padding: 8px 24px; border-radius: 20px; text-decoration: none; font-weight: 600; font-size: 14px; border: 1.5px solid #72441c;">Browse Shop</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Boxes: shop Purchased & member Purchased -->
+            <div class="info-purchased-box">
+                <!-- BOX 1: Shop Purchased -->
+                <div class="shop-info-card">
+                    <div class="shop-info-card-header">
+                        <span><i class="fas fa-shopping-bag"></i> Shop Purchased</span>
+                        <a href="/Shopnew/purchase-history?tab=shop" style="font-size: 13px; color: #72441c; text-decoration: underline;">View All</a>
+                    </div>
+                    <div class="shop-info-card-body">
+                        @if (Model.ShopPurchases.Count > 0)
+                        {
+                            @foreach (var purchase in Model.ShopPurchases.Take(3))
+                            {
+                                <div class="purchased-item-card">
+                                    <div class="purchased-item-left">
+                                        <span class="purchased-item-title">@purchase.ItemName</span>
+                                        <span class="purchased-item-meta">
+                                            @purchase.OrderDate
+                                            <span class="shop-status-badge status-@purchase.Status">@purchase.Status</span>
+                                        </span>
+                                    </div>
+                                    <span class="purchased-item-price">$@purchase.TotalAmount.ToString("N2")</span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="purchased-empty-state">
+                                <i class="fas fa-box-open"></i>
+                                <p>No shop purchases yet.</p>
+                                <a href="/Shopnew" style="color: #72441c; font-weight: 600; text-decoration: underline;">Explore our items</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- BOX 2: Member Purchased -->
+                <div class="shop-info-card">
+                    <div class="shop-info-card-header">
+                        <span><i class="fas fa-id-card-alt"></i> Membership Purchased</span>
+                        <a href="/Shopnew/purchase-history?tab=membership" style="font-size: 13px; color: #72441c; text-decoration: underline;">View All</a>
+                    </div>
+                    <div class="shop-info-card-body">
+                        @if (Model.MemberPurchases.Count > 0)
+                        {
+                            @foreach (var member in Model.MemberPurchases.Take(3))
+                            {
+                                <div class="purchased-item-card">
+                                    <div class="purchased-item-left">
+                                        <span class="purchased-item-title">@member.MembershipType</span>
+                                        <span class="purchased-item-meta">
+                                            @member.PurchaseDate
+                                            <span class="shop-status-badge status-@member.Status">@member.Status</span>
+                                        </span>
+                                    </div>
+                                    <span class="purchased-item-price">$@member.TotalAmount.ToString("N2")</span>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="purchased-empty-state">
+                                <i class="fas fa-crown"></i>
+                                <p>No membership records.</p>
+                                <a href="/Join" style="color: #72441c; font-weight: 600; text-decoration: underline;">Become a Member</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="info-pp-overlay" id="editModal">
+        <div class="info-pp-modal">
+            <div class="info-pp-header">
+                <i class="fas fa-user-edit"></i> Edit Personal Information
+            </div>
+            <div class="info-pp-body">
+                <div class="info-pp-field">
+                    <label>Full Name</label>
+                    <input type="text" id="editFullName" value="@Model.CustomerName" required />
+                </div>
+                <div class="info-pp-field">
+                    <label>Phone Number</label>
+                    <input type="tel" id="editPhone" value="@Model.Phone" placeholder="e.g. 0912345678" />
+                </div>
+                <div class="info-pp-field">
+                    <label>Shipping Address</label>
+                    <input type="text" id="editAddress" value="@Model.Address" placeholder="Enter shipping address" />
+                </div>
+                <div class="info-pp-field">
+                    <label>Gender</label>
+                    <select id="editGender">
+                        <option value="">-- Select --</option>
+                        <option value="Male" selected="@(Model.Gender == "Male")">Male</option>
+                        <option value="Female" selected="@(Model.Gender == "Female")">Female</option>
+                        <option value="Other" selected="@(Model.Gender == "Other")">Other</option>
+                    </select>
+                </div>
+                <div class="info-pp-field">
+                    <label>Date of Birth</label>
+                    <input type="date" id="editDOB" value="@Model.DateOfBirth" />
+                </div>
+                <div class="info-pp-actions">
+                    <button class="info-pp-btn info-pp-btn-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button class="info-pp-btn info-pp-btn-save" onclick="saveProfileChanges()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@Html.AntiForgeryToken()
+
+<script>
+    function openEditModal() {
+        document.getElementById('editModal').classList.add('active');
+    }
+
+    function closeEditModal() {
+        document.getElementById('editModal').classList.remove('active');
+    }
+
+    function saveProfileChanges() {
+        const data = {
+            fullName: document.getElementById('editFullName').value,
+            phone: document.getElementById('editPhone').value,
+            address: document.getElementById('editAddress').value,
+            gender: document.getElementById('editGender').value,
+            dateOfBirth: document.getElementById('editDOB').value
+        };
+
+        if (!data.fullName.trim()) {
+            alert('Full Name is required.');
+            return;
+        }
+
+        fetch('/Shopnew/info?handler=UpdateProfile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+            },
+            body: JSON.stringify(data)
+        })
+        .then(r => r.json())
+        .then(result => {
+            if (result.success) {
+                closeEditModal();
+                location.reload();
+            } else {
+                alert(result.message);
+            }
+        })
+        .catch(() => alert('Network error. Failed to save profile.'));
+    }
+</script>

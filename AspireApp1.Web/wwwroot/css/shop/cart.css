@@ -1,0 +1,409 @@
+/* ═══════════════════════════════════════════
+   CART PAGE — cart.css (ĐÃ TỐI ƯU & SỬA LỖI)
+   ═══════════════════════════════════════════ */
+
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Fredoka', sans-serif;
+  background-image: url('./pattern-bkg.png'); 
+  background-repeat: repeat;
+  background-size: auto;
+  color: #333; 
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ═══════════════════════════════════════════
+   CART PAGE WRAPPER
+   ═══════════════════════════════════════════ */
+.cart-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 70vh;
+}
+
+/* ═══════════════════════════════════════════
+   EMPTY CART (GIỎ HÀNG TRỐNG)
+   ═══════════════════════════════════════════ */
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  min-height: 50vh;
+  gap: 32px;
+}
+
+.cart-empty-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+/* YÊU CẦU 3: Làm đậm đường kẻ ở phần giỏ hàng trống */
+.cart-empty-line {
+  flex: 1;
+  border: none;
+  border-top: 1.5px solid #888; 
+}
+
+.cart-empty-text {
+  font-size: 1.2rem;
+  color: #333;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.btn-continue-shopping {
+  display: inline-block;
+  background: rgb(255, 171, 77);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 14px 40px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-continue-shopping:hover {
+  opacity: 0.88;
+}
+
+/* ═══════════════════════════════════════════
+   FILLED CART — LAYOUT 2 CỘT CHUẨN
+   ═══════════════════════════════════════════ */
+.cart-layout {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 40px;
+}
+
+.cart-items-col {
+  padding-right: 0;
+}
+
+.cart-summary-col {
+  padding-left: 0;
+}
+
+/* ── Tiêu đề giỏ hàng ── */
+.cart-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* YÊU CẦU 3: Đường kẻ phân tách tiêu đề đậm rõ ràng */
+.cart-divider {
+  border: none;
+  border-top: 1.5px solid #888; 
+  margin-bottom: 20px;
+}
+
+/* ═══════════════════════════════════════════
+   CART ITEM ROW (CHI TIẾT SẢN PHẨM)
+   ═══════════════════════════════════════════ */
+.cart-item {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+/* YÊU CẦU 3: Đường kẻ ngăn cách giữa các sản phẩm rõ nét ở chế độ sáng */
+.cart-item + .cart-item-hr {
+  border: none;
+  border-top: 1px solid #999; 
+}
+
+/* ── Ảnh sản phẩm ── */
+.cart-item-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+
+/* ── Chi tiết chữ ── */
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 40px; 
+}
+
+.cart-item-name {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #333;
+  line-height: 1.3;
+}
+
+.cart-item-name:hover {
+  text-decoration: underline;
+}
+
+/* ── Giá tiền lẻ ── */
+.cart-item-price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cart-item-price {
+  font-size: 1.2rem;
+  color: #222;
+  font-weight: 500;
+}
+
+.cart-item-compare-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 0.9rem;
+}
+
+/* ── YÊU CẦU 2: Cụm nút tăng giảm số lượng (Hết tàng hình) ── */
+.cart-item-qty-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 10px;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  background: #ffffff;      /* Đổi từ trong suốt sang màu nền trắng rõ ràng */
+  border: 1px solid #888;   /* Viền đậm tương phản tốt */
+  font-size: 1.2rem;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;         /* Làm nét dấu + - dày dặn hơn */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;           /* Màu chữ đen sẫm sắc nét */
+  transition: background 0.15s ease, border-color 0.15s ease;
+  user-select: none;
+}
+
+.qty-btn:hover {
+  background: #f0f0f0;      /* Hiệu ứng di chuột rõ ràng */
+  border-color: #333;
+}
+
+.qty-input {
+  width: 40px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #888;   /* Đồng bộ độ đậm viền với nút bấm */
+  border-left: none;
+  border-right: none;
+  font-size: 1rem;
+  font-family: 'Fredoka', sans-serif;
+  color: #111111;
+  background: #ffffff;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Tổng tiền của từng món ── */
+.cart-item-line-total {
+  font-size: 1.5rem;
+  color: rgb(18,18,18);
+  font-weight: 500;
+  margin-top: auto;
+}
+
+/* ── Nút xóa sản phẩm ── */
+.cart-item-remove {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  font-size: 16px;
+  color: rgb(18,18,18);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Fredoka', sans-serif;
+  transition: color 0.15s ease;
+}
+
+.cart-item-remove:hover {
+  color: #d32f2f;
+}
+
+/* ═══════════════════════════════════════════
+   ORDER SUMMARY (KHỐI TÍNH TIỀN BÊN PHẢI)
+   ═══════════════════════════════════════════ */
+.cart-summary-inner {
+  position: sticky;
+  top: 40px;
+}
+
+/* YÊU CẦU 1: Sửa Subtotal tự động dạt sang góc phải (Xóa bỏ gap cố định) */
+.summary-subtotal-row {
+  display: flex;
+  justify-content: space-between; /* Đẩy chữ 'Subtotal' và 'Số tiền' về 2 mép biên */
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.summary-label,
+.summary-amount {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.summary-tax-note {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 25px;
+}
+
+/* ── Ghi chú đơn hàng ── */
+.summary-notes {
+  margin-bottom: 20px;
+}
+
+.summary-notes-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.order-notes-textarea {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid #888; /* Tăng độ đậm viền khung note */
+  border-radius: 4px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #333;
+  resize: none;
+  overflow: hidden;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.order-notes-textarea:focus {
+  border-color: #333;
+}
+
+/* ── Nút Thanh Toán ── */
+.btn-checkout {
+  display: block;
+  width: 100%;
+  background: #5a8a00;
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.btn-checkout:hover {
+  background: #4c7600;
+}
+
+/* ── Link Tiếp tục mua sắm ── */
+.link-continue-shopping {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: rgb(255, 171, 77);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Fredoka', sans-serif;
+  transition: opacity 0.15s ease;
+}
+
+.link-continue-shopping:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — MOBILE (< 768px)
+   ═══════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .cart-page {
+    padding: 24px 16px 60px;
+  }
+
+  .cart-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cart-summary-col {
+    border-top: 1px solid #999; /* Đường kẻ trên Mobile cũng đậm rõ */
+    padding-top: 24px;
+  }
+
+  .cart-summary-inner {
+    position: static;
+  }
+
+  .cart-title {
+    font-size: 2rem;
+  }
+
+  .cart-empty-inner {
+    flex-direction: row;
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .cart-empty-text {
+    font-size: 1rem;
+    white-space: normal;
+    text-align: center;
+  }
+}

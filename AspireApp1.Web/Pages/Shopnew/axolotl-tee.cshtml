@@ -1,0 +1,1006 @@
+﻿@page
+@using Microsoft.Data.SqlClient
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    Layout = "~/Pages/Shopnew/Shared/_Layout.cshtml";
+    
+    // Default values (from static template)
+    string title = "Batrick Crewneck";
+    string category = "Apparel";
+    string price = "$35";
+    string originalPriceStr = "$45";
+    string imagePath = "/Source/shop-img/Apparel/batrick crewneck/1/1-crewneck-2048x2048.jpg";
+    string description = "";
+    string productInformation = "<p><strong>The Official Natural Habitat Batrick Crewneck</strong></p>";
+    string productDetail = "100% cotton<br/>Embroidered design on chest<br/>Standard US sizing";
+    string materialAndCare = "Wash cold<br/>Tumble dry low";
+    List<string> imagesList = new List<string> {
+        "/Source/shop-img/Apparel/batrick crewneck/1/1-crewneck-2048x2048.jpg",
+        "/Source/shop-img/Apparel/batrick crewneck/2/2-crewneck-2048x2048.jpg",
+        "/Source/shop-img/Apparel/batrick crewneck/3/3-crewneck-2048x2048.jpg",
+        "/Source/shop-img/Apparel/batrick crewneck/4/4-crewneck-2048x2048.jpg",
+        "/Source/shop-img/Apparel/batrick crewneck/5/5-crewneck-2048x2048.jpg"
+    };
+    int productId = 0;
+    string variantId = "50032197173538";
+    bool isDbProduct = false;
+
+    var slug = "axolotl-tee";
+    if (!string.IsNullOrEmpty(slug))
+    {
+        string connStr = Configuration.GetConnectionString("DefaultConnection");
+        using (SqlConnection conn = new SqlConnection(connStr))
+        {
+            conn.Open();
+            string sql = @"SELECT p.ProductId, p.Name, p.Description, p.Price, p.OriginalPrice, p.ImagePath, p.AdditionalImages, 
+                                  p.ProductInformation, p.ProductDetail, p.MaterialAndCare, ISNULL(c.Name, 'Apparel')
+                           FROM ShopProducts p
+                           LEFT JOIN ShopCategories c ON p.CategoryId = c.CategoryId
+                           WHERE p.Slug = @Slug OR p.PageSlug = @Slug";
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.AddWithValue("@Slug", slug);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        isDbProduct = true;
+                        productId = reader.GetInt32(0);
+                        variantId = "product-" + productId;
+                        title = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                        description = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                        decimal priceVal = reader.IsDBNull(3) ? 0 : reader.GetDecimal(3);
+                        price = priceVal % 1 == 0 ? $"${(int)priceVal}" : $"${priceVal:F2}";
+                        
+                        if (!reader.IsDBNull(4))
+                        {
+                            decimal origVal = reader.GetDecimal(4);
+                            originalPriceStr = origVal % 1 == 0 ? $"${(int)origVal}" : $"${origVal:F2}";
+                        }
+                        else
+                        {
+                            originalPriceStr = "";
+                        }
+                        
+                        imagePath = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                        
+                        string additional = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                        imagesList = new List<string>();
+                        if (!string.IsNullOrEmpty(imagePath))
+                        {
+                            imagesList.Add(imagePath);
+                        }
+                        if (!string.IsNullOrEmpty(additional))
+                        {
+                            var parts = additional.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                            foreach (var p in parts)
+                            {
+                                string trimmed = p.Trim();
+                                if (!imagesList.Contains(trimmed))
+                                {
+                                    imagesList.Add(trimmed);
+                                }
+                            }
+                        }
+                        
+                        productInformation = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                        productDetail = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                        materialAndCare = reader.IsDBNull(9) ? "" : reader.GetString(9);
+                        category = reader.GetString(10);
+                    }
+                }
+            }
+        }
+    }
+
+    ViewData["Title"] = title + " - Natural Habitat";
+}
+<main class="content-for-layout" id="MainContent" role="main" tabindex="-1">
+<!-- PRODUCT SECTION -->
+<section class="product-section">
+<product-info class="section-template" data-update-url="true" data-url="@slug" id="MainProduct-template--26975595233570__main">
+<div class="page-width">
+<div class="product-medium">
+<!-- LEFT: Image Gallery -->
+<div class="product-gallery">
+<media-gallery aria-label="Gallery Viewer" class="tibia" data-desktop-layout="thumbnail_slider" data-mobile-layout="default" id="MediaGallery-template" role="region">
+<slider-component class="slider-mobile-gutter" id="GalleryViewer-template">
+<ul class="product__media-list contains-media list-unstyled slider slider--mobile grid grid--peek" id="Slider-Gallery-template--26975595233570__main" role="presentation">
+    @for (int i = 0; i < imagesList.Count; i++)
+    {
+        var img = imagesList[i];
+        string activeClass = (i == 0) ? "is-active" : "";
+        <li class="product__media-item grid__item slider__slide scroll-trigger animate--fade-in scroll-trigger--cancel @activeClass" data-media-id="template--26975595233570__main-media-@i" id="Slide-template--26975595233570__main-media-@i" role="presentation">
+        <div class="product-media-container media-type-image media-fit-contain global-media-settings gradient" style="--ratio: 1.0; --preview-ratio: 1.0;">
+        <modal-opener class="product__modal-opener product__modal-opener--image" data-modal="#ProductModal-template--26975595233570__main">
+        <div class="loading__spinner hidden">
+        <svg class="spinner" viewbox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" cx="33" cy="33" fill="none" r="30" stroke-width="6"></circle>
+        </svg>
+        </div>
+        <div class="product__media media media--transparent">
+        <img sizes="(min-width: 2000px) 1045px, (min-width: 990px) calc(55.0vw - 10rem), (min-width: 750px) calc((100vw - 11.5rem) / 2), calc(100vw / 1 - 4rem)" src="@img" />
+        </div>
+        <button aria-haspopup="dialog" class="product__media-toggle quick-add-hidden product__media-zoom-lightbox" data-media-id="media-@i" type="button">
+        <span class="visually-hidden">Open media @(i+1) in modal</span>
+        </button>
+        </modal-opener>
+        </div>
+        </li>
+    }
+</ul>
+</slider-component>
+<!--- Thumbnails strip go round-->
+<slider-component class="thumbnail-slider" id="GalleryThumbnails-template">
+<!--- LEFT Arrow -->
+<button aria-label="Previous thumbnails" class="thumbnail-arrow left" onclick="scrollThumbnails(-1)">
+<span class="fauvist">
+<svg class="melody" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+<!--- Strip -->
+<ul class="thumbnail-strip" id="thumbnailStrip">
+    @for (int i = 0; i < imagesList.Count; i++)
+    {
+        var img = imagesList[i];
+        string activeClass = (i == 0) ? "is-active" : "";
+        <li class="thumbnail-container" data-media-position="@(i+1)" id="thumbnailsContainer">
+        <button class="thumbnail-global-setting @activeClass" onclick="changeImage(this, '@img')">
+        <img alt="@title" sizes="(min-width: 2000px) calc((1045 - 4rem) / 4), (min-width: 990px) calc((55.0vw - 4rem) / 4), (min-width: 750px) calc((100vw - 15rem) / 8), calc((100vw - 8rem) / 3)" src="@img" />
+        </button>
+        </li>
+    }
+</ul>
+<!--- RIGHT Arrow -->
+<button aria-label="Next thumbnails" class="thumbnail-arrow right" onclick="scrollThumbnails(1)">
+<span class="fauvist">
+<svg class="melody-right" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</slider-component>
+</media-gallery>
+</div>
+<!-- RIGHT: Product Info -->
+<div class="product-info">
+<section class="product-info-container" id="ProductInfo">
+<div class="product-brand-category" style="font-family: var(--font-body-family); font-size: 1.3rem; font-weight: 600; text-transform: uppercase; color: #593211; opacity: 0.8; margin-bottom: 5px; letter-spacing: 1px;">Natural Habitat / @category</div>
+<div class="product-title" style="
+                                        --pdp-title-size: 4.5rem;
+                                        --pdp-title-font-family: var(--font-heading-family);
+                                        --pdp-title-font-weight: 800;
+                                        --pdp-title-color: #ec993c;
+                                        --pdp-title-line-height: 1;
+                                        --pdp-title-letter-spacing: -1px;">
+<h1>@title</h1>
+</div>
+<p class="product__text inline-richtext subtitle"></p>
+<div class="product-pricing" id="price-template" role="status" style="
+                                        --pdp-price-size: 2.3rem;
+                                        --pdp-price-font-family: var(--font-body-family);
+                                        --pdp-price-font-weight: 500;
+                                        --pdp-price-line-height: 1;
+                                        --pdp-price-letter-spacing: 0px;
+                                        --pdp-price-regular-color: #593211;
+                                        --pdp-price-sale-color: #593211;">
+<div class="price-large">
+<div class="price-container">
+<div class="price-sale">
+@if (!string.IsNullOrEmpty(originalPriceStr))
+{
+    <span class="price-regular">@originalPriceStr</span>
+    <span class="price-sale">@price</span>
+}
+else
+{
+    <span class="price-regular">@price</span>
+}
+</div>
+</div>
+</div>
+</div>
+<div class="product-tax">
+<p class="shipping-note">Shipping calculated at checkout.</p>
+</div>
+<div class="product-variant-picker" data-sticky-cta-item="variant-picker" style="--pdp-option-label-size: 1.8rem;">
+<variant-selects class="lcb" data-section="template--26975595233570__main" id="variant-selects-template--26975595233570__main">
+<fieldset class="product-form-input">
+<legend class="form-label">Size</legend>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-YXS" name="options[Size]" type="radio" value="YXS"/>
+<label class="shiki" for="template--26975595233570__main-Size-YXS">
+                                                    YXS
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-YS" name="options[Size]" type="radio" value="YS"/>
+<label class="shiki" for="template--26975595233570__main-Size-YS">
+                                                    YS
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-YM" name="options[Size]" type="radio" value="YM"/>
+<label class="shiki" for="template--26975595233570__main-Size-YM">
+                                                    YM
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input checked="" data-option-value-id="4235501797666" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-YL" name="options[Size]" type="radio" value="YL"/>
+<label class="shiki" for="template--26975595233570__main-Size-YL">
+                                                    YL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-YXL" name="options[Size]" type="radio" value="YXL"/>
+<label class="shiki" for="template--26975595233570__main-Size-YXL">
+                                                    YXL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-XS" name="options[Size]" type="radio" value="YXL"/>
+<label class="shiki" for="template--26975595233570__main-Size-XS">
+                                                    XS
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501830434" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-S" name="options[Size]" type="radio" value="S"/>
+<label class="shiki" for="template--26975595233570__main-Size-S">
+                                                    S
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501863202" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-M" name="options[Size]" type="radio" value="M"/>
+<label class="shiki" for="template--26975595233570__main-Size-M">
+                                                    M
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501895970" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-L" name="options[Size]" type="radio" value="L"/>
+<label class="shiki" for="template--26975595233570__main-Size-L">
+                                                    L
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501928738" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-XL" name="options[Size]" type="radio" value="XL"/>
+<label class="shiki" for="template--26975595233570__main-Size-XL">
+                                                    XL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501961506" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-2XL" name="options[Size]" type="radio" value="2XL"/>
+<label class="shiki" for="template--26975595233570__main-Size-2XL">
+                                                    2XL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235501994274" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-3XL" name="options[Size]" type="radio" value="3XL"/>
+<label class="shiki" for="template--26975595233570__main-Size-3XL">
+                                                    3XL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+<input data-option-value-id="4235502027042" data-product-url="" form="product-form-template--26975595233570__main" id="template--26975595233570__main-Size-4XL" name="options[Size]" type="radio" value="4XL"/>
+<label class="shiki" for="template--26975595233570__main-Size-4XL">
+                                                    4XL
+                                                    <span class="visually-hidden">Variant sold out or unavailable</span>
+</label>
+</fieldset>
+</variant-selects>
+</div>
+<div class="shopify-block shopify-app-block" id="shopify-block-ASGE1Unh4d0c0K29jV__wj_toolbox_size_charts_block_Yq7GwU">
+<!-- BEGIN app snippet: size-charts -->
+<div class="wj-sizechart-block" data-wj-sizechart-block="asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu">
+<div class="wj-sizechart-root" data-wj-sizechart-root="asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu" style="--wj-sizechart-link-color: #000000;--wj-sizechart-icon-color: #000000;--wj-sizechart-text-size: 1.8rem;
+                                        --wj-sizechart-font-family: var(--font-body-family);--wj-sizechart-text-transform: capitalize;--wj-sizechart-font-style: normal;--wj-sizechart-font-weight: 600;">
+<div class="araya" data-wj-sizechart-buttons="">
+<button class="wj-sizechart-btn" id="wj-open-sizechart-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-crewneck" style="color: rgb(0, 0, 0) !important;" type="button">
+<span class="sai">
+<svg data-name="Layer 2" id="sizeChartIcon" viewbox="0 0 396.19 271.03" xmlns="http://www.w3.org/2000/svg">
+<g data-name="Layer 1" id="Layer_1-2">
+<g>
+<path d="M386.54,154.92h-103.8v-74.67c0-9.39-10.81-27.6-17-34.8C214.01-14.7,76.61-14.26,21.84,41.52-14.04,78.07,6.42,139.79,1.01,186.29c6.72,57.08,77.26,82.37,126.95,84.74l260.53-.4c4.07-1.48,5.98-4.4,7.69-8.15v-99.05c-1.55-3.03-5.95-8.51-9.65-8.51ZM125.91,23.6c39.78-2.63,112.36,7.95,130.48,49.79,21.77,50.28-57.46,77.16-93.67,80.75-39.91,3.96-122.37-7.73-136.6-53.38C10.58,50.93,89.6,26,125.91,23.6ZM259.58,139.44v15.48h-20.84l20.84-15.48ZM289.68,247.78h-23.92v-42.17c0-.23-1.89-3.29-2.32-3.87-4.35-5.83-11.64-6.47-16.99-1.56-1.25,1.15-3.85,4.69-3.85,6.2v41.4h-22.38v-22.83c0-.23-1.89-3.32-2.32-3.87-4.96-6.31-14.54-5.5-18.87,1.19-.39.61-1.96,3.9-1.96,4.22v21.28h-22.38v-42.95c0-.43-3.16-4.8-3.89-5.38-5.63-4.45-14.53-2.58-17.64,3.92-.3.63-1.63,4.27-1.63,4.56v39.85h-21.61v-20.51c0-6.34-8.02-11.25-14.09-10.26-3.04.5-9.06,4.95-9.06,7.94v19.73l-22.04-5.37c-2.69-11.35,6.16-40.47-10.96-42.46-4.34-.51-12.53,4.22-12.53,8.76v23.6c-13.61-6.56-27.92-17.96-33.85-32.22-.82-1.98-3.2-8.25-3.2-9.95v-48.36c28.77,26.36,67.86,36.69,106.09,39.5l159.4-.03v69.64ZM373.03,247h-60.2v-67.71l1.16-1.16h59.04v68.87Z"></path>
+<path d="M147.29,123.19c17.02-.86,51.73-8.55,55-29.2,5.34-33.7-45.96-40.39-69.43-38.66-17.59,1.3-47.92,9.16-51.2,29.91-4.85,30.63,43.96,39.04,65.63,37.95ZM133.63,78.54c12.37-1.03,31.18.34,41.86,7.09,1.11.7,4.06,2.32,3.8,3.81-6.34,5.98-16.65,8.54-25.14,9.66-15.68,2.08-37.54.77-49.67-10.35,7.85-6.73,19.01-9.37,29.16-10.22Z"></path>
+<path d="M340.41,224.38c19.25,3.57,18.93-26.27.8-23.64-12.32,1.79-13.64,21.26-.8,23.64Z"></path>
+</g>
+</g>
+</svg>
+</span>
+<span class="size-texting">@title Size Chart</span>
+</button>
+<button class="wj-sizechart-btn" id="wj-open-sizechart-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-youth-crewneck" style="color: rgb(0, 0, 0) !important;" type="button">
+<span class="sai">
+<svg data-name="Layer 2" id="sizeChartIcon" viewbox="0 0 396.19 271.03" xmlns="http://www.w3.org/2000/svg">
+<g data-name="Layer 1" id="Layer_1-2">
+<g>
+<path d="M386.54,154.92h-103.8v-74.67c0-9.39-10.81-27.6-17-34.8C214.01-14.7,76.61-14.26,21.84,41.52-14.04,78.07,6.42,139.79,1.01,186.29c6.72,57.08,77.26,82.37,126.95,84.74l260.53-.4c4.07-1.48,5.98-4.4,7.69-8.15v-99.05c-1.55-3.03-5.95-8.51-9.65-8.51ZM125.91,23.6c39.78-2.63,112.36,7.95,130.48,49.79,21.77,50.28-57.46,77.16-93.67,80.75-39.91,3.96-122.37-7.73-136.6-53.38C10.58,50.93,89.6,26,125.91,23.6ZM259.58,139.44v15.48h-20.84l20.84-15.48ZM289.68,247.78h-23.92v-42.17c0-.23-1.89-3.29-2.32-3.87-4.35-5.83-11.64-6.47-16.99-1.56-1.25,1.15-3.85,4.69-3.85,6.2v41.4h-22.38v-22.83c0-.23-1.89-3.32-2.32-3.87-4.96-6.31-14.54-5.5-18.87,1.19-.39.61-1.96,3.9-1.96,4.22v21.28h-22.38v-42.95c0-.43-3.16-4.8-3.89-5.38-5.63-4.45-14.53-2.58-17.64,3.92-.3.63-1.63,4.27-1.63,4.56v39.85h-21.61v-20.51c0-6.34-8.02-11.25-14.09-10.26-3.04.5-9.06,4.95-9.06,7.94v19.73l-22.04-5.37c-2.69-11.35,6.16-40.47-10.96-42.46-4.34-.51-12.53,4.22-12.53,8.76v23.6c-13.61-6.56-27.92-17.96-33.85-32.22-.82-1.98-3.2-8.25-3.2-9.95v-48.36c28.77,26.36,67.86,36.69,106.09,39.5l159.4-.03v69.64ZM373.03,247h-60.2v-67.71l1.16-1.16h59.04v68.87Z"></path>
+<path d="M147.29,123.19c17.02-.86,51.73-8.55,55-29.2,5.34-33.7-45.96-40.39-69.43-38.66-17.59,1.3-47.92,9.16-51.2,29.91-4.85,30.63,43.96,39.04,65.63,37.95ZM133.63,78.54c12.37-1.03,31.18.34,41.86,7.09,1.11.7,4.06,2.32,3.8,3.81-6.34,5.98-16.65,8.54-25.14,9.66-15.68,2.08-37.54.77-49.67-10.35,7.85-6.73,19.01-9.37,29.16-10.22Z"></path>
+<path d="M340.41,224.38c19.25,3.57,18.93-26.27.8-23.64-12.32,1.79-13.64,21.26-.8,23.64Z"></path>
+</g>
+</g>
+</svg>
+</span>
+<span class="size-texting">Youth @title Size Chart</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="shopify-block shopify-app-block" id="shopify-block-AS2Y3OGE1bWkzc2xWS__wj_toolbox_wj_bundle_selector_9WXX9z"></div>
+<div class="pdp-sticky-cta" data-sticky-cta-item="buy-buttons">
+<product-form data-section-id="template--26975595233570__main">
+<form accept-charset="UTF-8" action="/cart/add" class="unbreakable" enctype="multipart/form-data" id="product-form-template--26975595233570__main" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="@variantId"/>
+<div class="product-form__actions" id="ATCWrapper-template--26975595233570__main" style="
+                                                --product-atc-bg: #ffab4d;
+                                                --product-atc-text: #593211;
+                                                --product-atc-border-color: #593211;
+                                                --product-atc-hover-bg: #ffab4d;
+                                                --product-atc-hover-text: #593211;
+                                                --product-atc-hover-border-color: #ffab4d;
+                                                --product-atc-border-width: 2px;
+                                                --product-atc-radius: 4px;
+                                                --product-dynamic-checkout-radius: 4px; ">
+<div class="product-form__cta-group">
+<button class="btn-adding" id="btnadding" name="add" type="submit">
+<span aria-hidden="true" class="loading__spinner hidden"></span>
+<span class="product-form__submit-label" data-base-label="Add to cart">Add to cart</span>
+</button>
+</div>
+</div>
+<input name="product-id" type="hidden" value="@productId"/>
+<input name="section-id" type="hidden" value="template--26975595233570__main"/>
+<input data-wj-warehouse-source="global" name="properties[_wj_warehouse]" type="hidden" value="GZ Warehouse"/>
+</form>
+</product-form>
+</div>
+<!-- Accordion: Product Information -->
+<div class="accordion-section" id="accordion-info" style="
+                                    --accordion-title-font-family: var(--font-heading-family);
+                                    --accordion-title-font-size: 2rem;
+                                    --accordion-title-font-weight: 700;
+                                    --accordion-title-letter-spacing: 0px;
+                                    --accordion-title-text-transform: capitalize;
+                                    --accordion-title-font-style: normal;
+                                    --accordion-content-font-size: 1.5rem;
+                                    --accordion-content-line-height: 1.5;
+                                    --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_product_information-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_product_information-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-info')">
+<h2 class="h4 accordion-title inline-richtext">Product information</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_product_information-template--26975595233570__main">
+    @Html.Raw(productInformation)
+</div>
+</details>
+</div>
+<!-- Accordion: Product Details -->
+<div class="accordion-section" id="accordion-details" style="
+                                    --accordion-title-font-family: var(--font-heading-family);
+                                    --accordion-title-font-size: 2rem;
+                                    --accordion-title-font-weight: 700;
+                                    --accordion-title-letter-spacing: 0px;
+                                    --accordion-title-text-transform: capitalize;
+                                    --accordion-title-font-style: normal;
+                                    --accordion-content-font-size: 1.5rem;
+                                    --accordion-content-line-height: 1.5;
+                                    --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_product_details-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_product_details-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-details')">
+<h2 class="h4 accordion-title inline-richtext">Product details</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_product_details-template--26975595233570__main">
+    @Html.Raw(productDetail)
+</div>
+</details>
+</div>
+<!-- Accordion: Materials And Care -->
+<div class="accordion-section" id="accordion-care" style="
+                                        --accordion-title-font-family: var(--font-heading-family);
+                                        --accordion-title-font-size: 2rem;
+                                        --accordion-title-font-weight: 700;
+                                        --accordion-title-letter-spacing: 0px;
+                                        --accordion-title-text-transform: capitalize;
+                                        --accordion-title-font-style: normal;
+                                        --accordion-content-font-size: 1.5rem;
+                                        --accordion-content-line-height: 1.5;
+                                        --accordion-content-letter-spacing: 0px; ">
+<details id="Details-collapsible_tab_materials_care-template--26975595233570__main">
+<summary aria-controls="ProductAccordion-collapsible_tab_materials_care-template--26975595233570__main" aria-expanded="false" class="fascia" role="button">
+<div class="accordion-header" onclick="toggleAccordion('accordion-care')">
+<h2 class="h4 accordion__title inline-richtext">Materials and care</h2>
+</div>
+<svg class="accordion-icon" viewbox="0 0 10 6">
+<path clip-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</summary>
+<div class="accordion-body" id="ProductAccordion-collapsible_tab_materials_care-template--26975595233570__main">
+    @Html.Raw(materialAndCare)
+</div>
+</details>
+</div>
+</section>
+</div>
+</div>
+</div>
+</product-info>
+</section>
+<!-- YOU MAY ALSO LIKE -->
+<section class="product-section">
+<div class="recommend">
+<product-recommendations class="related-product-page">
+<h2 class="related-heading">You may also like</h2>
+<slider-component class="slider-mobile-gutter">
+<ul class="product-grid" id="Slider-template" role="list">
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/jason-plush" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Jason Plush" class="product-img-primary" src="/Source/shop-img/plush/Jason Plush With Handkerchief/thumbnail/jason-thumbnail-1.jpg"/>
+<img alt="Jason Plush Hover" src="/Source/shop-img/plush/Jason Plush With Handkerchief/thumbnail/jason-thumbnail-2.jpg"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/jason-plush">Jason Plush With Handkerchief</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/jason-plush">Jason Plush With Handkerchief</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$27</span>
+<span class="good">$21</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9760301121826" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="50032197108002"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/spring-sticker" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Spring Sticker" class="product-img-primary" src="/Source/shop-img/stationery/Spring sticker pack/thumbnail/spring-ticket-pack-1.png"/>
+<img alt="Spring Sticker Hover" src="/Source/shop-img/stationery/Spring sticker pack/thumbnail/spring-ticket-pack-2.png"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/spring-sticker">Spring Sticker Pack</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/spring-sticker">Spring Sticker Pack</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$9</span>
+<span class="good">$8</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9760301121826" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input class="product-variant-id" name="id" type="hidden" value="49703034913058"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+<li class="grid-item" id="Slide-template">
+<div class="card-wrapper has-variant">
+<div class="card-product">
+<!--- Inner ratio-->
+<div class="card-inner-ratio">
+<a class="product-card" href="/Shopnew/batrick-hoodie" style="text-decoration: none; color: inherit;">
+<div class="card-media">
+<img alt="Batrick Hoodie" class="product-img-primary" src="/Source/shop-img/Apparel/Batrick hoodie/thumbnail/battr_hoodie.png"/>
+<img alt="Batrick Hoodie Hover" src="/Source/shop-img/Apparel/Batrick hoodie/thumbnail/battr_hoodie.png"/>
+</div>
+</a>
+<div class="card-content">
+<div class="card-information">
+<h3 class="card-heading">
+<a class="full-unstyled-link" href="/Shopnew/batrick-hoodie">Batrick Hoodie</a>
+</h3>
+</div>
+</div>
+</div>
+<!--- Footer card content-->
+<div class="product-footer">
+<div class="product-details">
+<!-- Product Details -->
+<div class="product-footer-inner">
+<div class="heading-rating">
+<h3 class="card-heading-h5">
+<a class="full-unstyled-link" href="/Shopnew/batrick-hoodie">Batrick Hoodie</a>
+</h3>
+</div>
+<div class="labubu">
+<span class="evil">$53</span>
+<span class="good">$42</span>
+</div>
+</div>
+<!-- Quick Add Controls -->
+<div class="quick-add-no-js">
+<product-form data-section-id="template--26975595233570__related-products">
+<form accept-charset="UTF-8" action="/cart/add" class="form" data-qa-form-init="true" data-type="add-to-cart-form" enctype="multipart/form-data" id="quick-add-template--26975595233570__related-products9305036488994" method="post" novalidate="novalidate">
+<input name="form_type" type="hidden" value="product"/>
+<input name="utf8" type="hidden" value="✓"/>
+<!--- Variant selects -->
+<div class="variant-selects" data-section="template-product-grid" id="variant-selects-template--26975593791778__product-grid-9305036488994">
+<div aria-label="Size" class="variant-row" data-option-position="1" role="group">
+<div class="variant-values">
+<input checked="" class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-XS" name="options[Size]" type="radio" value="XS"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="XS" for="Option-template--26975593791778__product-grid-9305036488994__Size-XS" title="XS">XS</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-S" name="options[Size]" type="radio" value="S"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="S" for="Option-template--26975593791778__product-grid-9305036488994__Size-S" title="S">S</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-M" name="options[Size]" type="radio" value="M"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="M" for="Option-template--26975593791778__product-grid-9305036488994__Size-M" title="M">M</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-L" name="options[Size]" type="radio" value="L"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="L" for="Option-template--26975593791778__product-grid-9305036488994__Size-L" title="L">L</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-XL" name="options[Size]" type="radio" value="XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-XL" title="XL">XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-2XL" name="options[Size]" type="radio" value="2XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="2XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-2XL" title="2XL">2XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-3XL" name="options[Size]" type="radio" value="3XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="3XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-3XL" title="3XL">3XL</label>
+<input class="variant-option-input" data-option-position="1" id="Option-template--26975593791778__product-grid-9305036488994__Size-4XL" name="options[Size]" type="radio" value="4XL"/>
+<label aria-disabled="false" class="variant-label" data-option-position="1" data-option-value="4XL" for="Option-template--26975593791778__product-grid-9305036488994__Size-4XL" title="4XL">4XL</label>
+</div>
+</div>
+</div>
+<input class="product-variant-id" name="id" type="hidden" value="48810793107746"/>
+<div class="quick-add-actions">
+<quantity-input class="cart-quantity">
+<button class="quantity-button qty-minus" type="button">-</button>
+<input class="quantity-input" max="99" min="1" type="number" value="1"/>
+<button class="quantity-button qty-plus" type="button">+</button>
+</quantity-input>
+<button class="quick-add-submit" type="button">
+<span class="price-item">ADD</span>
+</button>
+</div>
+</form>
+</product-form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+</slider-component>
+</product-recommendations>
+</div>
+</section>
+</main>
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="/Source/shop-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/embla-carousel@@7.0.5/embla-carousel.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel@7.0.5/embla-carousel.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel-autoplay@7.0.5/embla-carousel-autoplay.umd.min.js"></script>
+<script src="~/js/shop/image-hover.js" asp-append-version="true"></script>
+<script src="~/js/shop/products.js" asp-append-version="true"></script>
+<script src="~/js/shop/cart-effect.js" asp-append-version="true"></script>
+<script src="~/js/shop/feature.js" asp-append-version="true"></script>
+<script src="~/js/shop/lightbox.js" asp-append-version="true"></script>
+<script src="~/js/shop/size-chart.js" asp-append-version="true"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initCartEffects();
+            initFeatures();
+        });
+    </script>
+<div id="nh-lightbox" style="display:none">
+<div id="nh-lb-backdrop"></div>
+<div id="nh-lb-container">
+<div id="nh-lb-header">
+<span id="nh-lb-title"></span>
+<button id="nh-lb-close">✕</button>
+</div>
+<div id="nh-lb-main">
+<button id="nh-lb-prev">â€¹</button>
+<img alt="" id="nh-lb-img" src=""/>
+<button id="nh-lb-next">â€º</button>
+</div>
+<div id="nh-lb-footer">
+<span id="nh-lb-counter"></span>
+<div id="nh-lb-controls">
+<button id="nh-lb-theater-btn" title="Theater mode">
+<!-- icon hÃ¬nh chá»¯ nháº­t ngang -->
+<svg height="20" viewbox="0 0 24 24" width="20">
+<rect fill="none" height="12" rx="1" stroke="currentColor" stroke-width="2" width="20" x="2" y="6"></rect>
+</svg>
+</button>
+<button id="nh-lb-fullscreen-btn" title="Fullscreen">
+<!-- icon 4 gÃ³c má»Ÿ rá»™ng -->
+<svg height="20" viewbox="0 0 24 24" width="20">
+<path d="M4 4h5M4 4v5M20 4h-5M20 4v5M4 20h5M4 20v-5M20 20h-5M20 20v-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Size chart 1 -->
+<div class="wj-sizechart-modal" id="wj-sizechart-modal-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-crewneck" style="display: none;">
+<div class="wj-sizechart-modal-content">
+<span class="wj-sizechart-close" data-target="wj-sizechart-modal-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-crewneck">✕</span>
+<h2 class="wj-sizechart-page-title">@title Sizing Guide</h2>
+<p class="wj-sizechart-silhouette-code">(SW0001 - Crewneck)</p>
+<div data-wj-sizechart-toggles="" style="margin-bottom:15px; margin-top: 10px;">
+<button class="wj-sizechart-unit-toggle active" type="button">Inches</button>
+<button class="wj-sizechart-unit-toggle" type="button">Centimeters</button>
+</div>
+<div class="wj-sizechart-fade" id="wj-sizechart-table-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-crewneck">
+<table class="wj-sizechart-table" id="wj-sizechart-table">
+<thead>
+<tr>
+<th>Size</th>
+<th>Back Body Length</th>
+<th>Chest Circumference</th>
+<th>Sleeve Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XS</td>
+<td>27.12"</td>
+<td>40"</td>
+<td>25"</td>
+</tr>
+<tr>
+<td>S</td>
+<td>27.62"</td>
+<td>42"</td>
+<td>25.62"</td>
+</tr>
+<tr>
+<td>M</td>
+<td>28.38"</td>
+<td>44"</td>
+<td>26.38"</td>
+</tr>
+<tr>
+<td>L</td>
+<td>29"</td>
+<td>46.12"</td>
+<td>27.12"</td>
+</tr>
+<tr>
+<td>XL</td>
+<td>30"</td>
+<td>49.12"</td>
+<td>28.12"</td>
+</tr>
+<tr>
+<td>2XL</td>
+<td>30.62"</td>
+<td>54"</td>
+<td>29.12"</td>
+</tr>
+<tr>
+<td>3XL</td>
+<td>31.38"</td>
+<td>58.50"</td>
+<td>30.12"</td>
+</tr>
+<tr>
+<td>4XL</td>
+<td>32.12"</td>
+<td>63"</td>
+<td>31.12"</td>
+</tr>
+<tr>
+<td>5XL</td>
+<td>33"</td>
+<td>68.50"</td>
+<td>29.50"</td>
+</tr>
+<tr>
+<td>6XL</td>
+<td>33.50"</td>
+<td>73.50"</td>
+<td>29.50"</td>
+</tr>
+</tbody>
+</table>
+<table class="wj-sizechart-table" id="wj-sizechart-table">
+<thead>
+<tr>
+<th>Size</th>
+<th>Back Body Length</th>
+<th>Chest Circumference</th>
+<th>Sleeve Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XS</td>
+<td>69 cm</td>
+<td>102 cm</td>
+<td>65 cm</td>
+</tr>
+<tr>
+<td>S</td>
+<td>70 cm</td>
+<td>107 cm</td>
+<td>65 cm</td>
+</tr>
+<tr>
+<td>M</td>
+<td>72 cm</td>
+<td>112 cm</td>
+<td>67 cm</td>
+</tr>
+<tr>
+<td>L</td>
+<td>74 cm</td>
+<td>118 cm</td>
+<td>69 cm</td>
+</tr>
+<tr>
+<td>XL</td>
+<td>76 cm</td>
+<td>126 cm</td>
+<td>71 cm</td>
+</tr>
+<tr>
+<td>2XL</td>
+<td>78 cm</td>
+<td>137 cm</td>
+<td>74 cm</td>
+</tr>
+<tr>
+<td>3XL</td>
+<td>80 cm</td>
+<td>149 cm</td>
+<td>77 cm</td>
+</tr>
+<tr>
+<td>4XL</td>
+<td>82 cm</td>
+<td>160 cm</td>
+<td>79 cm</td>
+</tr>
+<tr>
+<td>5XL</td>
+<td>83.50 cm</td>
+<td>174 cm</td>
+<td>75 cm</td>
+</tr>
+<tr>
+<td>6XL</td>
+<td>85.50 cm</td>
+<td>187 cm</td>
+<td>75 cm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="wj-sizechart-copyright">©2026. All Rights Reserved.</div>
+</div>
+</div>
+<!-- Size chart 2 -->
+<div class="wj-sizechart-modal" id="wj-sizechart-modal-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-youth-crewneck" style="display: none;">
+<div class="wj-sizechart-modal-content">
+<span class="wj-sizechart-close" data-target="wj-sizechart-modal-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-youth-crewneck">✕</span>
+<h2 class="wj-sizechart-page-title">@title Sizing Guide</h2>
+<p class="wj-sizechart-silhouette-code">(SW0005 - Youth Crewneck)</p>
+<div data-wj-sizechart-toggles="" style="margin-bottom:15px; margin-top: 10px;">
+<button class="wj-sizechart-unit-toggle active" type="button">Inches</button>
+<button class="wj-sizechart-unit-toggle" type="button">Centimeters</button>
+</div>
+<div class="wj-sizechart-fade" id="wj-sizechart-table-asge1unh4d0c0k29jv__wj_toolbox_size_charts_block_yq7gwu-youth-crewneck">
+<table class="wj-sizechart-table" id="wj-sizechart-table">
+<thead>
+<tr>
+<th>Size</th>
+<th>Back Body Length</th>
+<th>Chest Circumference</th>
+<th>Sleeve Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YXS (4/6)</td>
+<td>17.75"</td>
+<td>28.50"</td>
+<td>15.75"</td>
+</tr>
+<tr>
+<td>YS (6/7)</td>
+<td>19.63"</td>
+<td>30.50"</td>
+<td>17.75"</td>
+</tr>
+<tr>
+<td>YM (8/10)</td>
+<td>21.63"</td>
+<td>32.50"</td>
+<td>19.63"</td>
+</tr>
+<tr>
+<td>YL (12/14)</td>
+<td>23.63"</td>
+<td>35.63"</td>
+<td>22"</td>
+</tr>
+<tr>
+<td>YXL (16)</td>
+<td>25.63"</td>
+<td>38.38"</td>
+<td>23.63"</td>
+</tr>
+</tbody>
+</table>
+<table class="wj-sizechart-table" id="wj-sizechart-table">
+<thead>
+<tr>
+<th>Size</th>
+<th>Back Body Length</th>
+<th>Chest Circumference</th>
+<th>Sleeve Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>YXS (4/6)</td>
+<td>45.09 cm</td>
+<td>72.39 cm</td>
+<td>40.01 cm</td>
+</tr>
+<tr>
+<td>YS (6/7)</td>
+<td>49.86 cm</td>
+<td>77.47 cm</td>
+<td>45.09 cm</td>
+</tr>
+<tr>
+<td>YM (8/10)</td>
+<td>54.94 cm</td>
+<td>82.55 cm</td>
+<td>49.86 cm</td>
+</tr>
+<tr>
+<td>YL (12/14)</td>
+<td>60.02 cm</td>
+<td>90.50 cm</td>
+<td>55.88 cm</td>
+</tr>
+<tr>
+<td>YXL (16)</td>
+<td>65.10 cm</td>
+<td>97.49 cm</td>
+<td>60.02 cm</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="wj-sizechart-copyright">©2026. All Rights Reserved.</div>
+</div>
+</div>

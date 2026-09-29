@@ -1,0 +1,77 @@
+@page "/Animals2"
+@model WebApps.Pages.Animals2Model
+@{
+    ViewData["Title"] = "Animals2 - National Conservation Zoo";
+    ViewData["HideFooter"] = true;
+}
+
+@section Styles {
+<link rel="stylesheet" href="~/css/animal2.css" asp-append-version="true">
+<style>
+    .arrows {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 40px;
+        pointer-events: none;
+    }
+    .arrows button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        pointer-events: auto;
+    }
+    .arrows button:hover {
+        background-color: #119864;
+        border-color: #119864;
+        color: #fff;
+        transform: scale(1.15);
+    }
+    /* Mobile responsive for arrows */
+    @@media (max-width: 768px) {
+        .arrows {
+            padding: 0 20px;
+        }
+        .arrows button {
+            width: 45px;
+            height: 45px;
+            font-size: 18px;
+        }
+    }
+</style>
+}
+
+<!-- The header -->
+    
+
+    <!-- The interactive carousel injected by animal2.js -->
+    <div class="animal-carousel">
+        <div class="list" id="animalList"></div>
+        <div class="thumbnail" id="animalThumbnails"></div>
+        
+        <!-- Next Prev Arrows -->
+        <div class="arrows">
+            <button id="prev"><i class="fa fa-chevron-left"></i></button>
+            <button id="next"><i class="fa fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- Include the JS that renders the animals -->
+    <script src="~/js/animal2.js" asp-append-version="true"></script>
+
+    <!-- Animal detail pages are now at /Animals2/{Name} -->

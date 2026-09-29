@@ -1,0 +1,111 @@
+@page
+@model WebApps.Pages.ConservationModel
+@{
+    ViewData["Title"] = "Conservation & Research - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/Conservation.css">
+}
+
+<main>
+        <section class="cons-hero-fullscreen">
+            <img src="/Source/Conservation/main.jpg" class="cons-hero-bg" alt="Conservation Hero">
+            <div class="cons-hero-overlay"></div>
+            <div class="cons-hero-content">
+                <h1>Conservation & Research</h1>
+            </div>
+        </section>
+
+        <div class="cons-intro">
+            <p>Our mission goes beyond the zoo gates. We are dedicated to saving species worldwide.</p>
+        </div>
+
+        <section class="cons-stats-section">
+            <div class="cons-stats-container">
+                <div class="cons-stat-card">
+                    <div class="stat-icon"><i class="fas fa-globe-americas"></i></div>
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Countries Partnered</div>
+                    <div class="stat-desc">Collaborating globally with local communities to protect critical natural habitats.</div>
+                </div>
+                <div class="cons-stat-card">
+                    <div class="stat-icon"><i class="fas fa-turtle"></i></div>
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Sea Turtles Rescued</div>
+                    <div class="stat-desc">Veterinary care, physical therapy, and successful releases back into the ocean.</div>
+                </div>
+                <div class="cons-stat-card">
+                    <div class="stat-icon"><i class="fas fa-dna"></i></div>
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Survival Plans (SSP)</div>
+                    <div class="stat-desc">Strategic breeding programs maintaining genetic diversity for endangered species.</div>
+                </div>
+                <div class="cons-stat-card">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Ranger Patrols</div>
+                    <div class="stat-desc">Anti-poaching and habitat protection on the front lines of Central Africa.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="full-split-section bg-blue">
+            <div class="full-split-img" style="background-image: url('/Source/Conservation/SpeciesSurvivalPlan.jpg');" title="Species Survival Plan"></div>
+            <div class="full-split-text">
+                <h2>Species Survival Plan</h2>
+                <p>Learn about our active breeding programs for highly endangered species. We work with an international network of institutions to ensure genetic diversity and the ultimate survival of our most vulnerable species in human care.</p>
+                <button class="full-split-btn" onclick="openConsModal(1)">Read Full Story</button>
+            </div>
+        </div>
+
+        <div class="full-split-section reverse bg-orange">
+            <div class="full-split-img" style="background-image: url('/Source/Conservation/AmphibianConservationProgram.jpg');" title="Amphibian Conservation Program"></div>
+            <div class="full-split-text">
+                <h2>Amphibian Conservation Program</h2>
+                <p>Amphibians are facing an unprecedented global extinction crisis. Around the world, frog, toad, and salamander populations are declining at alarming rates. The biggest threat to these species is the spread of the deadly chytrid fungus.</p>
+                <button class="full-split-btn" onclick="openConsModal(2)">Read Full Story</button>
+            </div>
+        </div>
+
+        <div class="full-split-section bg-green">
+            <div class="full-split-img" style="background-image: url('/Source/Conservation/SeaTurtleRescue&Rehabilitation.jpg');" title="Sea Turtle Rescue & Rehabilitation"></div>
+            <div class="full-split-text">
+                <h2>Sea Turtle Rescue & Rehabilitation</h2>
+                <p>Every year, hundreds of sea turtles wash ashore along coastal regions, suffering from a variety of life-threatening conditions. Our Sea Turtle Rescue and Rehabilitation Center stands on the front lines, responding to these emergencies.</p>
+                <button class="full-split-btn" onclick="openConsModal(3)">Read Full Story</button>
+            </div>
+        </div>
+
+        <div class="full-split-section reverse bg-black">
+            <div class="full-split-img" style="background-image: url('/Source/Conservation/GreatApeHabitatProtection.jpg');" title="Great Ape Habitat Protection"></div>
+            <div class="full-split-text">
+                <h2>Great Ape Habitat Protection</h2>
+                <p>Great apes, our closest living relatives, are teetering on the edge of extinction. Across the lush rainforests of Central Africa, species like the Western Lowland Gorilla and Chimpanzee are severely threatened by relentless habitat destruction.</p>
+                <button class="full-split-btn" onclick="openConsModal(4)">Read Full Story</button>
+            </div>
+        </div>
+    <partial name="_AdventureBar" />
+
+    </main>
+
+
+
+    
+
+    <!-- Interactive Conservation Modal -->
+    <div id="conservationModal" class="cons-modal-overlay">
+        <div class="cons-modal-content">
+            <div class="cons-modal-close" onclick="closeConsModal()">&times;</div>
+            <div class="cons-modal-img-col">
+                <img id="consModalImg" src="" alt="Conservation Image">
+            </div>
+            <div class="cons-modal-text-col">
+                <h2 id="consModalTitle">Title</h2>
+                <p id="consModalDesc">Description</p>
+                <a class="cons-modal-btn" id="consModalBtnText" asp-page="/Tickets">Support Us</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/conservation.js"></script>
+

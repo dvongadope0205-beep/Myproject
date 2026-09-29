@@ -1,0 +1,110 @@
+@page
+@model WebApps.Pages.ToursModel
+@{
+    ViewData["Title"] = "Behind-the-Scenes Tours - National Conservation Zoo";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="css/pages.css">
+    <style>
+        .tours-header-desc {
+            font-size: 18px; 
+            color: #555; 
+            max-width: 800px; 
+            margin: 20px auto 50px auto; 
+            line-height: 1.6;
+            text-align: center;
+        }
+        .bts-intro-split {
+            display: flex; align-items: center; gap: 40px; max-width: 1100px;
+            margin: 0 auto 60px; flex-wrap: wrap;
+        }
+        .bts-intro-img { flex: 1; min-width: 320px; border-radius: 16px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.12); }
+        .bts-intro-img img { width: 100%; height: 380px; object-fit: cover; display: block; }
+        .bts-intro-text { flex: 1; min-width: 320px; }
+        .bts-intro-text h2 { font-size: 32px; color: var(--zoo-dark); margin-bottom: 16px; font-family: Georgia, serif; }
+        .bts-intro-text p { color: #555; line-height: 1.7; font-size: 16px; margin-bottom: 14px; }
+
+        .bts-expect-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px; max-width: 1100px; margin: 0 auto 60px;
+        }
+        .bts-expect-card {
+            background: white; padding: 30px; border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.06); text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bts-expect-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+        .bts-expect-card i { font-size: 36px; color: var(--zoo-green); margin-bottom: 16px; display: block; }
+        .bts-expect-card h4 { font-size: 18px; color: var(--zoo-dark); margin-bottom: 10px; }
+        .bts-expect-card p { font-size: 14px; color: #666; line-height: 1.5; }
+
+        .bts-cta-banner {
+            background: linear-gradient(135deg, #1a5e3a 0%, #119864 100%);
+            border-radius: 16px; padding: 50px 40px; text-align: center;
+            max-width: 1100px; margin: 0 auto 40px; color: white;
+        }
+        .bts-cta-banner h3 { font-size: 28px; margin-bottom: 12px; font-family: Georgia, serif; }
+        .bts-cta-banner p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .bts-cta-btn { display: inline-block; padding: 14px 36px; background: white; color: #119864; font-weight: 700; border-radius: 8px; text-decoration: none; font-size: 16px; transition: transform 0.2s; }
+        .bts-cta-btn:hover { transform: translateY(-2px); }
+    </style>
+}
+
+<main>
+    <section class="page-hero">
+        <h1>Behind-the-Scenes Tours</h1>
+        <p>Behind-the-Scenes Experiences are back! Get up close and personal with your favorite animals and the keepers who care for them.</p>
+    </section>
+    
+    <section class="page-content-wrap" style="max-width: 1200px; padding: 40px 20px; margin: auto;">
+
+        <!-- Intro Split Section -->
+        <div class="bts-intro-split">
+            <div class="bts-intro-img">
+                <img src="/Source/Picture/btstour.jpg" alt="Behind the Scenes Tour">
+            </div>
+            <div class="bts-intro-text">
+                <h2>Step Beyond the Exhibit</h2>
+                <p>Our Behind-the-Scenes Tours offer an extraordinary window into the daily operations of a world-class conservation facility. Walk through restricted corridors, observe morning feeding routines, and witness the incredible dedication of our animal care professionals as they nurture everything from tiny poison dart frogs to two-ton hippos.</p>
+                <p>These semi-private, small-group experiences are led by experienced zookeepers who share captivating stories about each animal's unique personality, dietary needs, and the global conservation programs working to protect their wild counterparts. Whether you are an aspiring zoologist or simply curious about life behind the gates, these tours provide memories that last a lifetime.</p>
+            </div>
+        </div>
+
+        <!-- What to Expect Cards -->
+        <h2 style="text-align: center; font-size: 30px; color: var(--zoo-dark); margin-bottom: 10px; font-family: Georgia, serif;">What to Expect</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 16px;">Every tour is designed to educate, inspire, and create lasting connections with wildlife.</p>
+        <div class="bts-expect-grid">
+            <div class="bts-expect-card">
+                <i class="fa fa-key"></i>
+                <h4>Exclusive Access</h4>
+                <p>Enter restricted animal habitats, veterinary facilities, and nutrition kitchens that are closed to regular guests.</p>
+            </div>
+            <div class="bts-expect-card">
+                <i class="fa fa-users"></i>
+                <h4>Small Groups</h4>
+                <p>Tours are limited to six guests maximum, ensuring a personal, intimate encounter with every animal you meet.</p>
+            </div>
+            <div class="bts-expect-card">
+                <i class="fa fa-camera"></i>
+                <h4>Photo Opportunities</h4>
+                <p>Capture stunning close-up photographs from vantage points unavailable anywhere else in the zoo.</p>
+            </div>
+            <div class="bts-expect-card">
+                <i class="fa fa-heartbeat"></i>
+                <h4>Conservation Stories</h4>
+                <p>Learn about our breeding programs, rehabilitation efforts, and partnerships protecting endangered species worldwide.</p>
+            </div>
+        </div>
+
+        <!-- CTA Banner -->
+        <div class="bts-cta-banner">
+            <h3>Ready to Go Behind the Gates?</h3>
+            <p>Book your experience today. Tours fill up quickly — advance reservation is strongly recommended.</p>
+            <a href="/Tickets" class="bts-cta-btn">Reserve Your Tour</a>
+        </div>
+
+
+    </section>
+    <partial name="_AdventureBar" />
+</main>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "WxD9tEGDHeo=",
+  "success": true,
+  "projectFilePath": "C:\\WEBDEV\\AspireApp1\\ConvertLogo\\ConvertLogo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ADMIN\\.nuget\\packages\\skiasharp\\3.119.0\\skiasharp.3.119.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\skiasharp.nativeassets.macos\\3.119.0\\skiasharp.nativeassets.macos.3.119.0.nupkg.sha512",
+    "C:\\Users\\ADMIN\\.nuget\\packages\\skiasharp.nativeassets.win32\\3.119.0\\skiasharp.nativeassets.win32.3.119.0.nupkg.sha512"
+  ],
+  "logs": []
+}

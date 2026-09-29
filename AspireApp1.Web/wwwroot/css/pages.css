@@ -1,0 +1,294 @@
+/* css/pages.css */
+/* Hero Section for Internal Pages */
+.page-hero {
+    background: linear-gradient(135deg, #119864 0%, #0d7a50 100%);
+    padding: 140px 20px 80px;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 100" xmlns="http://www.w3.org/2000/svg"><path fill="%23f9ebd1" d="M0,0 C320,100 420,0 720,50 C1020,100 1120,0 1440,50 L1440,100 L0,100 Z"/></svg>') no-repeat bottom;
+    background-size: cover;
+    z-index: -1;
+}
+.page-hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 800;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+}
+.page-hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Page Content Wrapper */
+.page-content-wrap {
+    max-width: 1100px;
+    margin: -30px auto 80px;
+    padding: 40px;
+    background: white;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border-radius: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Page Sections */
+.page-section {
+    padding: 30px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.page-section:last-child {
+    border-bottom: none;
+}
+.page-section h2 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+.page-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+}
+.page-section ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 1.1rem;
+}
+.page-section li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Product Grid for Shop */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+.product-card {
+    border-radius: 12px;
+    border: 1px solid #eee;
+    overflow: hidden;
+    background: #fff;
+    text-align: center;
+    padding-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+.product-card .img-pl {
+    width: 100%;
+    height: 250px;
+    background: #eef2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 3rem;
+}
+.product-card h3 {
+    margin: 15px 10px 5px;
+    font-size: 1.2rem;
+    color: #333;
+}
+.product-card .price {
+    font-size: 1.2rem;
+    color: #119864;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Form Styling */
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+.contact-form .full-width {
+    grid-column: 1 / -1;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+.form-group input, .form-group textarea, .form-group select {
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: #119864;
+}
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Buttons */
+.btn-primary {
+    display: inline-block;
+    background: #119864;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.2s;
+    border: none;
+    cursor: pointer;
+}
+.btn-primary:hover {
+    background: #0d7a50;
+    transform: scale(1.02);
+}
+
+/* Legal Pages */
+.legal-content h3 {
+    margin-top: 40px;
+    color: #119864;
+    font-size: 1.5rem;
+}
+
+/* Feature Grid for About/Volunteer etc */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+.feature-box {
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #f0f0f0;
+    text-align: center;
+}
+.feature-box i {
+    font-size: 3rem;
+    color: #119864;
+    margin-bottom: 20px;
+}
+.feature-box h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+.feature-box p {
+    font-size: 1rem;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        grid-template-columns: 1fr;
+    }
+    .page-hero h1 {
+        font-size: 2.5rem;
+    }
+    .page-content-wrap {
+        padding: 20px;
+        margin-top: -20px;
+    }
+}
+/* Philly Style Cards */
+.philly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin: 40px 0;
+}
+
+.philly-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.philly-card-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.philly-card-body {
+    background-color: #2c353f;
+    color: white;
+    padding: 35px 30px 60px 30px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 50% 100%, 0 95%);
+    margin-top: -1px; /* Remove gaps */
+}
+
+.philly-card-body h3 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+    line-height: 1.3;
+}
+
+.philly-card-body p {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1;
+    color: #e0e0e0;
+}
+
+.philly-card-body a.philly-book {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.philly-card-body a.philly-book::after {
+    content: '?';
+    margin-left: 8px;
+    display: inline-block;
+    font-size: 14px;
+    background: white;
+    color: #2c353f;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.philly-card-body a.philly-book:hover {
+    text-decoration: underline;
+}

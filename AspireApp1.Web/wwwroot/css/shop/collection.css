@@ -1,0 +1,94 @@
+        /* -------------------------------------------
+           Collection
+        ------------------------------------------- */
+        .featured-wrapper-title {
+            width: 100%;
+            padding: 20px;
+            max-width: 2000px;
+            letter-spacing: 0.6px;
+            line-height: calc(1 + 0.8 / 1.0);
+            color: rgb(18,18,18);
+        }
+
+        .collection-hero {
+            color: #a46b2b;
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: transparent;
+            background-image: none;
+            background-origin: padding-box;
+            background-position-x: 0%;
+            background-position-y: 0%;
+            background-repeat: repeat;
+            background-size: auto;
+        }
+
+        .collection-hero-inner {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            max-width: 100%;
+            color: #a46b2b;
+            animation: none;
+            transition: none;
+            opacity: 1;
+        }
+
+        .collection-hero-text {
+            flex-basis: 100%;
+        }
+
+        .collection-hero-text h1 {
+            margin: 25px 0;
+            font-size: 40px;
+            font-weight: 650;
+            letter-spacing: 0.6px;
+            line-height: calc(1 + 0.3 / max(1, 1.0));
+            word-break: break-word;
+        }
+
+        .collection-hero-description {
+            margin: 20px 0;
+            max-width: 66.67%;
+            line-height: calc(1 + .5 / 1.0);
+            color: #a46b2b;
+        }
+
+        .featured-wrapper-card {
+            width: 100%;
+            padding: 20px;
+            max-width: 2000px;
+            letter-spacing: 0.6px;
+            line-height: calc(1 + 0.8 / 1.0);
+            color: rgb(18,18,18);
+        }
+
+        .section-template {
+            padding: 36px 0;
+            line-height: calc(1 + 0.8 / 1.0);
+            color: rgb(18,18,18);
+            background-attachment: scroll;
+            background-clip: border-box;
+            background-color: transparent;
+            background-image: none;
+            background-origin: padding-box;
+            background-position-x: 0%;
+            background-position-y: 0%;
+            background-repeat: repeat;
+            background-size: auto;
+        }
+        
+        /* -------------------------------------------
+           RESPONSIVE
+        ------------------------------------------- */
+        @media (max-width: 991px) {
+            .featured-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }

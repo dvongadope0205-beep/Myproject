@@ -1,0 +1,399 @@
+﻿@page "/play-area/play-area"
+@model ZooProject.Pages.PlayArea.PlayArea
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        /* =========================================
+           1. BIẾN MÀU SẮC & THIẾT LẬP CHUNG
+        ========================================= */
+        :root {
+            --brand-teal: #0b3c98;
+            --brand-mint: #a1d4cd;
+            --brand-icy: #43966c; /* Đổi thành màu trắng để nổi bật trên nền đại dương tối */
+            --text-light: #011144;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: #0a3d3d !important;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* =========================================
+           2. BACKGROUND DESIGN (Họa tiết nền gốc)
+        ========================================= */
+        .ocean-bg {
+            background: #0a3d3d !important;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.04"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .scale-pattern {
+            background-image: radial-gradient(ellipse 50% 100% at 50% 100%, rgba(160, 212, 205, 0.1) 45%, transparent 50%),
+                              radial-gradient(ellipse 50% 100% at 50% 100%, rgba(73, 199, 188, 0.05) 45%, transparent 50%);
+            background-size: 80px 120px, 100px 150px;
+            background-position: 0 0, 40px 60px;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            z-index: 0;
+        }
+
+        .bubble-1 { width: 3rem; height: 3rem; top: 5rem; left: 10%; opacity: 0.6; }
+        .bubble-2 { width: 2rem; height: 2rem; top: 16rem; right: 15%; opacity: 0.4; }
+        .bubble-3 { width: 4rem; height: 4rem; top: 40%; left: 20%; opacity: 0.3; }
+        .bubble-4 { width: 2.5rem; height: 2.5rem; top: 60%; right: 25%; opacity: 0.5; }
+        .bubble-5 { width: 5rem; height: 5rem; top: 80%; left: 15%; opacity: 0.2; }
+
+        /* =========================================
+           3. TYPOGRAPHY & LAYOUT CHUNG
+        ========================================= */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 5rem 20px 3rem;
+            color: var(--brand-icy);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .section-header-left {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 0 3rem 0;
+        }
+
+        .section-header-left h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-icy);
+            margin-bottom: 1rem;
+        }
+
+        .section-header-left p {
+            font-size: 1.125rem;
+            color: rgb(18,18,18); /* Sửa màu chữ sáng lên để dễ nhìn trên nền ocean */
+            line-height: 1.6;
+        }
+
+        .section-header-center {
+            text-align: center;
+            margin: 6rem auto 3rem;
+        }
+
+        .section-header-center h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-icy);
+        }
+
+        /* =========================================
+           4. THIẾT KẾ THẺ (CARD CHUNG) & HOVER
+        ========================================= */
+        .card {
+            border-radius: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: #002b28;
+        }
+
+        /* Bo góc đặc trưng */
+        .card:nth-child(1) { border-bottom-right-radius: 0; }
+        .card:nth-child(2) { border-bottom-left-radius: 0; }
+        .card:nth-child(3) { border-top-right-radius: 0; }
+        .card:nth-child(4) { border-top-left-radius: 0; }
+
+        /* Hover nhích lên nhẹ */
+        .card:hover {
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 45px rgba(161, 212, 205, 0.3);
+        }
+
+        .card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+        }
+
+        .card-content h3 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .card-content p {
+            color: #e2f1f0;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        /* Nút See More */
+        .btn-outline {
+            display: inline-block;
+            border: 2px solid var(--brand-mint);
+            color: var(--brand-mint);
+            padding: 8px 24px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--brand-mint);
+            color: #004d49;
+        }
+
+        /* =========================================
+           5. SECTION 1: LAYOUT PLAY AREAS (4 CỘT)
+        ========================================= */
+        .play-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .play-grid .card {
+            width: calc(25% - 18px);
+            min-width: 260px;
+            aspect-ratio: 3/4;
+        }
+
+        @@media (min-width: 1024px) {
+            .play-grid .card:nth-child(even) {
+                margin-top: 60px;
+            }
+        }
+
+        /* =========================================
+           6. SECTION 2: LAYOUT FAMILY ACTIVITIES (2 CỘT)
+        ========================================= */
+        .activity-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 32px;
+            max-width: 1050px; /* Gom gọn lại để phân chia 2 cột trái ph$i đẹp mắt */
+            margin: 0 auto;
+        }
+
+        .activity-grid .card {
+            width: calc(50% - 16px); /* 2 thẻ một dòng (2 bên trái, 2 bên ph$i) */
+            min-width: 320px;
+            aspect-ratio: 1.35 / 1; /* Dáng ngang chữ nhật rộng r$i cho phần text mô t$ */
+        }
+
+        @@media (min-width: 1024px) {
+            .activity-grid .card:nth-child(even) {
+                margin-top: 50px; /* Giữ hiệu ứng so le cho cột bên ph$i */
+            }
+        }
+
+        /* =========================================
+           7. RESPONSIVE CHO MOBILE & TABLET
+        ========================================= */
+        @@media (max-width: 1023px) {
+            .play-grid .card { width: calc(50% - 12px); }
+            .activity-grid .card { width: calc(50% - 16px); aspect-ratio: 1.2 / 1; }
+            .hero-title { font-size: 3rem; padding-top: 3rem; }
+            .section-header-left h2, .section-header-center h2 { font-size: 2.5rem; }
+        }
+
+        @@media (max-width: 680px) {
+            .play-grid .card, .activity-grid .card { 
+                width: 100%; 
+                aspect-ratio: 1.1 / 1;
+            }
+            .section-header-left h2, .section-header-center h2 { font-size: 2rem; }
+        }
+        </style>
+}
+
+@* ── BODY CONTENT ── *@
+
+<div class="texture-overlay"></div>
+    <div class="bubble bubble-1"></div>
+    <div class="bubble bubble-2"></div>
+    <div class="bubble bubble-3"></div>
+    <div class="bubble bubble-4"></div>
+    <div class="bubble bubble-5"></div>
+
+    <main class="container">
+        
+        <header>
+            <h1 class="hero-title">Play areas & family activities</h1>
+        </header>
+        
+        <section style="padding: 2rem 0 4rem;">
+            <div class="section-header-left">
+                <h2>Let their imaginations run wild</h2>
+                <p>Discover all the amazing play areas at the zoo, from tackling the heights of Treetop Challenge to exploring the depths of Madagascar.</p>
+            </div>
+            
+            <div class="play-grid">
+                <div class="card">
+                    <a href="/play-area/nature-play">
+                        <img src="/Source/play-area/play%20area/nature%20play!/nature-play.jpg" alt="Nature Play Area">
+                    </a>
+                    <div class="card-content">
+                        <h3>Nature Play!</h3>
+                        <a href="/play-area/nature-play" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/madagasca-play">
+                        <img src="/Source/play-area/play%20area/madagasca%20play!/madagasca-play.jpg" alt="Madagascar Play Zone">
+                    </a>
+                    <div class="card-content">
+                        <h3>Madagascar Play!</h3>
+                        <a href="/play-area/madagasca-play" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/treetop-challenge">
+                        <img src="/Source/play-area/play%20area/treetop%20challenge/treetop-challenge.jpg" alt="Treetop Challenge Course">
+                    </a>
+                    <div class="card-content">
+                        <h3>Treetop Challenge</h3>
+                        <a href="/play-area/treetop-challenge" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/wildlife-wood">
+                        <img src="/Source/play-area/play%20area/wildlife%20wood/wildlife-wood.jpg" alt="Wildlife Wood Exploration">
+                    </a>
+                    <div class="card-content">
+                        <h3>Wildlife Wood</h3>
+                        <a href="/play-area/wildlife-wood" class="btn-outline">See More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding-bottom: 8rem;">
+            <div class="section-header-center">
+                <h2>Family Activities</h2>
+            </div>
+            
+            <div class="activity-grid">
+                <div class="card">
+                    <a href="/play-area/handimals">
+                        <img src="/Source/play-area/family%20activities/handimals/handimals.jpg" alt="Handianimal Art">
+                    </a>
+                    <div class="card-content">
+                        <h3>Handimals</h3>
+                        <p>Get messy with some fun animal hand art, a perfect keepsake for little ones to remember their visit</p>
+                        <a href="/play-area/handimals" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/face-painting">
+                        <img src="/Source/play-area/family%20activities/face%20painting/face-painting.jpg" alt="Face Painting Station">
+                    </a>
+                    <div class="card-content">
+                        <h3>Face Painting</h3>
+                        <p>Get into character and become one of your favorite animals. Visit our trained face painting team and get a wild make over!</p>
+                        <a href="/play-area/face-painting" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/vr-experience">
+                        <img src="/Source/play-area/family%20activities/vr%20experience/vr-experience.jpg" alt="VR Safari Experience">
+                    </a>
+                    <div class="card-content">
+                        <h3>VR Experience</h3>
+                        <p>Lose yourself in the world of VR where you can choose to swim with sharks or walk with gorillas - there's a whole world to see!</p>
+                        <a href="/play-area/vr-experience" class="btn-outline">See More</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <a href="/play-area/lazy-river-boat-trip">
+                        <img src="/Source/play-area/family%20activities/lazy%20river%20boat%20trip/river-boat.jpg" alt="Lazy River Boat">
+                    </a>
+                    <div class="card-content">
+                        <h3>Lazy River Boat Trip</h3>
+                        <p>Enjoy the amazing tropical environments of South East Asia. Discover Islands from a different perspective.</p>
+                        <a href="/play-area/lazy-river-boat-trip" class="btn-outline">See More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+@section Scripts {
+    <script>
+document.querySelectorAll('.btn-outline').forEach(button => {
+            button.addEventListener('click', function(e) {
+                console.log('Bạn vừa nhấn xem thêm!');
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,101 @@
+@page
+@model WebProject.Pages.NewModel
+@{
+    Layout = "~/Pages/Shop2/Shared/_Layout.cshtml";
+    ViewData["Title"] = "New - Natural Habitat";
+}
+
+@section Styles {
+    <link href="~/css/shop2/collection.css" rel="stylesheet"/>
+}
+
+<main class="content-for-layout" id="MainContent" role="main" tabindex="-1">
+<!-- Collection Header -->
+<div class="featured-wrapper-title">
+<div class="collection-hero">
+<div class="collection-hero-inner">
+<div class="collection-hero-text">
+<h1 class="featured-header">NEW</h1>
+<div class="collection-hero-description"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Featured Products Grid -->
+<div class="featured-wrapper-card">
+<div class="section-template">
+<div class="featured-grid">
+<ul class="product-grid" id="Slider-template" role="list"></ul>
+<!-- page pagination -->
+<div class="pagination-container" id="pagination-container">
+<nav aria-label="Pagination" class="pagination" role="navigation"></nav>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="~/Source/shop2-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+@section Scripts {
+    <script>
+        renderShopProducts('new');
+    </script>
+}

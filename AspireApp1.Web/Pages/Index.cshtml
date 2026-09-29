@@ -1,0 +1,136 @@
+@page
+@model WebApps.Pages.IndexModel
+@{
+    ViewData["Title"] = "Trang Chủ - National Conservation Zoo";
+}
+
+<section class="hero-fullscreen">
+        <video autoplay muted loop playsinline class="hero-video-bg">
+            <source src="/Source/Video/videoweb.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay-dark"></div>
+        <div class="hero-content">
+            <h1>Wildlife Sanctuary</h1>
+            <p style="font-size: 20px; margin-bottom: 30px;">Plan your ultimate adventure at the National Conservation Zoo.</p>
+        </div>
+    </section>
+
+    <section class="plan-your-visit">
+        <h2>Plan Your Visit</h2>
+        <div class="grid-6-cards">
+            <div class="visit-card">
+                <div>
+                    <i class="fa fa-ticket icon"></i>
+                    <h3>Get Tickets</h3>
+                    <p>Vietnam's premiere wildlife sanctuary is open daily. Reserve timed-entry tickets online.</p>
+                </div>
+                <a class="btn-zoo" style="width:max-content;" asp-page="/Tickets">Learn More</a>
+            </div>
+
+            <div class="visit-card">
+                <div>
+                    <i class="fa fa-map-o icon"></i>
+                    <h3>Zoo Map</h3>
+                    <p>Navigate your way around our 50-acre park with our interactive or downloadable zoo map.</p>
+                </div>
+                <a class="btn-zoo" style="width:max-content;" asp-page="/Zoomap">Explore Map</a>
+            </div>
+
+            <div class="visit-card">
+                <div>
+                    <i class="fa fa-cutlery icon"></i>
+                    <h3>Attractions</h3>
+                    <p>From animal feeding experiences to our premier zoo train, explore amazing attractions.</p>
+                </div>
+                <a class="btn-zoo" style="width:max-content;" asp-page="/Attractions">Learn More</a>
+            </div>
+
+            <div class="visit-card">
+                <div>
+                    <i class="fa fa-users icon"></i>
+                    <h3>Group Tickets</h3>
+                    <p>Traveling with a pack? Take advantage of our special discounted rates for groups.</p>
+                </div>
+                <a class="btn-zoo" style="width:max-content;" asp-page="/Groups">Learn More</a>
+            </div>
+
+            <div class="visit-card">
+                <div>
+                    <i class="fa fa-wheelchair icon"></i>
+                    <h3>Accessibility</h3>
+                    <p>National Zoo is committed to creating an inclusive environment for all guests to enjoy.</p>
+                </div>
+                <a class="btn-zoo" style="width:max-content;" asp-page="/Accessibility">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="zoo-story-row">
+        <div class="story-image-box shape-organic-1">
+            <img src="/Source/Picture/encounter.jpg" alt="Wild Encounters">
+        </div>
+        <div class="story-content-box philly-card">
+            <h2>Wild Animal Encounters</h2>
+            <p>Get up close and personal with some of your favorite animals. Feed a giraffe, meet a sloth, or touch a rhino under the guidance of our expert keepers.</p>
+            <a class="btn-zoo" asp-page="/Encounters">Learn More</a>
+        </div>
+    </section>
+
+    <section class="zoo-story-row reverse">
+        <div class="story-image-box shape-organic-2">
+            <img src="/Source/Picture/btstour.jpg" alt="Behind the Scenes">
+        </div>
+        <div class="story-content-box philly-card">
+            <h2>Behind-the-Scenes Tours</h2>
+            <p>Ever wonder what it takes to run a world-class zoo? Join an exclusive tour to see our veterinary hospital, nutrition center, and animal habitats from the inside.</p>
+            <a class="btn-zoo" asp-page="/Tours">Learn More</a>
+        </div>
+    </section>
+
+    <section class="zoo-story-row">
+        <div class="story-image-box shape-organic-3">
+            <img src="/Source/Picture/camp.jpg" alt="Summer Camp">
+        </div>
+        <div class="story-content-box philly-card">
+            <h2>Zoo Summer Camp</h2>
+            <p>Ignite your child's passion for wildlife! Our summer camps offer hands-on learning, interactive games, and unforgettable animal experiences for all ages.</p>
+            <a class="btn-zoo" asp-page="/Camp">Learn More</a>
+        </div>
+    </section>
+
+    <section class="zoo-story-row reverse">
+        <div class="story-image-box shape-organic-4">
+            <img src="/Source/Picture/privateevents.jpg" alt="Private Events">
+        </div>
+        <div class="story-content-box philly-card">
+            <h2>Host Your Private Event</h2>
+            <p>From wildly romantic weddings to unique corporate retreats, our lush gardens and stunning animal habitats provide the perfect backdrop for any special occasion.</p>
+            <a class="btn-zoo" asp-page="/Privateevents">Learn More</a>
+        </div>
+    </section>
+
+    <section class="membership-section">
+        <h2 class="section-title">Support The Zoo</h2>
+        <div class="grid-3-cards">
+            <div class="support-card">
+                <img src="/Source/Picture/membership.jpg" alt="Membership">
+                <h3>Membership</h3>
+                <p>Become a Member and enjoy free, unlimited admission for an entire year, plus exclusive discounts!</p>
+                <a class="btn-zoo btn-outline" style="color:#119864; border:2px solid #119864; background:transparent;" asp-page="/Join">LEARN MORE</a>
+            </div>
+            <div class="support-card">
+                <img src="/Source/Picture/donatenow.jpg" alt="Donate">
+                <h3>Donate Now</h3>
+                <p>Your generous donation helps provide standard animal care and supports our conservation efforts.</p>
+                <a class="btn-zoo btn-outline" style="color:#119864; border:2px solid #119864; background:transparent;" asp-page="/Donate">DONATE NOW</a>
+            </div>
+            <div class="support-card">
+                <img src="/Source/Picture/groupticket.jpg" alt="Group Tickets">
+                <h3>Group Tickets</h3>
+                <p>Traveling with a pack? Special discounted rates are available for groups of 15 or more guests.</p>
+                <a class="btn-zoo btn-outline" style="color:#119864; border:2px solid #119864; background:transparent;" asp-page="/Groups">LEARN MORE</a>
+            </div>
+        </div>
+    </section>
+
+    <partial name="_AdventureBar" />

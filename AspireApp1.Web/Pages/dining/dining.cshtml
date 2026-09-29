@@ -1,0 +1,444 @@
+@page "/dining/dining"
+@model ZooProject.Pages.Dining.Dining
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        /* ─── STYLE SYSTEM DESIGN (MINIMALIST) ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; color: #1a1a1a; background-color: #ffffff; line-height: 1.5; }
+        img { display: block; max-width: 100%; }
+
+        :root {
+            --active-row: #ff0100; /* Màu đỏ tươi khi chọn nhà hàng */
+            --btn-book: #ec9100;   /* Màu cam ấm của nút Book a table */
+            --text-dark: #1a1a1a;
+            --text-muted: #555555;
+            --bg-light: #f9f9f9;
+            --border-color: #e0e0e0;
+        }
+
+        /* Khung chứa mở rộng ra hai bên rìa màn hình lớn */
+        .dining-page-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* ─── 1. PHẦN GIỚI THIỆU ĐẦU TRANG CỐ ĐỊNH ─── */
+        .dining-intro-block {
+            max-width: 850px;
+            margin-bottom: 48px;
+        }
+
+        .dining-intro-heading {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            letter-spacing: -0.02em;
+        }
+
+        .dining-intro-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ─── 2. BỘ KHUNG TƯƠNG TÁC CHIA ĐÔI (MAIN GRID LAYOUT) ─── */
+        .dining-directory-grid {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Cột trái: Sidebar chọn nhà hàng */
+        .sidebar-panel {
+            width: 22%; 
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .restaurant-section-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            padding-left: 8px;
+        }
+
+        .sidebar-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            background-color: transparent;
+            border: none;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: background-color 0.15s ease, color 0.15s ease;
+            width: 100%;
+        }
+
+        .sidebar-link .sb-icon {
+            font-family: 'Material Symbols Outlined';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 19px;
+            line-height: 1;
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            color: #aaa;
+            flex-shrink: 0;
+            transition: color 0.15s ease;
+        }
+
+        .sidebar-link:hover {
+            background-color: #f0ede8;
+            color: #1a1a1a;
+        }
+
+        .sidebar-link:hover .sb-icon {
+            color: #8e4464;
+        }
+
+        .sidebar-link.active {
+            background-color: #f0e3ea;
+            color: #6b3049;
+            font-weight: 700;
+        }
+
+        .sidebar-link.active .sb-icon {
+            color: #8e4464;
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Cột phải: Card chi tiết lớn */
+        .detail-panel {
+            flex-grow: 1;
+        }
+
+        .detail-card {
+            width: 100%;
+            background-color: var(--bg-light);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            display: flex;
+            gap: 40px;
+            /* ĐỔI THÀNH STRETCH: Ép cột chữ phải kéo dài tối đa theo chiều cao của cột ảnh */
+            align-items: stretch; 
+        }
+
+        /* ─── SUB-COLUMN 1: CỘT TRÁI CHỨA ẢNH VÀ TIÊU ĐỀ ─── */
+        .sub-col-left {
+            width: 48%; 
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        .detail-image-wrapper {
+            margin-bottom: 20px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .detail-image {
+            width: 100%;
+            height: 380px; 
+            object-fit: cover;
+            border-radius: 0; 
+            border: none;
+            display: block;
+        }
+
+        .detail-name {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+
+        /* Cụm location và hours nằm chung một hàng ngang */
+        .detail-name-meta {
+            display: flex;
+            flex-direction: row; 
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .detail-name-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .detail-name-meta-item .sb-icon {
+            font-family: 'Material Symbols Outlined';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+            line-height: 1;
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            color: #aaa;
+            flex-shrink: 0;
+        }
+
+        /* Dấu chấm tròn phân cách */
+        .detail-meta-divider {
+            color: #ccc;
+            font-size: 12px;
+            user-select: none;
+        }
+
+        .detail-tagline {
+            font-size: 14px;
+            font-style: italic;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-weight: 500;
+            border-left: 3px solid var(--active-row);
+            padding-left: 10px;
+        }
+
+        /* ─── SUB-COLUMN 2: CỘT PHẢI CHỨA MÔ TẢ (KÉO DÀI ĐỂ LẤP ĐẦY KHOẢNG TRỐNG) ─── */
+        .sub-col-right {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 4px;
+        }
+
+        .detail-desc {
+            font-size: 14.5px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 24px;
+            text-align: justify;
+            white-space: pre-line; 
+        }
+
+        /* Khu vực chứa cụm nút hành động */
+        .detail-actions {
+            margin-top: auto; /* Đẩy cụm nút xuống sát cạnh đáy một cách hoàn hảo nhờ thuộc tính stretch phía trên */
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        /* Nút Book a table: Chống xuống dòng */
+        .btn-primary {
+            background-color: var(--btn-book);
+            color: #ffffff;
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: none;
+            cursor: pointer;
+            transition: opacity 0.15s ease;
+            white-space: nowrap; 
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        /* Nút View Menu: Chống xuống dòng */
+        .btn-secondary {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+            padding: 14px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+            white-space: nowrap; 
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-light);
+            border-color: var(--text-dark);
+        }
+
+    </style>
+}
+
+@* ── BODY CONTENT ── *@
+
+<div class="dining-page-container">
+        
+    <div class="dining-intro-block">
+        <h1 class="dining-intro-heading">Food and drink</h1>
+        <p class="dining-intro-desc">
+            From quick snacks to relaxed meals, National Zoo offers plenty of tasty food and drink to fuel your day of discovery. Whether you’re visiting with little ones, meeting friends or taking a well-earned break between animal encounters, you’ll find something delicious waiting for you. Across our cafés and restaurants, you’ll discover freshly prepared dishes, family friendly favourites, great value offers and treats worth stopping for, including menus created especially for Young Explorers.
+        </p>
+    </div>
+
+    <div class="dining-directory-grid">
+        
+        <div class="sidebar-panel">
+            <div class="restaurant-section-label">Our restaurants</div>
+            <div class="sidebar-list">
+                <button class="sidebar-link active" onclick="selectRestaurant('gannet', this)">
+                    <span class="sb-icon">restaurant</span>The Gannet
+                </button>
+                <button class="sidebar-link" onclick="selectRestaurant('grasslands', this)">
+                    <span class="sb-icon">eco</span>Grasslands
+                </button>
+                <button class="sidebar-link" onclick="selectRestaurant('manado', this)">
+                    <span class="sb-icon">ramen_dining</span>Manado Street Kitchen
+                </button>
+                <button class="sidebar-link" onclick="selectRestaurant('trout', this)">
+                    <span class="sb-icon">set_meal</span>Trout River Grill
+                </button>
+                <button class="sidebar-link" onclick="selectRestaurant('jaguar', this)">
+                    <span class="sb-icon">local_cafe</span>Jaguar Coffee House
+                </button>
+            </div>
+        </div>
+
+        <div class="detail-panel" id="detail-panel">
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Toàn bộ dữ liệu văn bản từ file txt của bạn
+        const restaurantData = {
+            gannet: {
+                name: "The Gannet",
+                tagline: "Curated British classics & premium artisan ingredients",
+                location: "Main Courtyard Hub",
+                hours: "11:30 AM - 5:00 PM",
+                description: "The heart of food and drink at National Zoo \n\nThe Gannet is our largest dining space, a relaxed and welcoming restaurant serving freshly prepared food all day. It’s the perfect spot to pause, refuel and plan your next adventure.\n\nThe menu features comforting classics, nourishing bowls, hot sandwiches and small plates, made with ingredients from trusted Scottish producers, including Isle of Arran ice cream, artisan cheeses and breads, and the best of the season’s harvest.\n\nFamilies are well looked after with a range of family friendly options, including: \n\n•Feed the Herd meal deals\n•Young Explorers meals for under 13s, from tiger toasties to mini fish and chips\n•Freshly baked cakes, pastries and barista made coffee, available to take away and enjoy as you explore the zoo \n\n With plenty of space for families to relax together, The Gannet is a comfortable spot to refuel before heading back out to explore. Whether you’re dining in or grabbing something to take with you, The Gannet is the ideal base for your zoo adventure.",
+                image: "/Source/dining/chicken.jpg",
+                hasBooking: true,
+                menuLink: "/Source/menu/dining/gannet-menu.pdf"
+            },
+            grasslands: {
+                name: "Grasslands",
+                tagline: "Gourmet family burgers & vibrant seasonal healthy salads",
+                location: "East Reserve near Elephant Trek",
+                hours: "10:00 AM - 4:30 PM",
+                description: "Street food, inspired by adventure\n\nOpen every weekend, Grasslands is a relaxed spot to refuel during your day of discovery. Inspired by bold flavours from around the world, the menu features street food favourites including bao buns, buttermilk fried chicken and stone baked pizzas.\n\nLook out for Roaring Rewards alongside tasty options for Young Explorers!",
+                image: "/Source/dining/grasslands.jpg",
+                hasBooking: true,
+                menuLink: "/Source/menu/dining/grasslands-menu.pdf"
+            },
+            manado: {
+                name: "Manado Street Kitchen",
+                tagline: "Tasty street food & authentic South East Asian inspired dishes",
+                location: "Tiger Trail Plaza",
+                hours: "11:00 AM - 4:00 PM",
+                description: "After you’ve experienced the wonderful sights, sounds and smells on your expedition to Islands, where you feel immersed into the heart of South East Asia, you might fancy a taste explosion as part of your experience!\n\nWe have a great outdoor seating area where you can enjoy your food in the sunshine – and if the weather does turn a little gloomy, don’t worry! Manado Street Kitchen has four spacious sheltered seating areas. Here, you can stay warm and dry, whatever the weather, whilst still enjoying the great atmosphere \n\n Check out the full menu below to see all of the delicious food on offer.",
+                image: "/Source/dining/manado-rice-bowl-sqaure.jpeg",
+                hasBooking: true,
+                menuLink: "/Source/menu/dining/manado-menu.pdf"
+            },
+            trout: {
+                name: "Trout River Grill",
+                tagline: "Flame-cooked smoky grills & signature golden fish & chips",
+                location: "River Waterfront Deck",
+                hours: "10:30 AM - 5:00 PM",
+                description: "Pick up food for the whole family at this American-style fast casual restaurant. Here we offer tasty burgers, bowls, and more. Drinks include craft beer and frozen margaritas. \n\nThis restaurant also has vegetarian and gluten free options. Seating is available inside and multiple locations outside at the patio and around Gardens at Trout River Plaza.",
+                image: "/Source/dining/trout-river-grill.png",
+                hasBooking: true,
+                menuLink: "/Source/menu/dining/trout-river-grill-menu.pdf"
+            },
+            jaguar: {
+                name: "Jaguar Coffee House",
+                tagline: "Enjoy specialty coffees & sandwiches right next to the jaguar habitat",
+                location: "Next to Spirit of the Jaguar",
+                hours: "8:15 AM - 9:45 AM",
+                description: "Enjoy barista-made coffees, refreshing cold drinks, and a tasty range of freshly prepared sandwiches and cakes. Every cup is made with care, and if you’re on the move, our takeaway cups and lids are fully compostable. Situated right next to the Spirit of the Jaguar, our coffee shop offers a relaxing spot to unwind while staying close to the action.\n\nStep inside\nOur Jaguar Coffee House is tucked away next to the jaguar habitat and is the perfect venue to relax and refuel before continuing your adventure!",
+                image: "/Source/dining/restaurant.jpg",
+                hasBooking: true,
+                menuLink: "/Source/menu/dining/gannet-menu.pdf"
+            }
+        };
+
+        function selectRestaurant(key, element) {
+            const links = document.querySelectorAll('.sidebar-link');
+            links.forEach(l => l.classList.remove('active'));
+            element.classList.add('active');
+
+            const r = restaurantData[key];
+            const panel = document.getElementById('detail-panel');
+
+            panel.innerHTML = `
+                <div class="detail-card">
+                    <div class="sub-col-left">
+                        <div class="detail-image-wrapper">
+                            <img src="${r.image}" class="detail-image" alt="${r.name}">
+                        </div>
+                        <div class="detail-name">${r.name}</div>
+                        
+                        <div class="detail-name-meta">
+                            <div class="detail-name-meta-item">
+                                <span class="sb-icon">location_on</span>
+                                <span>${r.location}</span>
+                            </div>
+                            <span class="detail-meta-divider">•</span>
+                            <div class="detail-name-meta-item">
+                                <span class="sb-icon">schedule</span>
+                                <span>${r.hours}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="detail-tagline">${r.tagline}</div>
+                    </div>
+                    
+                    <div class="sub-col-right">
+                        <p class="detail-desc">${r.description}</p>
+                        <div class="detail-actions">
+                            <a class="btn-secondary" href="${r.menuLink}" target="_blank">
+                                <span class="material-symbols-outlined">menu_book</span>
+                                View menu
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Tải dữ liệu mặc định khi vừa mở trang
+        window.addEventListener('DOMContentLoaded', () => {
+            const firstBtn = document.querySelector('.sidebar-link');
+            selectRestaurant('gannet', firstBtn);
+        });
+    </script>
+}

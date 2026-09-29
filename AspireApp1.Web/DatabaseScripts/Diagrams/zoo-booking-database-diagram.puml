@@ -1,0 +1,286 @@
+@startuml
+hide methods
+hide stereotypes
+skinparam backgroundColor #FCFBF7
+skinparam shadowing false
+skinparam linetype ortho
+skinparam defaultFontName "Segoe UI"
+skinparam class {
+  BackgroundColor White
+  BorderColor #2F4858
+  ArrowColor #5C6B73
+  FontColor #1F2933
+}
+
+entity "users" as users {
+  *id : bigint <<PK>>
+  --
+  email : varchar
+  password_hash : varchar
+  full_name : varchar
+  phone : varchar
+  status : varchar
+}
+
+entity "member_plans" as member_plans {
+  *id : bigint <<PK>>
+  --
+  name : varchar
+  duration_days : int
+  price : decimal
+  status : varchar
+}
+
+entity "memberships" as memberships {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  member_plan_id : bigint <<FK>>
+  start_date : date
+  end_date : date
+  status : varchar
+}
+
+entity "product_categories" as product_categories {
+  *id : bigint <<PK>>
+  --
+  code : varchar
+  name : varchar
+}
+
+entity "products" as products {
+  *id : bigint <<PK>>
+  --
+  category_id : bigint <<FK>>
+  name : varchar
+  base_price : decimal
+  requires_date : boolean
+  status : varchar
+}
+
+entity "product_variants" as product_variants {
+  *id : bigint <<PK>>
+  --
+  product_id : bigint <<FK>>
+  sku : varchar
+  price : decimal
+  stock_qty : int
+}
+
+entity "activities" as activities {
+  *id : bigint <<PK>>
+  --
+  product_id : bigint <<FK>>
+  location : varchar
+  duration_minutes : int
+}
+
+entity "activity_sessions" as activity_sessions {
+  *id : bigint <<PK>>
+  --
+  activity_id : bigint <<FK>>
+  session_date : date
+  start_time : time
+  capacity : int
+  reserved_qty : int
+  sold_qty : int
+}
+
+entity "carts" as carts {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  session_token : varchar
+  status : varchar
+  expires_at : timestamp
+}
+
+entity "cart_items" as cart_items {
+  *id : bigint <<PK>>
+  --
+  cart_id : bigint <<FK>>
+  product_id : bigint <<FK>>
+  product_variant_id : bigint <<FK>>
+  activity_session_id : bigint <<FK>>
+  quantity : int
+  unit_price : decimal
+}
+
+entity "inventory_holds" as inventory_holds {
+  *id : bigint <<PK>>
+  --
+  cart_id : bigint <<FK>>
+  user_id : bigint <<FK>>
+  hold_code : varchar
+  expires_at : timestamp
+  status : varchar
+}
+
+entity "inventory_hold_items" as inventory_hold_items {
+  *id : bigint <<PK>>
+  --
+  hold_id : bigint <<FK>>
+  activity_session_id : bigint <<FK>>
+  quantity : int
+}
+
+entity "orders" as orders {
+  *id : bigint <<PK>>
+  --
+  order_no : varchar
+  user_id : bigint <<FK>>
+  status : varchar
+  grand_total : decimal
+  created_at : timestamp
+}
+
+entity "order_items" as order_items {
+  *id : bigint <<PK>>
+  --
+  order_id : bigint <<FK>>
+  product_id : bigint <<FK>>
+  product_variant_id : bigint <<FK>>
+  activity_session_id : bigint <<FK>>
+  quantity : int
+  line_total : decimal
+}
+
+entity "payments" as payments {
+  *id : bigint <<PK>>
+  --
+  order_id : bigint <<FK>>
+  provider : varchar
+  payment_ref : varchar
+  amount : decimal
+  status : varchar
+}
+
+entity "refunds" as refunds {
+  *id : bigint <<PK>>
+  --
+  payment_id : bigint <<FK>>
+  amount : decimal
+  status : varchar
+}
+
+entity "tickets" as tickets {
+  *id : bigint <<PK>>
+  --
+  order_item_id : bigint <<FK>>
+  ticket_code : varchar
+  valid_date : date
+  status : varchar
+}
+
+entity "checkins" as checkins {
+  *id : bigint <<PK>>
+  --
+  ticket_id : bigint <<FK>>
+  staff_user_id : bigint <<FK>>
+  gate_name : varchar
+  checkin_time : timestamp
+}
+
+entity "promotions" as promotions {
+  *id : bigint <<PK>>
+  --
+  code : varchar
+  discount_type : varchar
+  discount_value : decimal
+  status : varchar
+}
+
+entity "coupon_redemptions" as coupon_redemptions {
+  *id : bigint <<PK>>
+  --
+  promotion_id : bigint <<FK>>
+  user_id : bigint <<FK>>
+  order_id : bigint <<FK>>
+  redeemed_at : timestamp
+}
+
+entity "donations" as donations {
+  *id : bigint <<PK>>
+  --
+  order_id : bigint <<FK>>
+  amount : decimal
+  campaign_name : varchar
+}
+
+entity "addresses" as addresses {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  line1 : varchar
+  city : varchar
+  country : varchar
+}
+
+entity "shipments" as shipments {
+  *id : bigint <<PK>>
+  --
+  order_id : bigint <<FK>>
+  address_id : bigint <<FK>>
+  shipping_method : varchar
+  status : varchar
+}
+
+entity "private_event_requests" as private_event_requests {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  event_date : date
+  guest_count : int
+  status : varchar
+  quoted_price : decimal
+}
+
+entity "notifications" as notifications {
+  *id : bigint <<PK>>
+  --
+  user_id : bigint <<FK>>
+  channel : varchar
+  template_code : varchar
+  status : varchar
+}
+
+users ||--o{ carts
+users ||--o{ orders
+users ||--o{ memberships
+users ||--o{ addresses
+users ||--o{ private_event_requests
+users ||--o{ notifications
+users ||--o{ coupon_redemptions
+users ||--o{ inventory_holds
+users ||--o{ checkins : staff
+
+member_plans ||--o{ memberships
+
+product_categories ||--o{ products
+products ||--o{ product_variants
+products ||--|| activities
+products ||--o{ cart_items
+products ||--o{ order_items
+
+activities ||--o{ activity_sessions
+activity_sessions ||--o{ cart_items
+activity_sessions ||--o{ order_items
+activity_sessions ||--o{ inventory_hold_items
+
+carts ||--o{ cart_items
+carts ||--o{ inventory_holds
+inventory_holds ||--o{ inventory_hold_items
+
+orders ||--o{ order_items
+orders ||--o{ payments
+orders ||--o{ donations
+orders ||--o{ shipments
+orders ||--o{ coupon_redemptions
+
+payments ||--o{ refunds
+order_items ||--o{ tickets
+tickets ||--o{ checkins
+
+promotions ||--o{ coupon_redemptions
+addresses ||--o{ shipments
+@enduml

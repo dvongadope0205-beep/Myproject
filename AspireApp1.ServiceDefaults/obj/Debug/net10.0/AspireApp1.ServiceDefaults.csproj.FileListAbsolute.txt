@@ -1,0 +1,13 @@
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\bin\Debug\net10.0\AspireApp1.ServiceDefaults.deps.json
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\bin\Debug\net10.0\AspireApp1.ServiceDefaults.dll
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\bin\Debug\net10.0\AspireApp1.ServiceDefaults.pdb
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.csproj.AssemblyReference.cache
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.AssemblyInfoInputs.cache
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.AssemblyInfo.cs
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.csproj.CoreCompileInputs.cache
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.dll
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\refint\AspireApp1.ServiceDefaults.dll
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireApp1.ServiceDefaults.pdb
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\ref\AspireApp1.ServiceDefaults.dll
+C:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\obj\Debug\net10.0\AspireAp.32FF82CE.Up2Date

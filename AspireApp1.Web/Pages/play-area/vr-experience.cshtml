@@ -1,0 +1,715 @@
+﻿@page "/play-area/vr-experience"
+@model ZooProject.Pages.PlayArea.VrExperience
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           1. BIẾN MÀU SẮC & THIẾT LẬP CHUNG
+        ========================================= */
+        :root {
+            --brand-teal: #0b3c98;
+            --brand-mint: #a1d4cd;
+            --brand-icy: #e2f1f0; 
+            --neon-lime: #E4EC81;
+            --text-light: rgba(255, 255, 255, 0.85);
+            --bg-dark: #0b1c1b; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: #0a3d3d !important;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Hiệu ứng hạt nhiễu (Grainy) nền */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Khung chứa nội dung chính */
+        .detail-container {
+            max-width: 1254px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =========================================
+           2. TYPOGRAPHY & HEADER
+        ========================================= */
+        .page-title {
+            font-family: 'Passion One', display;
+            font-size: 7rem;
+            font-weight: 700;
+            color: #fdf5e6;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            text-align: center; 
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .invitation {
+            display: block;
+            margin: 0px auto 60px !important;
+            max-width: 576px;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+            color: var(--brand-icy);
+            border: 0 solid rgb(229, 231, 235);
+        }
+
+        /* =========================================
+           3. BỐ CỤC SO LE (STAGGERED LAYOUT)
+        ========================================= */
+        .activity-section {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .split-row {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        /* Đ$o ngư$c vị trí hình/chữ cho hàng chẵn */
+        .split-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .split-image-wrapper {
+            width: 660px;
+            display: block;
+        }
+
+        .split-image-wrapper img {
+            width: 660px !important;
+            height: 660px !important;
+            max-width: 660px !important;
+            object-fit: cover;
+            object-position: 50% 50%;
+            overflow: clip;
+            overflow-clip-margin: content-box;
+            vertical-align: middle;
+            aspect-ratio: auto 1000 / 1000;
+            border-radius: 24px;
+        }
+
+        .split-text-wrapper {
+            flex: 1;
+        }
+
+        .split-text-wrapper h2 {
+            display: block;
+            font-family: 'Passion One', display;
+            margin-bottom: 16px;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 44px;
+            color: var(--brand-icy);
+            border: 0 solid rgb(229, 231, 235);
+        }
+
+        /* Định dạng văn b$n */
+        .box {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 36px;
+            color: #D0EFEF;
+            border: 0 solid rgb(229, 231, 235);
+        }
+
+        .box strong {
+            color: #5DA9B0;
+            font-weight: 900;
+        }
+
+        /* =========================================
+           Ý TƯỞNG DESIGN MỚI: PHẦN GIÁ VÉ & THÔNG TIN (MỤC 1 & 2)
+        ========================================= */
+        .vr-pricing-section {
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .price-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 36px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .price-card:hover {
+            transform: translateY(-4px);
+            border-color: #d1f5de;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .price-card.members-highlight {
+            border-color: #e1f9f4;
+            background: rgba(161, 212, 205, 0.04);
+        }
+
+        .price-card .card-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-icy);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .price-card .card-value {
+            font-family: 'Passion One', display;
+            font-size: 4.5rem;
+            color: #9ee9d5;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .price-card.members-highlight .card-value {
+            color: #F1FCFF;
+            text-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .price-card .card-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Khung chi tiết ưu đ$i & quy định đặt vé */
+        .vr-info-notice-box {
+            background: rgba(11, 60, 152, 0.1);
+            border: 1px solid rgba(11, 60, 152, 0.25);
+            border-radius: 32px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 48px;
+        }
+
+        .info-notice-left h3 {
+            font-family: 'Passion One', display;
+            font-size: 28px;
+            color: var(--brand-mint);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-notice-left ul {
+            list-style: none;
+        }
+
+        .info-notice-left ul li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            line-height: 24px;
+            color: #ffffff;
+        }
+
+        .info-notice-left ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--neon-lime);
+            font-weight: bold;
+        }
+
+        .info-notice-right {
+            border-left: 3px solid var(--neon-lime);
+            padding-left: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .info-notice-right p {
+            font-size: 15px;
+            line-height: 22px;
+            color: var(--text-light);
+        }
+
+        /* =========================================
+           Ý TƯỞNG DESIGN MỚI: TERMS & CONDITIONS (MỤC 3)
+        ========================================= */
+        .vr-terms-section {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 32px;
+            padding: 48px;
+            margin-bottom: 80px;
+        }
+
+        .terms-heading {
+            font-family: 'Passion One', display;
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .terms-heading::before {
+            content: "";
+            display: inline-block;
+            width: 6px;
+            height: 24px;
+            background: var(--neon-lime);
+            border-radius: 3px;
+        }
+
+        .terms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .terms-item {
+            display: flex;
+            gap: 16px;
+            background: rgba(255, 255, 255, 0.01);
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .terms-item-icon {
+            color: var(--neon-lime);
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .terms-item-text {
+            font-size: 15px;
+            line-height: 22px;
+            color: var(--text-light);
+        }
+
+        .terms-item-text strong {
+            color: #ffffff;
+        }
+
+        /* =========================================
+           4. MISSION BANNER (Đồng bộ từ Wildlife Wood)
+        ========================================= */
+        .mission-banner {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 48px;
+            min-height: 600px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mission-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .mission-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(11, 28, 27, 0.95) 0%, rgba(11, 28, 27, 0.7) 30%, rgba(11, 28, 27, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .mission-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .mission-content h2 {
+            font-family: 'Passion One', display;
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .mission-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: #e2f1f0;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--neon-lime);
+            color: #000000;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 16px 36px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            background-color: #93a827;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* =========================================
+           5. RESPONSIVE (Cho Mobile)
+        ========================================= */
+        @@media (max-width: 900px) {
+            .page-title { font-size: 4rem; margin-bottom: 40px; }
+            .split-row, .split-row:nth-child(even) {
+                flex-direction: column;
+                gap: 32px;
+            }
+            .split-image-wrapper { width: 100%; }
+            .split-image-wrapper img { width: 100% !important; height: auto !important; }
+            .activity-section { gap: 60px; }
+            
+            /* Responsive phần mới thêm */
+            .pricing-grid { grid-template-columns: 1fr; gap: 16px; }
+            .vr-info-notice-box { grid-template-columns: 1fr; gap: 32px; padding: 24px; }
+            .info-notice-right { padding-left: 0; border-left: none; border-top: 3px solid var(--neon-lime); padding-top: 24px; }
+            .vr-terms-section { padding: 24px; }
+            .terms-grid { grid-template-columns: 1fr; gap: 16px; }
+
+            .mission-banner { padding: 40px 24px; min-height: 450px; }
+            .mission-overlay { background: linear-gradient(to top, rgba(11, 28, 27, 0.95) 0%, rgba(11, 28, 27, 0.4) 100%); }
+            .mission-content h2 { font-size: 2.8rem; }
+        }
+        </style>
+}
+
+@* ── BODY CONTENT ── *@
+
+<div class="texture-overlay"></div>
+
+    <main class="detail-container">
+        
+        <h1 class="page-title">Virtual Reality Experiences</h1>
+        <div class="invitation">
+            <p>Lose yourself in the world of VR where you can choose to swim with sharks or walk with gorillas - there's a whole world to see! </p>
+        </div>
+               
+        <div class="activity-section">
+            
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <div class="image-container">
+                        <img src="/Source/play-area/family%20activities/vr%20experience/img/polar-odyssey-english-social-1.jpeg" alt="Polar bear VR">
+                    </div>
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>NEW: Polar Odyssey</h2>
+                    <div class="box">
+                        <p>
+                            An immersive VR adventure that transports guests to the Canadian Arctic, where polar bears 
+                            endure months of waiting for the winter ice to return. An entertaining experience for families 
+                            and explorers of all ages where you'll step into breathtaking cinematography with real-world
+                            science and conservation storytelling. Brave the ice and witness the resilience of the largest 
+                            land predator in one of the harshest environments on Earth. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/dinosaur.jpeg" alt="Dinosaur VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Dinosaur Evolution</h2>           
+                    <div class="box">
+                        <p>
+                            Step back 66 million years and journey through the final chapter of the age of dinosaurs 
+                            in Dinosaur Evolution—a thrilling immersive experience that brings the Cretaceous world to 
+                            life. Witness feathered raptors on the hunt, armoured giants defending their turf, and the 
+                            mighty T. rex at the top of the food chain. But even these perfectly evolved creatures 
+                            couldn’t escape Earth’s most devastating extinction event. Stunning visuals and cutting-edge 
+                            science reveal how evolution shaped the dinosaurs—and how birds, their modern-day descendants, 
+                            continue their legacy. It's a prehistoric adventure that will inspire the next generation of 
+                            palaeontologists and conservationists alike.
+                        </p>
+                    </div>
+                </div>
+            </div>            
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/dolphins-of-the-reef-vr-experience.jpeg" alt="Dolphin VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Dolphins of the Reef</h2>           
+                    <div class="box">
+                        <p>
+                            Join Marine Biologist Dr Shireen Rahimi on her search to discover why the Egyptian Red Sea 
+                            holds some of the most vibrant coral reef systems in the World, whilst coming face-to-face 
+                            with the incredible bottlenose dolphin species. Dolphins of the Reef explores the unique bond 
+                            between a pod of bottlenose dolphins and their surrounding coral reefs, uncovering remarkable 
+                            behaviour and conservation challenges
+                        </p>
+                    </div>
+                </div>
+            </div>             
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/gorilla-trek-vr-title.jpeg" alt="Gorilla VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Gorilla Trek</h2>           
+                    <div class="box">
+                        <p>
+                            Journey to the <strong>forests of East Africa</strong> to join a dedicated team of 
+                            conservationists. Get closer than ever before to a troop of <strong>endangered gorillas</strong> 
+                            from the depths of Rwanda in a new <strong>exhilarating perspective!</strong> Enjoy a 360° visual 
+                            experience with a <strong>motion seat, immersive VR headset and audio.</strong>
+                        </p>
+                        <br>
+                        <p>
+                            With only 1,000 mountain gorillas left in their natural habitat, this one-of-a-kind encounter 
+                            gives you the chance to <strong>engage</strong> with this extraordinary species and <Strong>learn more</Strong>
+                            about how they behave with one another. Witness the alpha silverback protect its family when a subordinate 
+                            gorilla fights for leadership. All from the comfort of National Zoo!
+                        </p>
+                    </div>
+                </div>
+            </div>             
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/shark-dive-vr-title.jpeg" alt="Shark VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Shark Dive</h2>           
+                    <div class="box">
+                        <p>
+                            Have you ever dreamed of <strong>exploring the depths of the ocean</strong>, 
+                            discovering the wonders of the underwater world and coming face to face with 
+                            some of the most fearsome predators of the sea? <strong>Well, now you can!</strong> Go on an epic 
+                            virtual adventure to Tiger Beach, a renowned destination for its crystal-clear 
+                            waters and stunning coral reefs full of rich marine life. Including the majestic 
+                            <strong>Tiger sharks!</strong>
+                        </p>
+                        <br>
+                        <p>
+                            Introducing a 360° visual experience, Shark Dive, complete with motion seat, immersive 
+                            VR headset and captivating audio! This truly breath-taking encounter allows you to feel 
+                            as though you are really there, plunging into the deep blue sea as you <strong>swim alongside these 
+                            magnificent creatures.</strong> The perfect way to explore in the comfort of the zoo.
+                        </p>
+                    </div>
+                </div>
+            </div>             
+            
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/the-great-migration-vr-title.jpeg" alt="Animal VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>The Great Migration</h2>           
+                    <div class="box">
+                        <p>
+                            Take an <strong>incredible journey</strong> through Africa’s Great Migration. Each 
+                            year millions of wildebeests, zebras, and antelopes traverse <strong>East Africa’s</strong> wide-open 
+                            grasslands in a continuous, circular trek in search of fresh grazing lands and water.
+                        </p>
+                        <br>
+                        <p>
+                            Witness how these millions of <Strong>free-roaming animals</Strong> make their way through the peaks and perils of Africa’s savannah.
+                        </p>
+                    </div>
+                </div>
+            </div>             
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/flight-of-the-mantas-vr-title.png" alt="Mantra VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Flight of the Mantas</h2>           
+                    <div class="box">
+                        <p>
+                            The majestic manta rays of Mozambique need our help to survive. Go on a <Strong>deep dive</Strong> 
+                            beneath the clear seas off the coast of Mozambique with marine conservationists, where you’ll <strong>swim 
+                            amongst manta rays.</strong> This stunning 360° visual experience will make you feel like you’ve been 
+                            transported to another world!
+                        </p>
+                        <br>
+                        <P>
+                            This groundbreaking initiative aims to raise awareness about the threats these <strong>highly intelligent creatures</strong> 
+                            face and, to inspire people worldwide to help create a future where these giants of the ocean thrive long into the future.
+                        </P>
+                    </div>
+                </div>
+            </div>
+
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/vr%20experience/img/swimming-with-humpbacks-vr-title.jpeg" alt="Humpbacks VR">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Swimming with the Humpbacks</h2>           
+                    <div class="box">
+                        <p>
+                            Go on a dynamic educational journey as we search undersea and in the air, <strong>following a team of marine biologists</strong> 
+                            who find a pod of humpbacks to the South Pacific near the island of Tonga. Beginning with a 
+                            mating ritual, we soon come upon a newborn and its mother. We <strong>see how the behaviour of the 
+                            mother evolves</strong> as the calf gets older.
+                        </p>
+                        <br>
+                        <p>
+                            This is a truly immersive and goosebump-inducing close encounter with one of the 
+                            <strong>largest and gentlest mammals</strong> on the planet!
+                        </p>
+                    </div>
+                </div>
+            </div>    
+
+        </div> <section class="vr-pricing-section">
+            
+            <div class="pricing-grid">
+                <div class="price-card members-highlight">
+                    <div class="card-label">Members</div>
+                    <div class="card-value">$5.50</div>
+                    <div class="card-desc">Special discounted rate for active zoo members</div>
+                </div>
+                <div class="price-card">
+                    <div class="card-label">1 Standard Ticket</div>
+                    <div class="card-value">$7.50</div>
+                    <div class="card-desc">Single entry standard admission ticket</div>
+                </div>
+                <div class="price-card">
+                    <div class="card-label">2 Standard Tickets</div>
+                    <div class="card-value">$13</div>
+                    <div class="card-desc">Combo ticket package for two standard entries</div>
+                </div>
+            </div>
+
+            <div class="vr-info-notice-box">
+                <div class="info-notice-left">
+                    <h3>Discounted Rates</h3>
+                    <ul>
+                        <li>Enjoy our Virtual Reality experience at discounted rates.</li>
+                        <li>Only $5.50 each for all members</li>
+                        <li>With a further discount of $9 for two members.</li>
+                        <li>$13 for two standard tickets</li>
+                    </ul>
+                </div>
+                <div class="info-notice-right">
+                    <p>Non-members can pre-book their VR ticket online as an added extra when purchasing their zoo ticket, or on-the-day at the VR theatre.</p>
+                    <p><strong>Members must purchase</strong> their VR ticket on the day, where they’ll receive their discount by simply showing their membership card(s).</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="vr-terms-section">
+            <h2 class="terms-heading">A few Terms and Conditions:</h2>
+            
+            <div class="terms-grid">
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Experience lasts for approximately <strong>7 minutes</strong>.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Open <strong>7 days a week</strong> from 10am until zoo closing time, including weekends and school holidays. Please note that opening times may vary during the week.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">This experience is <strong>not</strong> recommended for guests who suffer from photosensitive epilepsy, have back and neck problems or pregnant.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">All participants <strong>must</strong> have a ticket for the zoo or a valid membership card.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">We <strong>only accept card purchases</strong> for this experience.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Purchase tickets at the VR theatre after admission lanes.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Anyone under 13 years of age <strong>must be accompanied</strong> by an adult/guardian.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Minimum height of <strong>90cm</strong>.</div>
+                </div>
+                
+                <div class="terms-item">
+                    <div class="terms-item-icon">→</div>
+                    <div class="terms-item-text">Maximum weight of <strong>21 stone</strong>.</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="mission-banner">
+            <img src="/Source/play-area/family%20activities/vr%20experience/mission-vr.jpg" class="mission-bg-img" alt="Red Panda Target Mission">
+            <div class="mission-overlay"></div>
+            <div class="mission-content">
+                <h2>Support our mission</h2>
+                <p>Every penny spent in our gift shops, face painting stations or food outlets supports our vital conversation projects, helping to save endangered species and habitats across the world!</p>
+                <a href="/Tickets" class="btn-cta">BOOK ZOO TICKETS</a>
+            </div>
+        </div>
+
+    </main>
+

@@ -1,0 +1,25 @@
+        :root {
+            --color-bg-light: #f4eee0;
+            --color-blue: #0077b6;
+            --color-orange: #ffab4d;
+            --color-orange-light: #fba953;
+            --color-dark: #121212;
+            --color-red: #ef476f;
+            --color-green: #aec965;
+            --border-thick: 3px solid var(--color-dark);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* ===== LEAF PATTERN BACKGROUND ===== */
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background-color: var(--color-bg-light);
+            background-image: url('./pattern-bkg.png');
+            background-repeat: repeat;
+            background-size: 200px;
+            min-height: 100vh;
+        }

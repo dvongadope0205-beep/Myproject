@@ -1,0 +1,111 @@
+@page
+@model WebApps.Pages.LoginModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Đăng Nhập - National Conservation Zoo";
+    ViewData["HideFooter"] = true; // Use more space for center alignment
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.5/css/all.min.css" />
+    <style>
+        /* Override body from login.css to isolate it to wrapper */
+        body { display: block !important; margin: 0; padding: 0; min-height: auto; }
+        
+        .login-page-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 100px); /* Account for header */
+            background: transparent;
+            padding-top: 120px;
+            padding-bottom: 50px;
+        }
+    </style>
+}
+
+<div class="login-page-wrapper">
+    <div class="login-container" id="login-container">
+        <div class="form-signup-container sign-up-container">
+            <form method="post" asp-page-handler="Register">
+                <h1>Sign Up</h1>
+                @if (!string.IsNullOrEmpty(Model.RegisterMessage))
+                {
+                    <div style="color: @(Model.RegisterMessage.Contains("success") ? "green" : "red"); margin: 10px 0; font-weight: bold; font-size: 13px;">@Model.RegisterMessage</div>
+                }
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="social"><i class="fa fa-google"></i></a>
+                    <a href="#" class="social"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="social"><i class="fa fa-instagram"></i></a>
+                </div>
+                <span>Or use your email</span>
+                <input type="text" name="RegName" placeholder="User Name" required />
+                <input type="email" name="RegEmail" placeholder="Email" required />
+                <input type="password" name="RegPassword" placeholder="Password (min 6 chars)" minlength="6" required />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-signin-container sign-in-container">
+            <form method="post" asp-route-returnurl="@Model.ReturnUrl">
+                <h1>Sign In</h1>
+                
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div style="color: red; margin: 10px 0; font-weight: bold;">@Model.ErrorMessage</div>
+                }
+                
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="social"><i class="fa fa-google"></i></a>
+                    <a href="#" class="social"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="social"><i class="fa fa-instagram"></i></a>
+                </div>
+                <span>Or use your account</span>
+                <input type="text" asp-for="Email" placeholder="Email or Username" required />
+                <input type="password" asp-for="Password" placeholder="Password" required />
+                <a href="/ForgotPassword">Forgot your password?</a>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Enter your personal details and start journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('login-container');
+
+        if (signUpButton && signInButton && container) {
+            signUpButton.addEventListener('click', () => {
+                container.classList.add('right-panel-active');
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+            });
+        }
+
+        // Keep Sign Up panel active if there was a registration error
+        var showSignUp = @(Model.ShowSignUpPanel ? "true" : "false");
+        if (showSignUp && container) {
+            container.classList.add('right-panel-active');
+        }
+    });
+</script>

@@ -1,0 +1,342 @@
+@page
+@model WebApps.Pages.Shopnew.ContactUsModel
+@{
+    Layout = "~/Pages/Shopnew/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Contact Us - Natural Habitat Store";
+}
+
+<main class="content-for-layout">
+<section class="shopify-section-two" id="shopify-section-template--26975594774818__rich_text_cwGMjE">
+<div class="contact-container">
+<div class="rich-text">
+<div class="rich-text-wrapper">
+<div class="rich-text-block">
+<h2 class="contact-title">Contact Us</h2>
+<div class="rich-text-text">
+<p class="contact-description"> Questions? Comments? Concerns? We want to know! Please fill out the form below and one of our awesome customer service representatives will get back to you as soon as possible. Thank you!
+                      </p>
+</div>
+</div>
+</div>
+</div>
+<style>
+        .shopify-section-two {
+          margin: 0 auto !important;
+          max-width: 1450px !important;
+          width: 100% !important;
+          font-family: 'trade-gothic-next', sans-serif;
+          line-height: calc(1 + 0.8 / 1.0);
+          letter-spacing: 0.6px;
+          padding: 20px !important;
+        }
+
+        .contact-container {
+          position: relative;
+          display: block;
+          z-index: 0;
+        }
+        .rich-text {
+          position: relative;
+          padding: 60px 0px 52px !important;
+          color: rgb(18,18,18);
+          background-attachment: scroll;
+          background-clip: border-box;
+          background-color: transparent;
+          background-image: none;
+          background-origin: border-box;
+          background-position-x: 0%;
+          background-position-y: 0%;
+          background-repeat: repeat;
+          background-size: auto;
+          border-block: 0 solid rgba(18,18,18,0.1);
+          border-inline: 0 none rgb(18,18,18);
+          z-index: 1;
+        }
+
+        .rich-text-wrapper {
+          display: flex;
+          justify-content: center;
+          max-width: 100% !important;
+          width: 100% !important;
+        }
+
+        .rich-text-block {
+          max-width: 780px !important;
+          width: 100% !important;
+          text-align: center;
+        }
+
+        .contact-title {
+          font-family: 'Dinosaur', sans-serif;
+          font-style: normal;
+          font-size: 50px;
+          margin: 0 !important;
+          font-weight: 600;
+          line-height: calc(1 + .3 / max(1, 1.0));
+          word-break: break-word;
+          color: rgb(236, 153, 60);
+          animation: none;
+          overflow-wrap: break-word;
+          transform: none;
+          text-transform: uppercase;
+        }
+
+        .contact-title::after {
+          content: "";
+          clear: both;
+          display: block;
+          box-sizing: border-box;
+        }
+
+        .rich-text-text {
+          margin-top: 20px !important;
+          animation: none;
+          opacity: 1;
+          overflow-wrap: break-word;
+        }
+
+        .rich-text-text::after {
+          content: "";
+          display: block;
+        }
+
+        .contact-description {
+          margin: 0 auto !important;
+        }
+
+        .contact-page-width {
+          max-width: 100% !important;
+          padding: 36px 0px !important;
+        }
+
+        .contact-form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+        .form-row-split {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 20px;
+        }
+        .form-field {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .form-field label {
+          font-weight: 500;
+          color: #111;
+        }
+        .form-control {
+          padding: 14px 15px;
+          border: 2px solid #e0e0e0;
+          border-radius: 8px;
+          font-family: inherit; /* Tá»± Ä‘á»™ng nháº­n font Fredoka cá»§a báº¡n */
+          font-size: 1rem;
+          width: 100%;
+          box-sizing: border-box;
+          transition: border-color 0.3s ease;
+          background-color: #fff;
+        }
+        .form-control:focus {
+          outline: none;
+          border-color: #ffab4d; /* MÃ u cam Natural Habitat */
+        }
+        .form-control::placeholder {
+          color: #999;
+        }
+        textarea.form-control {
+          resize: vertical;
+          min-height: 150px;
+        }
+        .btn-submit {
+          padding: 14px 45px;
+          background-color: #ffab4d;
+          color: #fff;
+          border: none;
+          border-radius: 8px;
+          font-family: inherit;
+          font-size: 1.1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background-color 0.3s ease, transform 0.1s ease;
+          display: inline-block;
+          margin-top: 10px;
+        }
+        .btn-submit:hover {
+          background-color: #f29c38;
+        }
+        .btn-submit:active {
+          transform: scale(0.98);
+        }
+        
+        /* Responsive cho mÃ n hÃ¬nh nhá» (Äiá»‡n thoáº¡i) */
+        @@media (max-width: 600px) {
+          .form-row-split {
+            grid-template-columns: 1fr;
+          }
+        }
+      </style>
+</div></section>
+<section class="shopify-section-two" id="shopify-section-template--26975594774818__form">
+<div class="emil">
+<div class="contact-page-width">
+<div class="kaine" style="max-width: 750px; margin: 0 auto;">
+                @if (TempData["ContactSuccess"] != null)
+                {
+                    <div style="background: #faf6f0; border: 2px solid #ebd4bd; color: #72441c; padding: 15px 20px; border-radius: 12px; margin-bottom: 25px; font-weight: 600; text-align: center; font-size: 15px;">
+                        <i class="fas fa-check-circle" style="color: #72441c; margin-right: 8px;"></i> @TempData["ContactSuccess"]
+                    </div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div style="background: #fbe9e7; border: 2px solid #ffcdd2; color: #c62828; padding: 15px 20px; border-radius: 12px; margin-bottom: 25px; font-weight: 600; text-align: center; font-size: 15px;">
+                        <i class="fas fa-exclamation-circle" style="margin-right: 8px;"></i> @TempData["ErrorMessage"]
+                    </div>
+                }
+<form method="post" class="contact-form">
+<!-- Row: Name & Email -->
+<div class="form-row-split">
+<div class="form-field">
+<label for="ContactFormName">Name</label>
+<input class="form-control" id="ContactFormName" name="contact[name]" placeholder="Your name" type="text"/>
+</div>
+<div class="form-field">
+<label for="ContactFormEmail">Email *</label>
+<input class="form-control" id="ContactFormEmail" name="contact[email]" placeholder="Your email" required="" type="email"/>
+</div>
+</div>
+<!-- Row: Phone -->
+<div class="form-field">
+<label for="ContactFormPhone">Phone</label>
+<input class="form-control" id="ContactFormPhone" name="contact[phone]" placeholder="Your phone number" type="tel"/>
+</div>
+<!-- Row: Subject -->
+<div class="form-field">
+<label for="ContactFormSubject">Subject *</label>
+<input class="form-control" id="ContactFormSubject" name="contact[subject]" placeholder="Enter the subject" required="" type="text"/>
+</div>
+<!-- Row: Reason -->
+<div class="form-field">
+<label for="ContactFormReason">Reason *</label>
+<select class="form-control" id="ContactFormReason" name="contact[reason]" required="" style="cursor: pointer;">
+<option disabled="" selected="" value="">Please select a reason</option>
+<option value="Order Status">Order Status</option>
+<option value="Exchange / Return">Exchange / Return</option>
+<option value="Cancel / Edit Order">Cancel / Edit Order</option>
+<option value="Change of Address">Change of Address</option>
+<option value="Wholesale Inquiry">Wholesale Inquiry</option>
+<option value="Suggestion">Suggestion</option>
+<option value="Other">Other</option>
+</select>
+</div>
+<!-- Row: Message -->
+<div class="form-field">
+<label for="ContactFormMessage">Message</label>
+<div class="message-input-wrapper" style="position: relative; border: 2px solid #e0e0e0; border-radius: 8px; background: #fff;">
+<textarea class="form-control" id="ContactFormMessage" name="contact[body]" placeholder="How can we help you?" rows="5" style="width: 100%; border: none; outline: none; resize: none; overflow: hidden; min-height: 150px; padding: 15px; padding-bottom: 50px; background: transparent; font-family: inherit;"></textarea>
+<div style="position: absolute; bottom: 12px; left: 15px; display: flex; align-items: center; gap: 12px;">
+<label for="ContactFormAttachment" style="cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;">
+<svg fill="none" height="22" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22">
+<path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+</svg>
+</label>
+<div id="copy-icon-toggle" onclick="toggleFilePreview()" style="display: none; align-items: center; gap: 5px; cursor: pointer; position: relative;">
+<svg fill="none" height="20" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="20">
+<rect height="13" rx="2" ry="2" width="13" x="9" y="9"></rect>
+<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+</svg>
+<span id="file-count-badge" style="background: #142688; color: #fff; border-radius: 10px; min-width: 18px; height: 18px; font-size: 10px; display: flex; align-items: center; justify-content: center; padding: 0 5px; font-weight: 600;">0</span>
+</div>
+<input id="ContactFormAttachment" multiple="" name="contact[attachment]" onchange="handleFileSelect(event)" style="display: none;" type="file"/>
+</div>
+</div>
+<div id="file-preview-list" style="margin-top: 15px; display: none; flex-wrap: wrap; gap: 10px; padding: 10px; background: #fdfdfd; border: 1px dashed #ccc; border-radius: 8px;"></div>
+</div>
+<!-- Submit Button -->
+<div style="text-align: center;">
+<button class="btn-submit" type="submit">Send</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="/Source/shop-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/embla-carousel@@7.0.5/embla-carousel.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel@7.0.5/embla-carousel.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel-autoplay@7.0.5/embla-carousel-autoplay.umd.min.js"></script>
+<script src="/js/shop/image-hover.js"></script>
+<script src="/js/shop/products.js"></script>
+<script src="/js/shop/cart-effect.js"></script>
+<script src="/js/shop/feature.js"></script>
+<script src="/js/shop/lightbox.js"></script>
+<script src="/js/shop/size-chart.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initCartEffects();
+            initFeatures();
+        });
+    </script>
+

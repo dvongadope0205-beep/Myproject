@@ -1,0 +1,114 @@
+﻿@page
+@{
+    Layout = "~/Pages/Shopnew/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Shopping cart - Natural Habitat";
+}
+
+<main class="cart-page">
+<div class="cart-empty" id="cart-empty" style="display: none;">
+<h1 class="cart-title">Shopping Cart</h1>
+<div class="cart-empty-inner">
+<hr class="cart-empty-line"/>
+<span class="cart-empty-text">Your cart is currently empty.</span>
+<hr class="cart-empty-line"/>
+</div>
+<a class="btn-continue-shopping" href="/Shopnew/shop-all">Continue Shopping</a>
+</div>
+<div class="cart-filled-wrapper" id="cart-filled" style="display: none;">
+<h1 class="cart-title">Shopping Cart</h1>
+<hr class="cart-divider"/>
+<div class="cart-layout">
+<div class="cart-items-col">
+<div id="cart-items-list"></div>
+</div>
+<div class="cart-summary-col">
+<div class="cart-summary-inner">
+<div class="summary-subtotal-row">
+<span class="summary-label">Subtotal</span>
+<span class="summary-amount" id="summary-subtotal">$0.00</span>
+</div>
+<p class="summary-tax-note">Taxes and shipping calculated at checkout</p>
+<div class="summary-notes">
+<label class="summary-notes-label" for="order-notes">Order Notes:</label>
+<textarea class="order-notes-textarea" id="order-notes" placeholder="Add a note to your order..."></textarea>
+</div>
+<a class="btn-checkout" href="/Shopnew/checkout">Checkout</a>
+<a class="link-continue-shopping" href="/Shopnew/shop-all">Continue Shopping</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Character -->
+<section class="group-section" id="custom">
+<div class="color-scheme-1">
+<div class="section-custom">
+<div class="chars-img">
+<img src="/Source/shop-img/chars.png"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="group-section" id="custom-newsletter">
+<div class="newsletter-center">
+<div class="newsletter-wrapper">
+<h2 class="inline-richtext" data-cascade="" style="--animation-order: 1;">Subscribe to our emails</h2>
+<div class="newsletter-subheading" data-cascade="" style="
+                    --newsletter-text-font-size: 1.5rem;
+                    --newsletter-text-line-height: 1.5;
+                    --newsletter-text-letter-spacing: 0px;
+                    --animation-order: 2;
+                    ">
+<p>Be the first one to know about new drops, restocked items, and special deals!</p>
+</div>
+<div class="email-form">
+<form accept-charset="UTF-8" action="/contact#contact_form" class="newsletter-form" data-cptcha="true" data-hcaptcha-bound="true" id="contact_form" method="post">
+<input name="form_type" type="hidden" value="customer"/>
+<input name="utf8" type="hidden" value="✓"/>
+<input name="contact[tags]" type="hidden" value="newsletter"/>
+<div class="newsletter-form-field-wrapper" data-cascade="" style="--animation-order: 3;">
+<div class="field">
+<input aria-required="true" autocapitalize="off" autocomplete="email" autocorrect="off" class="field__input" id="NewsletterForm--sections--26975595397410__newsletter_3tiraB" name="contact[email]" placeholder="Email" required="" type="email" value=""/>
+<label class="field-label" for="NewsletterForm--sections--26975595397410__newsletter_3tiraB"></label>
+<button aria-label="Subscribe" class="newsletter-form-button" id="Subscribe" name="commit" type="submit">
+<span class="svg-newsletter">
+<svg class="icon icon-arrow" fill="none" viewbox="0 0 14 10" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M8.537.808a.5.5 0 0 1 .817-.162l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 1 1-.708-.708L11.793 5.5H1a.5.5 0 0 1 0-1h10.793L8.646 1.354a.5.5 0 0 1-.109-.546" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</span>
+</button>
+</div>
+</div>
+<div class="h-captcha" data-sitekey="f06e6c50-85a8-45c8-87d0-21a2b65856fe" data-size="invisible">
+<iframe aria-hidden="true" data-hcaptcha-response="" data-hcaptcha-widget-id="0uokw84v4ytn" src="https://newassets.hcaptcha.com/captcha/v1/c6e277da86802178b920b24f7bd79dd5d0c81e0d/static/hcaptcha.html#frame=checkbox-invisible" style="display: none;"></iframe>
+<textarea id="h-captcha-response-0uokw84v4ytn" name="h-captcha-response" style="display: none;"></textarea>
+</div>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" data-cart-close=""></div>
+
+<!-- FOOTER -->
+<div class="color-scheme">
+<div class="fin">
+<div class="footer-border-decoration"></div>
+</div>
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/embla-carousel@@7.0.5/embla-carousel.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel@7.0.5/embla-carousel.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/embla-carousel-autoplay@7.0.5/embla-carousel-autoplay.umd.min.js"></script>
+<script src="/js/shop/cart.js"></script>
+<script src="/js/shop/cart-effect.js"></script>
+<script src="/js/shop/feature.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initCartEffects();
+            initFeatures();
+        });
+    </script>
+

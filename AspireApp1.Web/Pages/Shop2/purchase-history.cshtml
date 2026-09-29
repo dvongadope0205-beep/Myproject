@@ -1,0 +1,352 @@
+@page
+@model WebProject.Pages.ShopPurchaseHistoryModel
+@{
+    Layout = "~/Pages/Shop2/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Purchase History - Natural Habitat Store";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.5/css/all.min.css" />
+    <style>
+        .history-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            font-family: 'Fredoka', sans-serif;
+            color: #492719;
+        }
+
+        .history-title-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .history-title-section h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #72441c;
+            margin-bottom: 10px;
+        }
+
+        .history-title-section p {
+            font-size: 16px;
+            color: #666;
+            margin: 0;
+        }
+
+        /* Tabs styling */
+        .history-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ebd4bd;
+            padding-bottom: 15px;
+        }
+
+        .tab-btn {
+            background: #faf6f0;
+            border: 2px solid #ebd4bd;
+            color: #72441c;
+            padding: 12px 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .tab-btn:hover {
+            background: #ebd4bd;
+        }
+
+        .tab-btn.active {
+            background: #72441c;
+            border-color: #72441c;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(114, 68, 28, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Order card listing */
+        .order-history-card {
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: border-color 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
+        }
+
+        .order-history-card:hover {
+            border-color: #ebd4bd;
+            box-shadow: 0 6px 18px rgba(114, 68, 28, 0.05);
+        }
+
+        .order-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1.5px dashed #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-id {
+            font-weight: 700;
+            font-size: 16px;
+            color: #72441c;
+        }
+
+        .order-date {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .order-card-body {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-item-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .order-item-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #492719;
+        }
+
+        .order-item-qty {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .order-card-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-end;
+        }
+
+        .order-total-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ec993c;
+        }
+
+        .payment-status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-Completed { background: #e8f5e9; color: #2e7d32; }
+        .badge-Pending { background: #fff8e1; color: #f57f17; }
+        .badge-Failed { background: #fbe9e7; color: #c62828; }
+        .badge-Refunded { background: #e3f2fd; color: #1565c0; }
+
+        .empty-history-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: #fff;
+            border: 2px solid #eee;
+            border-radius: 16px;
+            color: #888;
+        }
+
+        .empty-history-state i {
+            font-size: 56px;
+            color: #ebd7c5;
+            margin-bottom: 15px;
+        }
+
+        .empty-history-state p {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .shop-now-btn {
+            display: inline-block;
+            background: #ec993c;
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1.5px solid #72441c;
+            transition: opacity 0.15s;
+        }
+
+        .shop-now-btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+}
+
+<main>
+    <div class="history-wrapper">
+        <div class="history-title-section">
+            <h1>Purchase History</h1>
+            <p>View your past purchases, ticket history, and membership plans.</p>
+        </div>
+
+        <!-- Tab Buttons -->
+        <div class="history-tabs">
+            <button class="tab-btn active" onclick="switchTab(this, 'tickets')">
+                <i class="fas fa-ticket-alt"></i> Tickets
+            </button>
+            <button class="tab-btn" onclick="switchTab(this, 'membership')">
+                <i class="fas fa-id-card-alt"></i> Membership
+            </button>
+            <button class="tab-btn" onclick="switchTab(this, 'shop')">
+                <i class="fas fa-shopping-bag"></i> Shop Products
+            </button>
+        </div>
+
+        <!-- ==================== TAB: TICKETS ==================== -->
+        <div class="tab-content active" id="tickets">
+            @if (Model.TicketPurchases.Count > 0)
+            {
+                @foreach (var order in Model.TicketPurchases)
+                {
+                    <div class="order-history-card">
+                        <div class="order-card-header">
+                            <span class="order-id">Order ID: #@order.OrderId</span>
+                            <span class="order-date">Purchased: @order.OrderDate</span>
+                        </div>
+                        <div class="order-card-body">
+                            <div class="order-item-details">
+                                <span class="order-item-name">@order.ItemName</span>
+                                <span class="order-item-qty">Quantity: @order.Quantity @(order.UnitPrice > 0 ? $" × ${order.UnitPrice:F2}" : "")</span>
+                                <span style="font-size: 13px; color: #888;">Ref: @order.TransactionRef</span>
+                            </div>
+                            <div class="order-card-right">
+                                <span class="order-total-price">$@order.TotalAmount.ToString("N2")</span>
+                                <span class="payment-status-badge badge-@order.PaymentStatus">@order.PaymentStatus</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="empty-history-state">
+                    <i class="fas fa-ticket-alt"></i>
+                    <p>You have not purchased any tickets yet.</p>
+                    <a href="/Tickets" class="shop-now-btn">Buy Tickets</a>
+                </div>
+            }
+        </div>
+
+        <!-- ==================== TAB: MEMBERSHIP ==================== -->
+        <div class="tab-content" id="membership">
+            @if (Model.MembershipPurchases.Count > 0)
+            {
+                @foreach (var order in Model.MembershipPurchases)
+                {
+                    <div class="order-history-card">
+                        <div class="order-card-header">
+                            <span class="order-id">Order ID: #@order.OrderId</span>
+                            <span class="order-date">Purchased: @order.OrderDate</span>
+                        </div>
+                        <div class="order-card-body">
+                            <div class="order-item-details">
+                                <span class="order-item-name">@order.ItemName</span>
+                                <span class="order-item-qty">Quantity: @order.Quantity</span>
+                                <span style="font-size: 13px; color: #888;">Ref: @order.TransactionRef</span>
+                            </div>
+                            <div class="order-card-right">
+                                <span class="order-total-price">$@order.TotalAmount.ToString("N2")</span>
+                                <span class="payment-status-badge badge-@order.PaymentStatus">@order.PaymentStatus</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="empty-history-state">
+                    <i class="fas fa-id-card-alt"></i>
+                    <p>You do not have any membership purchase history.</p>
+                    <a href="/Join" class="shop-now-btn">Join Membership</a>
+                </div>
+            }
+        </div>
+
+        <!-- ==================== TAB: SHOP ==================== -->
+        <div class="tab-content" id="shop">
+            @if (Model.ShopPurchases.Count > 0)
+            {
+                @foreach (var order in Model.ShopPurchases)
+                {
+                    <div class="order-history-card">
+                        <div class="order-card-header">
+                            <span class="order-id">Order ID: #@order.OrderId</span>
+                            <span class="order-date">Purchased: @order.OrderDate</span>
+                        </div>
+                        <div class="order-card-body">
+                            <div class="order-item-details">
+                                <span class="order-item-name">@order.ItemName</span>
+                                <span class="order-item-qty">Quantity: @order.Quantity @(order.UnitPrice > 0 ? $" × ${order.UnitPrice:F2}" : "")</span>
+                                <span style="font-size: 13px; color: #888;">Ref: @order.TransactionRef</span>
+                            </div>
+                            <div class="order-card-right">
+                                <span class="order-total-price">$@order.TotalAmount.ToString("N2")</span>
+                                <span class="payment-status-badge badge-@order.PaymentStatus">@order.PaymentStatus</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="empty-history-state">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p>No shop purchase history available.</p>
+                    <a href="/Shop2" class="shop-now-btn">Browse Shop</a>
+                </div>
+            }
+        </div>
+    </div>
+</main>
+
+<script>
+    function switchTab(btn, tabId) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // Auto-activate tab from Query string if present
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tabParam = urlParams.get('tab');
+        if (tabParam) {
+            const targetBtn = document.querySelector(`.tab-btn[onclick*="${tabParam}"]`);
+            if (targetBtn) {
+                targetBtn.click();
+            }
+        }
+    });
+</script>

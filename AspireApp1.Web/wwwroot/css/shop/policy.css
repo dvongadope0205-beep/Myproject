@@ -1,0 +1,82 @@
+.content-for-layout {
+    letter-spacing: 0.6px;
+    line-height: calc(1 + 0.8 / 1.0);
+    color: rgb(18, 18, 18);
+    box-shadow: none;
+    outline-color: rgb(18, 18, 18);
+    outline-style: none;
+    outline-width: 0px;
+}
+
+.policy-container {
+    margin: 0px auto !important;
+    max-width: 1200px !important;
+    padding: 0px 20px !important;
+    box-sizing: border-box;
+    display: block;
+}
+
+.policy-title {
+    text-align: center;
+}
+
+.policy-title h1 {
+    font-family: 'Dinosaur', sans-serif;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 78px;
+    text-transform: uppercase;
+    word-break: break-word;
+    letter-spacing: normal;
+    color: rgb(236, 153, 60);
+    margin: 40.2px 0px !important;
+}
+
+.return h2 {
+    font-family: 'Dinosaur', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 39px;
+    font-style: normal;
+    word-break: break-word;
+    color: rgb(236, 153, 60);
+    margin: 24.9px 0px 24.9px 0px !important;
+}
+
+.return p {
+    font-family: 'trade-gothic-next', sans-serif;
+    margin: 16px 0px !important;
+}
+
+.return h3 {
+    color: rgb(18, 18, 18);
+    font-family: 'trade-gothic-next', sans-serif;
+    font-weight: 600;
+}   
+
+.return hr {
+    height: 1px !important;
+    overflow: hidden;
+    margin: 70px 0px !important;
+    color: rgb(128, 128, 128);
+    background-color: rgba(18, 18, 18, 0.2);
+    border: 0 none rgb(128, 128, 128);
+}
+
+.return ul {
+    padding-left: 20px !important;
+    list-style-position: inside;
+    list-style-type: disc;
+    margin: 16px 0px !important;
+}
+
+.return li {
+    font-family: 'trade-gothic-next', sans-serif;
+}
+
+.return::after {
+    content: "";
+}

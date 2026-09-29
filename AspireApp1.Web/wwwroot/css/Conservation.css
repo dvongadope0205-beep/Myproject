@@ -1,0 +1,425 @@
+/* --- Conservation & Research Style --- */
+
+.cons-hero-fullscreen {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+}
+
+.cons-hero-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    filter: brightness(60%);
+}
+
+.cons-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 71, 161, 0.4); /* Blue overlay */
+    z-index: -1;
+}
+
+.cons-hero-content {
+    color: white;
+    text-align: center;
+    z-index: 1;
+    padding-top: 60px;
+}
+
+.cons-hero-content h1 {
+    font-family: Georgia, serif;
+    font-size: 70px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.cons-intro {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 5;
+}
+
+.cons-intro p {
+    font-size: 24px;
+    line-height: 1.6;
+    color: #2c3e50;
+    font-family: Georgia, serif;
+}
+
+/* --- Stats Section (Top Section) --- */
+.cons-stats-section {
+    max-width: 1200px;
+    margin: 40px auto 80px;
+    padding: 0 20px;
+}
+
+.cons-stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.cons-stat-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1ece4;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cons-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    border-color: #ff9800;
+}
+
+.stat-icon {
+    font-size: 36px;
+    color: #ff9800;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-size: 40px;
+    font-weight: 800;
+    color: #1976d2;
+    font-family: Georgia, serif;
+    margin-bottom: 8px;
+}
+
+.stat-label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* --- Alternating Split Layout (Main Content) --- */
+.full-split-section {
+    display: flex;
+    width: 100%;
+    color: white;
+    margin: 0;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+.full-split-section.reverse {
+    flex-direction: row-reverse;
+}
+
+.full-split-img {
+    width: 55%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+}
+
+.full-split-section:not(.reverse) .full-split-img {
+    clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+}
+
+.full-split-section.reverse .full-split-img {
+    clip-path: polygon(8% 50%, 0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.full-split-text {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 80px;
+    box-sizing: border-box;
+}
+
+.full-split-text h2 {
+    font-family: Georgia, serif; 
+    font-size: 46px;
+    margin-bottom: 25px;
+    color: white;
+    line-height: 1.1;
+    font-weight: normal;
+}
+
+.full-split-text p {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.full-split-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: none; 
+    text-decoration: none;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.full-split-btn:hover {
+    background: white;
+}
+
+/* --- Color Backgrounds for Split Sections --- */
+.full-split-section.bg-blue {
+    background-color: #1976d2; /* Blue */
+}
+.full-split-section.bg-blue .full-split-btn:hover {
+    color: #1976d2;
+}
+
+.full-split-section.bg-orange {
+    background-color: #e67e22; /* Orange */
+}
+.full-split-section.bg-orange .full-split-btn:hover {
+    color: #e67e22;
+}
+
+.full-split-section.bg-green {
+    background-color: #2e7d32; /* Green */
+}
+.full-split-section.bg-green .full-split-btn:hover {
+    color: #2e7d32;
+}
+
+.full-split-section.bg-black {
+    background-color: #11161b; /* Black/Charcoal */
+}
+.full-split-section.bg-black .full-split-btn:hover {
+    color: #11161b;
+}
+
+/* --- Conservation Modal Styles --- */
+.cons-modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.cons-modal-overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cons-modal-content {
+    display: flex;
+    width: 90%;
+    max-width: 1000px;
+    height: 70vh;
+    min-height: 500px;
+    background: #1976d2; /* Blue color */
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.4s ease;
+}
+
+.cons-modal-overlay.active .cons-modal-content {
+    transform: scale(1);
+}
+
+.cons-modal-img-col {
+    flex: 1;
+    position: relative;
+    background: #e0e0e0;
+}
+
+.cons-modal-img-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cons-modal-text-col {
+    flex: 1;
+    padding: 60px 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto;
+    text-align: center;
+    position: relative;
+}
+
+.cons-modal-text-col h2 {
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.cons-modal-text-col p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.cons-modal-btn {
+    align-self: center;
+    display: inline-block;
+    background: #ff9800; /* Orange button */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.cons-modal-btn:hover {
+    background: #e67e22; /* Orange hover */
+}
+
+.cons-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+    line-height: 1;
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.cons-modal-close:hover {
+    transform: scale(1.1);
+}
+
+.cons-modal-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+.cons-nav-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s;
+}
+
+.cons-nav-btn:hover {
+    border-bottom: 1px solid white;
+}
+
+/* Custom Scrollbar for Modal Text */
+.cons-modal-text-col::-webkit-scrollbar {
+    width: 6px;
+}
+.cons-modal-text-col::-webkit-scrollbar-track {
+    background: transparent; 
+}
+.cons-modal-text-col::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4); 
+    border-radius: 10px;
+}
+.cons-modal-text-col::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7); 
+}
+
+/* --- Mobile Responsive Layout --- */
+@media (max-width: 900px) {
+    .full-split-section, .full-split-section.reverse {
+        flex-direction: column !important;
+    }
+    .full-split-img {
+        width: 100%;
+        min-height: 300px;
+        clip-path: none !important;
+    }
+    .full-split-text {
+        width: 100%;
+        padding: 40px 20px;
+    }
+    
+    .cons-stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .cons-modal-content {
+        flex-direction: column;
+        height: 85vh;
+        overflow-y: auto;
+    }
+    .cons-modal-img-col {
+        height: 250px;
+        flex: none;
+    }
+    .cons-modal-text-col {
+        padding: 30px 20px;
+    }
+    .cons-modal-nav {
+        position: relative;
+        bottom: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cons-stats-container {
+        grid-template-columns: 1fr;
+    }
+    .cons-hero-content h1 {
+        font-size: 48px;
+    }
+}

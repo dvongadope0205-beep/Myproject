@@ -1,0 +1,519 @@
+﻿@page "/experience/zoo-experience"
+@model ZooProject.Pages.Experience.ZooExperience
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Poppins:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- B?NG M�U & BI?N (Vanilla & Green Theme) --- */
+        :root {
+            --bg-vanilla: #FDFBF7; /* M�u vanilla s�ng l�m n?n */
+            --bg-vanilla-dark: #F3EEDB; /* M�u vanilla d?m hon cho c�c kh?i */
+            --green-dark: #12372A; /* Xanh l� d?m (ch? ch�nh, n?n tag) */
+            --green-primary: #436850; /* Xanh l� m? (ti�u d?, di?m nh?n) */
+            --green-light: #ADBC9F; /* Xanh l� nh?t */
+            --text-light: #FBFADA;
+            --white: #FFFFFF;
+            
+            --font-heading: 'Playfair Display', serif;
+            --font-card-title: 'Oswald', sans-serif;
+            --font-body: 'Poppins', sans-serif;
+        }
+
+        /* --- RESET & CO B?N --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-vanilla);
+            color: var(--green-dark);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- HEADER / HERO --- */
+        .hero {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-family: 'Passion One', display;
+            font-size: 9rem;
+            color: var(--green-dark);
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .body-lg {
+            box-sizing: border-box;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 576px;
+            font-size: 20px;
+            text-align: center;
+            color: var(--green-primary);
+        }
+
+        /* --- SECTION STYLES --- */
+        .experience-section {
+            margin-bottom: 80px;
+        }
+
+        .section-header {
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Passion One', display;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--green-primary);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--green-dark);
+            background-color: var(--bg-vanilla-dark);
+            padding: 24px;
+            border-radius: 12px;
+            border-left: 4px solid var(--green-primary);
+        }
+
+        /* --- GRID LU?I CARD --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- THI?T K? CARD (Gi?ng h�nh m?u) --- */
+        .experience-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: var(--green-dark); /* N?n d? ph�ng */
+            aspect-ratio: 3 / 4;
+            box-shadow: 0 10px 20px rgba(18, 55, 42, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            /* �u?ng vi?n m?ng m�u xanh */
+            border: 1px solid rgba(67, 104, 80, 0.2);
+        }
+
+        .experience-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(18, 55, 42, 0.2);
+        }
+
+        /* H�nh $nh n?n c?a th? - B?c h�nh $nh */
+        .card-image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.4s ease-in-out; /* Chuy?n d?i mu$t m� */
+        }
+
+        /* H�nh m?c d?nh hi?n th? */
+        .img-main {
+            opacity: 1;
+        }
+
+        /* H�nh khi hover ?n di ? tr?ng th�i b�nh thu?ng */
+        .img-hover {
+            opacity: 0;
+        }
+
+        /* Khi hover v�o th? (card), ?n h�nh 1 v� hi?n h�nh 2 */
+        .experience-card:hover .img-main {
+            opacity: 0;
+        }
+
+        .experience-card:hover .img-hover {
+            opacity: 1;
+        }
+
+        /* Gradient den t?i d?n ? du?i d? hi?n ch? */
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        /* Tag ? g�c tr�i tr�n c�ng */
+        .card-tag {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--green-dark);
+            color: var(--bg-vanilla);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* N?i dung ch? ? g�c du?i */
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px;
+            z-index: 2;
+            color: var(--white);
+        }
+
+        .card-title {
+            font-family: var(--font-card-title);
+            font-size: 2rem;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .card-details {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .card-details > span {
+            display: block;
+        }
+
+        .card-details strong {
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .price {
+            font-size: 1.1rem;
+            margin-top: 4px;
+        }
+
+        /* --- HI?U ?NG FADE-IN KHI CU?N TRANG --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive cho Mobile */
+        @@media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2rem; }
+            .card-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+            .card-title { font-size: 1.75rem; }
+        }
+        </style>
+}
+
+@* -- BODY CONTENT -- *@
+
+<div class="container">
+        
+        <header class="hero fade-in">
+            <h1>Experiences at National Zoo</h1>
+            <div class="body-lg">
+                <p>Our Experiences give you an incredible opportunity to get up close to some of the zoo�s incredible animals & plants, as our expert keepers guide you through their daily routines. From feeding penguins to enjoying breakfast with snow leopards, there�s something for every animal lover.</p>
+            </div>
+        </header>
+
+        <section class="experience-section fade-in">
+            <div class="section-header">    
+                <h2>Meet</h2>
+                <p>Get closer than ever before to some of the amazing wildlife here at the zoo, and gain behind the scenes knowledge from our experts! This exclusive access will give you an unforgettable experience.<strong> Prices start from <span class="currency-symbol">$</span>80 and include zoo entry for the day.</strong></p>
+            </div>
+            
+            <div class="card-grid">
+                <a class="experience-card" href="/experience/orangutan-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/orangutan/sumatran-orangutan.jpeg" alt="Orangutan" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/orangutan/sumatran-orangutan-hover.jpeg" alt="Orangutan Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Orangutan Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 16+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>195</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/rhino-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/rhino/rhino-experience.jpeg" alt="Rhino" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/rhino/rhino-experience-hover.jpeg" alt="Rhino Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Rhino Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 18+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>125</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/meerkat-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/meerkat/meerkat-experience.jpg" alt="Meerkat" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/meerkat/meerkat-experience-hover.jpg" alt="Meerkat Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Meerkat Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 10+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>80</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/tortoise-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/tortoise/tortoises-eating.jpeg" alt="Tortoise" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/tortoise/tortoises-eating-hover.jpeg" alt="Tortoise Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tortoise Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 8+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>80</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/komodo-dragon-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/komodo/komodo-dragon.png" alt="Komodo Dragon" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/komodo/komodo-dragon-hover.jpeg" alt="Komodo Dragon Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Komodo Dragon</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>1 person</strong></span>
+                            <span>Suitable for <strong>ages 12+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>125</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/fruit-bat-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/fruit-bat/bats-fruits-experience.png" alt="Fruit Bat" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/fruit-bat/bats-fruit-hover.jpeg" alt="Fruit Bat Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Fruit Bat Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>4 people</strong></span>
+                            <span>Suitable for <strong>ages 8+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>80</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/elephant-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/elephant/elephant-experience.jpeg" alt="Elephant" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/elephant/elephant-experience-hover.jpg" alt="Elephant Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Elephant Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>1 person</strong></span>
+                            <span>Suitable for <strong>ages 18+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>195</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/chameleon-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/chameleon/chameleon-experience.jpeg" alt="Chameleon" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/chameleon/chameleon-experience-hover.jpeg" alt="Chameleon Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Chameleon Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 18+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>80</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/giraffe-experience">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/meet/giraffe/giraffe-experience.jpeg" alt="Giraffe" class="card-image img-main">                       
+                        <img src="/Source/experience/meet/giraffe/giraffe-experience-hover.jpeg" alt="Giraffe Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag">MEET</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Giraffe Experience</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>2 people</strong></span>
+                            <span>Suitable for <strong>ages 18+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>195</strong> per person</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <section class="experience-section fade-in">
+            <div class="section-header">
+                <h2>Dine</h2>
+                <p>Begin your day at National Zoo with an unforgettable breakfast experience before the gates open to the public. A guided tour of our jaguars habitat followed by a freshly cooked breakfast as part of our Breakfast at the Jaguars experience.<strong> Prices start from <span class="currency-symbol">$</span>60 and include zoo entry for the rest of the day.</strong></p>
+            </div>
+            
+            <a class="card-grid" href="/experience/jaguar-dine">
+                <div class="experience-card">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/dine/jaguar-dine.jpeg" alt="Breakfast at the Jaguars" class="card-image img-main">                       
+                        <img src="/Source/experience/dine/jaguar-dine-hover.jpeg" alt="Breakfast at the Jaguars Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag" style="background-color: #A0522D;">DINE</div>
+                    <div class="card-content">
+                        <h3 class="card-title">Breakfast at the Jaguars</h3>
+                        <div class="card-details">
+                            <span>Maximum of <strong>25 people</strong></span>
+                            <span>Suitable for <strong>All ages</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>70</strong> per adult, <strong><span class="currency-symbol">$</span>60</strong> per child </span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <section class="experience-section fade-in">
+            <div class="section-header">
+                <h2>Tours</h2>
+                <p>Hop aboard our <strong>tour bus</strong> and experience the zoo like no one else! Join us for an <strong>early morning tour</strong> around the zoo before we open to the public, and see incredible wildlife. <strong>Prices start from <span class="currency-symbol">$</span>25.</strong></p>
+            </div>
+            
+            <div class="card-grid">
+                <a class="experience-card" href="/experience/curious-creature-tour">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/tour/creatures/curious-creature.jpeg" alt="The Curious Creatures Tour" class="card-image img-main">                       
+                        <img src="/Source/experience/tour/creatures/curious-creature-hover.jpeg" alt="The Curious Creatures Tour Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag" style="background-color: #005A9C;">EXPLORE</div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Curious Creatures Tour</h3>
+                        <div class="card-details">
+                            <span>Tour Bus capacity: <strong>32 people</strong></span>
+                            <span>Suitable for <strong>ages 4+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>30</strong> per adult, <strong><span class="currency-symbol">$</span>25</strong> per child </span>  
+                        </div>
+                    </div>
+                </a>
+
+                <a class="experience-card" href="/experience/predator-tour">
+                    <div class="card-image-wrapper">
+                        <img src="/Source/experience/tour/predator/predator.jpeg" alt="The Predator Tour Tour" class="card-image img-main">                       
+                        <img src="/Source/experience/tour/predator/predator-hover.jpeg" alt="The Predator Tour Hover" class="card-image img-hover">
+                    </div>
+                    <div class="card-overlay"></div>
+                    <div class="card-tag" style="background-color: #005A9C;">EXPLORE</div>
+                    <div class="card-content">
+                        <h3 class="card-title">The Predator Tour</h3>
+                        <div class="card-details">
+                            <span>Tour Bus capacity: <strong>32 people</strong></span>
+                            <span>Suitable for <strong>ages 4+</strong></span>
+                            <span class="price"><strong><span class="currency-symbol">$</span>30</strong> per adult, <strong><span class="currency-symbol">$</span>25</strong> per child </span>  
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+@section Scripts {
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+}
+

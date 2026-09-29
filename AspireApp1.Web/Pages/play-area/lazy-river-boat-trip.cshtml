@@ -1,0 +1,522 @@
+﻿@page "/play-area/lazy-river-boat-trip"
+@model ZooProject.Pages.PlayArea.LazyRiverBoatTrip
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           1. BIẾN MÀU SẮC & THIẾT LẬP CHUNG
+        ========================================= */
+        :root {
+            --brand-teal: #0b3c98;
+            --brand-mint: #a1d4cd;
+            --brand-icy: #e2f1f0; 
+            --neon-lime: #E4EC81;
+            --text-light: rgba(255, 255, 255, 0.85);
+            --bg-dark: #0b1c1b; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-light);
+            background-color: #0a3d3d !important;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .detail-container {
+            max-width: 1254px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* =========================================
+           2. TYPOGRAPHY & HEADER
+        ========================================= */
+        .page-title {
+            font-family: 'Passion One', display;
+            font-size: 7rem;
+            font-weight: 700;
+            color: #fdf5e6;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            text-align: center; 
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* Đ$ kéo gi$n nội dung bằng cách nới max-width và dùng margin auto */
+        .invitation {
+            display: block;
+            margin: 0 auto 60px;
+            max-width: 960px;
+            font-size: 20px;
+            line-height: 1.6;
+            text-align: center;
+            color: var(--brand-icy);
+        }
+
+        .invitation p {
+            margin-bottom: 18px;
+        }
+
+        /* =========================================
+           3. BỐ CỤC SO LE
+        ========================================= */
+        .activity-section {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .split-row {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .split-image-wrapper {
+            width: 660px;
+            display: block;
+        }
+
+        .split-image-wrapper img {
+            width: 660px !important;
+            height: 660px !important;
+            max-width: 660px !important;
+            object-fit: cover;
+            object-position: 50% 50%;
+            border-radius: 24px;
+        }
+
+        .split-text-wrapper {
+            flex: 1;
+        }
+
+        .split-text-wrapper h2 {
+            display: block;
+            font-family: 'Passion One', display;
+            margin-bottom: 24px;
+            font-size: 40px;
+            font-weight: 500;
+            line-height: 44px;
+            color: var(--brand-icy);
+        }
+
+        .box {
+            font-size: 16px;
+            line-height: 24px;
+            margin-bottom: 36px;
+            color: #D0EFEF;
+        }
+
+        /* =========================================
+           4. DANH SÁCH QUY ĐỊNH (CUSTOM SVG BOX-CHECK)
+        ========================================= */
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 0;
+        }
+
+        .rules-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 18px; /* Kho$ng cách giữa các thẻ li */
+            font-size: 16px;
+            line-height: 24px;
+            color: var(--text-light);
+        }
+
+        .rules-list li svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+            width: 20px;
+            height: 20px;
+            stroke: var(--neon-lime);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .more-terms-text {
+            margin-top: 48px; /* Cách xa thẻ ul phía trên */
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        .popup-trigger {
+            color: var(--neon-lime);
+            text-decoration: underline;
+            font-weight: 600;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .popup-trigger:hover {
+            color: #ffffff;
+        }
+
+        /* =========================================
+           5. MODAL T&C
+        ========================================= */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(4, 12, 11, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window {
+            background: rgba(11, 28, 27, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+            transform: translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .modal-overlay.active .modal-window {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 32px 40px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-family: 'Passion One', display;
+            font-size: 28px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-light);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--neon-lime);
+            color: #000000;
+        }
+
+        .modal-body {
+            padding: 32px 40px;
+            overflow-y: auto;
+            font-size: 15px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .modal-body p {
+            margin-bottom: 18px;
+        }
+
+        .modal-body ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 12px;
+            margin-bottom: 18px;
+        }
+
+        .modal-body li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 14px;
+        }
+
+        .modal-body li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: var(--neon-lime);
+            font-size: 18px;
+            top: -2px;
+        }
+
+        .modal-body::-webkit-scrollbar { width: 6px; }
+        .modal-body::-webkit-scrollbar-track { background: transparent; }
+        .modal-body::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+        }
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: var(--brand-mint);
+        }
+
+        /* =========================================
+           6. MISSION BANNER
+        ========================================= */
+        .mission-banner {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            padding: 60px 48px;
+            min-height: 600px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mission-bg-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .mission-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(11, 28, 27, 0.95) 0%, rgba(11, 28, 27, 0.7) 30%, rgba(11, 28, 27, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .mission-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .mission-content h2 {
+            font-family: 'Passion One', display;
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+
+        .mission-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            color: #e2f1f0;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background-color: var(--neon-lime);
+            color: #000000;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            padding: 16px 36px;
+            border-radius: 999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            background-color: #93a827;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* =========================================
+           7. RESPONSIVE
+        ========================================= */
+        @@media (max-width: 900px) {
+            .page-title { font-size: 4rem; margin-bottom: 40px; }
+            .split-row { flex-direction: column; gap: 32px; }
+            .split-image-wrapper { width: 100%; }
+            .split-image-wrapper img { width: 100% !important; height: auto !important; }
+            .activity-section { gap: 60px; }
+            .modal-window { padding: 0; }
+            .modal-header, .modal-body { padding: 24px; }
+            .invitation { padding: 0 24px; }
+        }
+        </style>
+}
+
+@* ── BODY CONTENT ── *@
+
+<div class="texture-overlay"></div>
+
+    <main class="detail-container">
+        
+        <h1 class="page-title">Lazy River Boat Trip</h1>
+        <div class="invitation">
+            <p>Islands recreates the amazing tropical environments of South East Asia and after exploring on foot you also have the option to discover Islands from a different perspective on the Lazy River Boat Trip.</p>
+            <p>Look out for signs to the Lazy River Boat Trip on Sumba island and make your way past the bird market towards the jetty. Here you’ll hop onto one of our 10 Lazy River boats – all individually themed around a different South East Asian island.</p>
+            <p>As you meander down the river, listen out for the many different sounds; it’s important to stay focused as you sail past tribal lands and danger signs…</p>
+        </div>
+        
+        <div class="activity-section">
+            
+            <div class="split-row">
+                <div class="split-image-wrapper">
+                    <img src="/Source/play-area/family%20activities/lazy%20river%20boat%20trip/lazy-river-boat-trip.jpeg" alt="Lazy river boat trip">
+                </div>
+                <div class="split-text-wrapper">
+                    <h2>Lazy River Boat Trip</h2>
+                    <div class="box">
+                        <ul class="rules-list">
+                            <li>
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                </svg>
+                                <span>Passengers must be able to walk unaided (babies and children may not be carried). </span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                </svg>
+                                <span>Children under 1.2 metres tall must be accompanied at a ratio of 1 adult to 2 children.</span>
+                            </li>
+                            <li>
+                                <svg viewBox="0 0 24 24">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                </svg>
+                                <span>Wheelchair adaptable boats are available with one space for a manual wheelchair each. Unfortunately we are unable to allow access to visitors with electric wheelchairs.</span>
+                            </li>
+                        </ul>
+
+                        <p class="more-terms-text">
+                            Our full terms and conditions for the Lazy River Boat Trip <span class="popup-trigger" id="openModal">can be found here</span>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mission-banner">
+            <img src="/Source/play-area/family%20activities/lazy%20river%20boat%20trip/mission-river.jpg" class="mission-bg-img" alt="Support our mission">
+            <div class="mission-overlay"></div>
+            <div class="mission-content">
+                <h2>Support our mission</h2>
+                <p>Every penny spent in our gift shops, face painting stations or food outlets supports our vital conversation projects, helping to save endangered species and habitats across the world!</p>
+                <a href="/Tickets" class="btn-cta">BOOK ZOO TICKETS</a>
+            </div>
+        </div>
+
+    </main>
+
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-window">
+            <div class="modal-header">
+                <h3>Lazy River Boat Trip T&Cs</h3>
+                <button class="modal-close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>National Zoo will endeavour to ensure that the Lazy River Boat Trip is available for use by visitors to the zoo however we reserve the right, without prior notice, to close or suspend the Lazy River Boat Trip or its operating hours, and / or to restrict the number of persons having access to it due to operational reasons.</p>
+                
+                <p>The Lazy River Boat Trip must only be used in accordance with the safety restrictions which are clearly displayed at the entrance to the ride, the boat jetty and in each boat.</p>
+                
+                <p>For safety reasons, access and participation to the Lazy River Boat Trip requires that you are in good health, and not suffering from any condition likely to be aggravated by the experience. Visitors are responsible for reviewing all warnings, access conditions and safety regulations posted on the website, and at the entrance to the Lazy River Boat Trip and, if in doubt, should ask a member of staff before participating.</p>
+                
+                <p>Restrictions based on health, safety and security are non-discriminatory.</p>
+
+                <ul>
+                    <li>Babies are not permitted to ride on the boat and children smaller than 1.2 metres can only ride if accompanied by an adult and able to walk on and off the boat unaided, ie they may not be carried.</li>
+                    <li>Passengers must be able to walk on and off the boat unaided and may not be carried.</li>
+                    <li>Buggies are not permitted to be taken on the boat. There is a buggy park at the ride station where items can be left at the owner’s risk.</li>
+                    <li>Large objects such as bags or cool boxes which are likely to impede access to or from the boats or take up any seating space are not permitted on the boat.</li>
+                    <li>Manual wheelchair access is available via the exit but unfortunately electric scooters or electric wheelchairs cannot be accommodated on the boats.</li>
+                    <li>Children and school groups must be supervised by an adult at all times. Children under 1.2 metres tall must be accompanied at a ratio of 1 adult to 2 children.</li>
+                    <li>No eating, drinking or smoking is permitted on the boat.</li>
+                    <li>Hands, arms, feet and legs must be kept inside the boat and you must remain seated at all times.</li>
+                    <li>Guests under the influence of drugs and/or alcohol or who are otherwise unable to control their actions in a responsible manner for any reason will not be permitted on the boat.</li>
+                </ul>
+                
+                <p>Not with standing the other restrictions listed, National Zoo reserves the right to refuse admission to the Lazy River Boat Trip if it believes that there is an unacceptable risk either to the health and safety of the individual or the safety of others should the individual participate.</p>
+            </div>
+        </div>
+    </div>
+
+@section Scripts {
+    <script>
+const openBtn = document.getElementById('openModal');
+        const closeBtn = document.getElementById('closeModal');
+        const modal = document.getElementById('termsModal');
+
+        // Mở popup
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        });
+
+        // Đóng popup bằng nút X
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = ''; 
+        });
+
+        // Đóng popup khi click ra ngoài nền đen
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Đóng popup bằng phím Esc
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+}
+

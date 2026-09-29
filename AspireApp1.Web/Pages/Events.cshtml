@@ -1,0 +1,97 @@
+@page
+@model WebApps.Pages.EventsModel
+@{
+    ViewData["Title"] = "Events - National Conservation Zoo";
+}
+
+@section Styles {
+<link rel="stylesheet" href="css/event.css">
+}
+
+<main>
+        <section class="events-hero-banner">
+            <img src="/Source/Picture/encounter.jpg" class="hero-bg" alt="Events Background">
+            <div class="hero-text-overlay">
+                <h1>Upcoming Events</h1>
+            </div>
+        </section>
+
+        <div class="events-grid-container">
+            <div class="events-grid">
+                @if (Model.EventList.Count > 0)
+                {
+                    @foreach (var evt in Model.EventList)
+                    {
+                        <div class="event-card">
+                            <div class="event-image-box">
+                                <img src="@(string.IsNullOrEmpty(evt.ImagePath) ? "/Source/General/1.jpg" : evt.ImagePath)" alt="@evt.Title">
+                                <div class="event-date-badge">
+                                    <span class="month">@evt.EventDate.ToString("MMM")</span>
+                                    <span class="day">@evt.EventDate.ToString("dd")</span>
+                                    <span class="time">@evt.EventDate.ToString("h:mm tt")</span>
+                                </div>
+                            </div>
+                            <div class="event-content">
+                                <h3>@evt.Title</h3>
+                                <p>@(evt.Description.Length > 200 ? evt.Description.Substring(0, 200) + "..." : evt.Description)</p>
+                                <a class="btn-zoo" asp-page="/EventDetail" asp-route-id="@evt.EventId">Learn More</a>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <!-- Fallback static content when DB is empty -->
+                    <div class="event-card">
+                        <div class="event-image-box">
+                            <img src="/Source/General/15.jpg" alt="ZooLights">
+                            <div class="event-date-badge">
+                                <span class="month">Nov</span>
+                                <span class="day">15</span>
+                                <span class="time">5:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h3>ZooLights Winter Festival</h3>
+                            <p>Experience the magic of winter at our breathtaking ZooLights Winter Festival! Watch as the entire zoo transforms into a spectacular winter wonderland illuminated by over one million sparkling LED lights, featuring stunning light sculptures of your favorite animals. Stroll along glowing pathways...</p>
+                            <a class="btn-zoo" asp-page="/EventDetail" asp-route-id="zoolights">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-image-box">
+                            <img src="/Source/General/7.jpg" alt="Brew at the Zoo">
+                            <div class="event-date-badge">
+                                <span class="month">Jun</span>
+                                <span class="day">20</span>
+                                <span class="time">6:30 PM</span>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h3>Brew at the Zoo</h3>
+                            <p>Join us for our annual beer festival supporting wildlife conservation! This exciting adults-only event (21+) features live music performances from top local bands, craft beer tastings from over 40 regional and national breweries, gourmet food pairings, and exclusive after-hours animal encounters...</p>
+                            <a class="btn-zoo" asp-page="/EventDetail" asp-route-id="brew">Learn More</a>
+                        </div>
+                    </div>
+
+                    <div class="event-card">
+                        <div class="event-image-box">
+                            <img src="/Source/General/12.jpg" alt="Keeper Talk Series">
+                            <div class="event-date-badge">
+                                <span class="month">Aug</span>
+                                <span class="day">10</span>
+                                <span class="time">9:00 AM</span>
+                            </div>
+                        </div>
+                        <div class="event-content">
+                            <h3>Keeper Talk Series</h3>
+                            <p>Learn straight from the experts in our exclusive Keeper Talk Series! Join our specialized zookeepers for intimate, behind-the-scenes presentations about daily animal care routines, training techniques, enrichment programs, and fascinating behavioral observations. Each session focuses on a different species group...</p>
+                            <a class="btn-zoo" asp-page="/EventDetail" asp-route-id="keeper">Learn More</a>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    <partial name="_AdventureBar" />
+    </main>

@@ -1,0 +1,57 @@
+[6/4/2026 1:03:13 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:03:13 AM] Resolved userId=1011
+[6/4/2026 1:05:34 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:34 AM] Resolved userId=1011
+[6/4/2026 1:05:36 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:36 AM] Resolved userId=1011
+[6/4/2026 1:05:53 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:53 AM] Resolved userId=1011
+[6/4/2026 1:05:55 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:55 AM] Resolved userId=1011
+[6/4/2026 1:05:55 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:55 AM] Resolved userId=1011
+[6/4/2026 1:05:56 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:56 AM] Resolved userId=1011
+[6/4/2026 1:05:56 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:56 AM] Resolved userId=1011
+[6/4/2026 1:05:56 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:05:56 AM] Resolved userId=1011
+[6/4/2026 1:13:41 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:13:41 AM] Resolved userId=1011
+[6/4/2026 1:13:42 AM] Outer SqlException caught: Invalid object name 'refund'.
+[6/4/2026 1:20:04 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 1:20:04 AM] Resolved userId=1011
+[6/4/2026 1:20:04 AM] Querying active membership for userId=1011
+[6/4/2026 1:20:04 AM] Found active membership: Individual
+[6/4/2026 9:02:44 AM] OnGet called. userFullName='ddong12', userEmail='ddong12@gmail.com'
+[6/4/2026 9:02:44 AM] Resolved userId=4028
+[6/4/2026 9:02:44 AM] Querying active membership for userId=4028
+[6/4/2026 9:02:44 AM] Found active membership: Individual
+[6/4/2026 9:02:59 AM] OnGet called. userFullName='ddong12', userEmail='ddong12@gmail.com'
+[6/4/2026 9:02:59 AM] Resolved userId=4028
+[6/4/2026 9:02:59 AM] Querying active membership for userId=4028
+[6/4/2026 9:02:59 AM] Found active membership: Individual
+[6/4/2026 9:22:39 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 9:22:39 AM] Resolved userId=1011
+[6/4/2026 9:22:39 AM] Querying active membership for userId=1011
+[6/4/2026 9:22:39 AM] Found active membership: Individual
+[6/4/2026 10:53:50 AM] OnGet called. userFullName='ddn123', userEmail='ddn123@gmail.com'
+[6/4/2026 10:53:50 AM] Resolved userId=5028
+[6/4/2026 10:53:50 AM] Querying active membership for userId=5028
+[6/4/2026 10:53:50 AM] No active membership row found.
+[6/4/2026 10:54:28 AM] OnGet called. userFullName='ddn123', userEmail='ddn123@gmail.com'
+[6/4/2026 10:54:28 AM] Resolved userId=5028
+[6/4/2026 10:54:28 AM] Querying active membership for userId=5028
+[6/4/2026 10:54:28 AM] No active membership row found.
+[6/4/2026 11:22:05 AM] OnGet called. userFullName='Danh Dong', userEmail='asdasd@gmail.com'
+[6/4/2026 11:22:05 AM] Resolved userId=1011
+[6/4/2026 11:22:05 AM] Querying active membership for userId=1011
+[6/4/2026 11:22:05 AM] Found active membership: Individual
+[6/4/2026 11:27:00 AM] OnGet called. userFullName='ddong1', userEmail='ddong1@gmail.com'
+[6/4/2026 11:27:00 AM] Resolved userId=3028
+[6/4/2026 11:27:01 AM] Querying active membership for userId=3028
+[6/4/2026 11:27:01 AM] Found active membership: Individual
+[6/4/2026 3:11:14 PM] OnGet called. userFullName='System Administrator', userEmail='admin@zoo.com'
+[6/4/2026 3:11:14 PM] Resolved userId=1
+[6/4/2026 3:11:14 PM] Querying active membership for userId=1
+[6/4/2026 3:11:14 PM] No active membership row found.

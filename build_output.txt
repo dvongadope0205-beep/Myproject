@@ -1,0 +1,10 @@
+﻿  Determining projects to restore...
+  All projects are up-to-date for restore.
+  AspireApp1.ServiceDefaults -> c:\WEBDEV\AspireApp1\AspireApp1.ServiceDefaults\bin\Debug\net10.0\AspireApp1.ServiceDefaults.dll
+  AspireApp1.Web -> c:\WEBDEV\AspireApp1\AspireApp1.Web\bin\Debug\net10.0\AspireApp1.Web.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:03.62
